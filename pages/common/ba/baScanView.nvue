@@ -1,0 +1,155 @@
+<template>
+    <view class="container">
+        <view class="scan-box">
+            <Ba-ScanViewS ref="scanViewS" style="height: 200;width: 100%;" :load="loadData" @onScan="onScan">
+            </Ba-ScanViewS>
+            <view class="scan-tools">
+                <view class="scan-btn" @click="openScanLight" v-if="!is_light_on">
+                    <image class="icon-img" src="@/static/icon_imgs/torch_off.png"></image>
+                </view>
+                <view class="scan-btn" @click="closeScanLight" v-else>
+                    <image class="icon-img" src="@/static/icon_imgs/torch_on.png"></image>
+                </view>
+                <view class="scan-btn tool-right" @click="openAlbumPage">
+                    <!-- <image class="icon-img" src="@/static/icon_imgs/img.png"></image> -->
+                    <tui-icon name="picture" class="album-img" :size="22" color="#999999"></tui-icon>
+                </view>
+            </view>
+        </view>
+        <view class="content">
+            <view class="msg" v-for="(item,index) in msgList" :key="index">{{item}}</view>
+        </view>
+    </view>
+</template>
+
+<script>
+    import tuiIcon from '@/components/thorui/tui-icon/tui-icon.vue'
+    import scanCode from '@/js_sdk/weisifang/scan_code.js'
+    export default {
+        components: {
+            tuiIcon
+        },
+        data() {
+            return {
+                loadData: { //配置
+                    isShowVibrate: true, //扫描完成震动
+                    isShowBeep: true, //	扫描完成声音
+                    scanTimeSpace: 1000, //	连续扫描时间间隔，单位毫秒，默认 1000
+                    isShowToast: true, //扫码成功是否 toast 提示，默认 true
+                    //barcodeFormats	Array,    //		设置扫码格式，支持多个，默认所有。如：["QR Code", "Code 128"]
+                    scanColor: "#FF0000" //扫描线的颜色
+                },
+                is_light_on: false, // 手电筒是否打开
+                msgList: []
+            }
+        },
+        mounted: function() {
+            this.isLightOn(false)
+        },
+        methods: {
+            onScan(e) { //扫码监听
+                console.log("onScan：", e);
+                uni.showToast({
+                    title: e.detail.result,
+                    icon: 'none'
+                })
+                this.msgList.unshift(JSON.stringify(e.detail))
+
+                this.handleResult(e.detail.result);
+            },
+            openScanLight() { //打开闪光灯
+                this.$refs.scanViewS.openScanLight();
+                this.isLightOn()
+            },
+            closeScanLight() { //关闭闪光灯
+                this.$refs.scanViewS.closeScanLight();
+                this.isLightOn()
+            },
+            isLightOn(showToast = true) { //是否打开闪光灯
+                var that = this
+                this.$refs.scanViewS.isLightOn(res => {
+                    that.is_light_on = res.isLightOn
+                    showToast && uni.showToast({
+                        title: res.isLightOn ? '手电筒已「打开」' : '手电筒已「关闭」',
+                        icon: 'none'
+                    })
+                });
+            },
+            openAlbumPage() { //相册识别
+                this.$refs.scanViewS.openAlbumPage();
+            },
+            // 处理扫码结果
+            handleResult(res) {
+                if (scanCode.checkIsOnlineFile(res)) {
+                    console.log('预览文件：' + res);
+                    return scanCode.previewFileHandle(res)
+                }
+                if (scanCode.checkIsUrl(res)) {
+                    console.log('打开网页：' + res);
+                    return scanCode.urlHandle(res)
+                } else {
+                    return scanCode.textHandle(res)
+                }
+            }
+        }
+    }
+</script>
+
+<style lang="scss">
+    .container {}
+
+    .scan-box {
+        position: fixed;
+        width: 750rpx;
+        top: 0;
+        left: 0;
+        right: 0;
+    }
+
+    .scan-tools {
+        padding: 20rpx 40rpx;
+        margin-top: -100rpx;
+        width: 750rpx;
+        // height: 200rpx;
+        align-items: center;
+        /* 两端对齐，项目之间的间隔都相等 */
+        justify-content: space-between;
+        // flex-wrap: row;
+        display: flex;
+        flex-flow: row wrap;
+
+    }
+
+    .scan-btn {
+        border-radius: 50%;
+        background-color: #ffffff;
+        opacity: 0.7;
+        width: 34px;
+        height: 34px;
+    }
+
+    .tool-right {
+        // justify-content: flex-end;
+        align-items: flex-end;
+        // align-self: flex-end;
+    }
+
+    .icon-img {
+        width: 30px;
+        height: 26px;
+        padding: 16rpx 0 0 8rpx;
+    }
+
+    .album-img {
+        padding: 14rpx 12rpx 0 0;
+    }
+
+    .content {
+        margin-top: 410rpx;
+        padding: 6rpx 14rpx;
+        width: 750rpx;
+        height: 9000rpx;
+    }
+
+    .msg {}
+</style>

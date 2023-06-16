@@ -1,0 +1,29 @@
+{
+    "version" : "1.0.0",
+    "prompt" : "template",
+    "title" : "服务协议和隐私政策",
+    "message" : "　　感谢您对本系统的信任！我们依据最新的监管要求更新了《隐私政策》和《用户协议》特向您说明如下：<br/>　　1、为向您提供交易和学习等的相关基本功能，我们会收集、使用必要的信息；<br/>　　2、为保障您的账号与使用安全，您需要授权我们获取您的设备权限，您有权拒绝或取消授权，取消后将不影响您继续使用我们提供的其他服务；<br/>　　3、我们会采取业界先进的安全措施保护您的信息安全；<br/>　　4、未经您同意，我们不会从第三方处获取、共享或向其提供您的信息；<br/>　　5、您可以查询、更正、删除您的个人信息，我们也提供账号注销的渠道。<br/>　　你可阅读<a href='http://www.weisifang.com/agreement.html'>《服务协议》</a>和<a href='http://www.weisifang.com/privacy.html'>《隐私政策》</a>了解详细信息。如果你同意，请点击下面按钮开始接受我们的服务。",
+    "buttonAccept" : "同意并接受",
+    "buttonRefuse" : "暂不同意",
+    "hrefLoader" : "system|default",
+    "backToExit" : "false",
+    "second" : {
+        "title" : "确认提示",
+        "message" : "　　进入应用前，你需先同意<a href='http://www.weisifang.com/agreement.html' >《服务协议》</a> 和<a href='http://www.weisifang.com/privacy.html'>《隐私政策》</a>，否则将退出应用。",
+        "buttonAccept" : "同意并继续",
+        "buttonRefuse" : "退出应用"
+    },
+    "styles" : {
+        "backgroundColor" : "#FFFFFF",
+        "borderRadius" : "5px",
+        "title" : {
+            "color" : "#000000"
+        },
+        "buttonAccept" : {
+            "color" : "#2E8B57"
+        },
+        "buttonRefuse" : {
+            "color" : "#DC143C"
+        }
+    }
+}

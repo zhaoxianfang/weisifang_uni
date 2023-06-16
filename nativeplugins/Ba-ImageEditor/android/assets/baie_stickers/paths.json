@@ -1,0 +1,17 @@
+[
+  {
+    "iconPath": "baie_stickers/animal.png",
+    "resPath": "baie_stickers/animal",
+    "name": "动物"
+  },
+  {
+    "iconPath": "baie_stickers/cos.png",
+    "resPath": "baie_stickers/cos",
+    "name": "装饰"
+  },
+  {
+    "iconPath": "baie_stickers/text.png",
+    "resPath": "baie_stickers/text",
+    "name": "文字"
+  }
+]

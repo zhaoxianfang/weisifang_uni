@@ -1,0 +1,31 @@
+/node_modules
+/storage/*.key
+/vendor
+.env
+.env.backup
+.phpunit.result.cache
+docker-compose.override.yml
+Homestead.json
+Homestead.yaml
+*.log
+/.idea
+/.vscode
+/.workflow
+
+.DS_Store
+*.log
+/.git
+
+# Office 缓存文件
+~'$'*.docx
+~'$'*.ppt
+~'$'*.pptx
+~'$'*.xls
+
+# 忽略仓库中根目录下的 .settings 文件或目录
+/.settings
+# 忽略所有 . 开头的目录
+.*/
+!.gitignore
+
+/unpackage
