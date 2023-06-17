@@ -1,389 +1,466 @@
 <template>
-	<view class="container">
-		<view class="top-container">
-			<image class="bg-img" src="/static/images/my/mine_bg_3x.png"></image>
-			<view @tap="logout" class="logout" hover-class="opcity" :hover-stay-time="150">
-				<image class="logout-img" src="/static/images/my/icon_out_3x.png" v-show="isLogin"></image>
-				<text class="logout-txt" v-show="isLogin">退出</text>
-			</view>
-			<view v-show="!isLogin" class="user-wrapper">
-				<navigator url="/pages/common/login/login" hover-class="opcity" :hover-stay-time="150" class="user">
-					<image class="avatar-img" src="/static/images/my/mine_def_touxiang_3x.png"></image>
-					<text class="user-info-mobile">请登录</text>
-				</navigator>
-			</view>
-			<view v-show="isLogin" class="user">
-				<image class="avatar-img" src="/static/images/my/mine_def_touxiang_3x.png"></image>
-				<view class="user-info-mobile">
-					<text>{{ mobile }}</text>
-					<view class="edit-img" hover-class="opcity" :hover-stay-time="150" @tap="edit">
-						<image src="/static/images/my/mine_icon_bianji_3x.png"></image>
-					</view>
-				</view>
-			</view>
-		</view>
+    <view>
+        <!--header-->
+        <tui-navigation-bar dropDownHide splitLine @init="initNavigation" @change="opacityChange" :scrollTop="scrollTop"
+            title="我的" backgroundColor="#fff" color="#333">
+            <view class="tui-header-box" :style="{ marginTop: top + 'px' }">
+                <!--个人中心页为主页面，不应有返回键-->
+                <!-- #ifndef MP -->
+                <view class="tui-header-icon">
+                    <view class="tui-icon-box tui-icon-tools" @tap="href(7)">
+                        <tui-icon name="message" :color="opacity > 0.8 ? '#333' : '#fff'" :size="28"></tui-icon>
+                        <view class="tui-badge" :class="[opacity > 0.8 ? 'tui-badge-red' : 'tui-badge-white']">1</view>
+                    </view>
+                    <view class="tui-icon-box tui-icon-tools" @tap="href('setting')">
+                        <tui-icon name="setup" :color="opacity > 0.8 ? '#333' : '#fff'" :size="28"></tui-icon>
+                    </view>
+                </view>
+                <!-- #endif -->
+            </view>
+        </tui-navigation-bar>
+        <!--header-->
+        <view class="tui-mybg-box">
+            <image src="/static/images/my/mine_bg_3x.png" class="tui-my-bg" mode="widthFix"></image>
+            <view class="tui-header-center">
+                <image :src="user.userinfo.cover" class="tui-avatar" @tap="href(3)"></image>
+                <view class="tui-info">
+                    <view class="tui-nickname">
+                        {{user.userinfo.nickname || '请登录'}}
+                        <image src="/static/images/mall/my/icon_vip_3x.png" class="tui-img-vip"></image>
+                    </view>
+                    <view class="tui-explain">这家伙很懒…</view>
+                </view>
+                <!-- #ifndef MP -->
+                <view class="tui-btn-edit">
+                    <tui-button type="white" :plain="true" shape="circle" width="92rpx" height="40rpx" :size="22"
+                        @click="href('mini')">个人信息</tui-button>
+                </view>
+                <!-- #endif -->
+                <!-- #ifdef MP -->
+                <view class="tui-set-box">
+                    <view class="tui-icon-box tui-icon-tools" @tap="scanCode">
+                        <tui-icon name="sweep" :color="opacity > 0.8 ? '#333' : '#fff'" :size="26"></tui-icon>
+                    </view>
+                    <view class="tui-icon-box tui-icon-tools" @tap="href(7)">
+                        <tui-icon name="message" color="#fff" :size="28"></tui-icon>
+                        <view class="tui-badge tui-badge-white">1</view>
+                    </view>
+                    <view class="tui-icon-box tui-icon-tools" @tap="href(2)">
+                        <tui-icon name="setup" color="#fff" :size="28"></tui-icon>
+                    </view>
+                </view>
+                <!-- #endif -->
+            </view>
+            <view class="tui-header-btm" @tap="href(5)">
+                <view class="tui-btm-item">
+                    <view class="tui-btm-num">25</view>
+                    <view class="tui-btm-text">收藏夹</view>
+                </view>
+                <view class="tui-btm-item">
+                    <view class="tui-btm-num">22</view>
+                    <view class="tui-btm-text">店铺关注</view>
+                </view>
+                <view class="tui-btm-item">
+                    <view class="tui-btm-num">3</view>
+                    <view class="tui-btm-text">喜欢的内容</view>
+                </view>
+                <view class="tui-btm-item">
+                    <view class="tui-btm-num">44</view>
+                    <view class="tui-btm-text">足迹</view>
+                </view>
+            </view>
+        </view>
 
-		<view class="middle-container">
-			<view @tap="tapEvent" data-index="1" class="middle-item" hover-class="opcity" :hover-stay-time="150">
-				<image class="ticket-img" src="/static/images/my/icon_thorui_3x.png"></image>
-				<text class="middle-tag">Thor UI</text>
-			</view>
-			<view @tap="github" class="middle-item" hover-class="opcity" :hover-stay-time="150">
-				<image class="car-img" src="/static/images/my/github_3x.png"></image>
-				<text class="middle-tag">GitHub</text>
-			</view>
-		</view>
+        <view class="tui-content-box">
+            <tui-list-view title="">
+                <tui-list-cell @click="detail" :arrow="true">
+                    <view class="tui-item-box">
+                        <tui-icon name="wealth-fill" :size="24" color="#ff7900"></tui-icon>
+                        <text class="tui-list-cell_name">我的钱包</text>
+                    </view>
+                </tui-list-cell>
+            </tui-list-view>
 
-		<view class="bottom-container">
-			<view class="ul-item">
-				<view @tap="tapEvent" data-index="2" data-key="加油站" class="item" hover-class="opcity" :hover-stay-time="150">
-					<image class="item-img" src="/static/images/my/mine_icon_jiayouzhan_3x.png"></image>
-					<text class="item-name">加油站</text>
-				</view>
-				<view @tap="tapEvent" data-index="2" data-key="停车场" class="item" hover-class="opcity" :hover-stay-time="150">
-					<image class="item-img" src="/static/images/my/mine_icon_tingche_3x.png"></image>
-					<text class="item-name">停车场</text>
-				</view>
-				<view @tap="tapEvent" data-index="2" data-key="充电桩" class="item" hover-class="opcity" :hover-stay-time="150">
-					<image class="item-img" src="/static/images/my/mine_icon_chongdian_3x.png"></image>
-					<text class="item-name">充电桩</text>
-				</view>
-			</view>
-			<view class="ul-item">
-				<view @tap="previewReward" class="item" hover-class="opcity" :hover-stay-time="150">
-					<image class="item-img" src="/static/images/my/reward.png"></image>
-					<text class="item-name">赞赏</text>
-				</view>
-				<view class="item" hover-class="opcity" :hover-stay-time="150" @tap="feedback">
-					<button open-type="feedback" class="btn-feedback"></button>
-					<image class="item-img" src="/static/images/my/feedback.png"></image>
-					<text class="item-name">反馈</text>
-				</view>
-				<view @tap="tapEvent" data-index="3" class="item" hover-class="opcity" :hover-stay-time="150">
-					<image class="item-img" src="/static/images/my/log.png"></image>
-					<text class="item-name">日志</text>
-				</view>
-			</view>
-		</view>
-		
-		<view class="tui-applets__vip" @tap="openThorUI">
-			<tui-icon name="applets" color="#07c160" :size="44" unit="rpx"></tui-icon>
-			<text>ThorUI示例</text>
-		</view>
-	</view>
+            <tui-list-view title="">
+                <tui-list-cell @click="scanCode" :arrow="true">
+                    <view class="tui-item-box">
+                        <tui-icon name="sweep" color="#0000ff" :size="22"></tui-icon>
+                        <text class="tui-list-cell_name">扫一扫</text>
+                    </view>
+                </tui-list-cell>
+            </tui-list-view>
+
+            <tui-list-view title="">
+                <tui-list-cell @click="detail" :arrow="true">
+                    <view class="tui-item-box">
+                        <tui-icon name="service-fill" :size="24" color="#5677fc"></tui-icon>
+                        <view class="tui-list-cell_name">地址管理</view>
+                    </view>
+                </tui-list-cell>
+                <tui-list-cell @click="detail" :arrow="true">
+                    <view class="tui-item-box">
+                        <tui-icon name="explore-fill" :size="24" color="#19be6b"></tui-icon>
+                        <view class="tui-list-cell_name">识别历史</view>
+                        <view class="tui-ml-auto">
+                            <tui-tag padding="10rpx 12rpx" margin="0 30rpx 0 0" size="24rpx" type="light-green"
+                                shape="circle">扫一扫识别记录</tui-tag>
+                        </view>
+                    </view>
+                </tui-list-cell>
+                <tui-list-cell @click="detail" :arrow="true">
+                    <view class="tui-item-box">
+                        <tui-icon name="shop-fill" :size="23" color="#ed3f14"></tui-icon>
+                        <view class="tui-list-cell_name">我的店铺</view>
+                        <view class="tui-right">进入店铺</view>
+                    </view>
+                </tui-list-cell>
+            </tui-list-view>
+
+            <tui-list-view title="">
+                <tui-list-cell @click="href('test')" :arrow="true" last="true">
+                    <view class="tui-item-box">
+                        <tui-icon name="setup" :size="23" color="#afadb2"></tui-icon>
+                        <text class="tui-list-cell_name">测试</text>
+                        <view class="tui-right"></view>
+                    </view>
+                </tui-list-cell>
+            </tui-list-view>
+
+            <tui-list-view title="">
+                <tui-list-cell @click="href('setting')" :arrow="true" last="true">
+                    <view class="tui-item-box">
+                        <tui-icon name="setup" :size="23" color="#afadb2"></tui-icon>
+                        <text class="tui-list-cell_name">设置</text>
+                        <view class="tui-right"></view>
+                    </view>
+                </tui-list-cell>
+                <tui-list-cell @click="toLogs" :arrow="true" last="true">
+                    <view class="tui-item-box">
+                        <tui-icon name="about" :size="23" color="#afadb2"></tui-icon>
+                        <text class="tui-list-cell_name">版本号</text>
+                        <view class="tui-right">{{version}}</view>
+                    </view>
+                </tui-list-cell>
+            </tui-list-view>
+
+            <!--为你推荐-->
+            <!-- <tui-divider :size="28" :bold="true" color="#333" width="50%">为你推荐</tui-divider> -->
+
+        </view>
+    </view>
 </template>
 
 <script>
-	import {
-		mapState
-	} from 'vuex';
-	export default {
-		computed: mapState(['isLogin', 'mobile']),
-		data() {
-			return {};
-		},
-		onShow: function() {},
-		methods: {
-			logout: function() {
-				this.tui.modal("提示", "确定退出登录？", true, (res) => {
-					if (res) {
-						uni.clearStorage();
-						uni.reLaunch({
-							url: '/pages/common/login/login'
-						});
-					}
-				})
-			},
-			edit() {
-				this.tui.toast('功能开发中~');
-			},
-			tapEvent: function(e) {
-				let index = e.currentTarget.dataset.index;
-				let url = '';
-				if (index == 1) {
-					url = '/pages/common/about/about';
-				} else if (index == 2) {
-					let key = e.currentTarget.dataset.key;
-					url = '/pages/index/maps/maps?key=' + key;
-					// #ifdef MP-QQ
-					this.tui.toast('功能开发中~');
-					return;
-					// #endif
-				} else {
-					url = '/pages/common/log/log';
-				}
-				uni.navigateTo({
-					url: url
-				});
-			},
-			github: function() {
-				// #ifdef APP-PLUS || MP
-				const that = this;
-				uni.setClipboardData({
-					data: 'https://github.com/dingyong0214/ThorUI-uniapp',
-					success(res) {
-						uni.getClipboardData({
-							success(res) {
-								that.tui.toast('链接已复制', 2000, true);
-							}
-						});
-					}
-				});
-				// #endif
+    import {
+        mapState
+    } from 'vuex';
+    export default {
+        computed: mapState(['user']),
+        onLoad: function(options) {
+            let obj = {};
+            // #ifdef MP-WEIXIN
+            obj = wx.getMenuButtonBoundingClientRect();
+            // #endif
+            // #ifdef MP-BAIDU
+            obj = swan.getMenuButtonBoundingClientRect();
+            // #endif
+            // #ifdef MP-ALIPAY
+            my.hideAddToDesktopMenu();
+            // #endif
 
-				// #ifdef H5
-				location.href = 'https://github.com/dingyong0214/ThorUI-uniapp';
-				// #endif
-			},
-			previewReward: function() {
-				uni.previewImage({
-					urls: ['https://thorui.cn/img/reward.jpg']
-				});
-			},
-			feedback() {
-				// #ifdef H5
-				location.href = 'https://www.thorui.cn/';
-				// #endif
-				// #ifdef MP-ALIPAY
-				uni.navigateTo({
-					url: '/pages/my/feedback/feedback'
-				});
-				// #endif
-			},
-			openThorUI() {
-				// #ifdef MP-WEIXIN
-				wx.navigateToMiniProgram({
-					appId: 'wxd3c1da92cb8fcf40'
-				});
-				// #endif
-			
-				// #ifndef  MP-WEIXIN
-				if (this.sweixin) {
-					this.sweixin.launchMiniProgram({
-						id: 'gh_78d54c9830d3'
-					});
-				} else {
-					uni.previewImage({
-						urls: ['https://thorui.cn/img/applets_extend.jpg']
-					});
-				}
-				// #endif
-			}
-		},
-		onNavigationBarButtonTap(e) {
-			if (e.index === 0) {
-				// #ifdef APP-PLUS
-				const subNVue = uni.getSubNVueById('share');
-				subNVue.show('slide-in-bottom', 250);
-				// #endif
-			}
-		}
-	};
+            uni.getSystemInfo({
+                success: res => {
+                    this.width = obj.left || res.windowWidth;
+                    this.height = obj.top ? obj.top + obj.height + 8 : res.statusBarHeight + 44;
+                    this.top = obj.top ? obj.top + (obj.height - 32) / 2 : res.statusBarHeight + 6;
+                    this.scrollH = res.windowWidth * 0.6;
+                }
+            });
+        },
+        data() {
+            return {
+                webURL: '',
+                top: 0, //标题图标距离顶部距离
+                opacity: 0,
+                scrollTop: 0.5,
+                version: '1.0.0'
+            };
+        },
+        created() {
+            console.log(this.user.userinfo)
+            // 获取本地应用资源版本号
+            plus.runtime.getProperty(plus.runtime.appid, (info) => {
+                this.version = info.version;
+            })
+        },
+        methods: {
+            scanCode(e) {
+                this.helper.navBtns.handle({
+                    'uni_code': 'scan'
+                })
+            },
+            toLogs(e) {
+                this.tui.href('/pages/common/log/log');
+            },
+            href(type) {
+                let url = '';
+                switch (type) {
+                    case 'setting':
+                        url = '/pages/common/setting/setting';
+                        break;
+                    case 'test':
+                        url = '/pages/common/setting/test';
+                        break;
+                    case 3:
+                        url = '../userInfo/userInfo';
+                        break;
+                    default:
+                        break;
+                }
+                if (url) {
+                    this.tui.href(url);
+                } else {
+                    this.tui.toast('功能尚未完善~');
+                }
+            },
+            async detail() {
+                console.log('detail')
+            },
+            initNavigation(e) {
+                this.opacity = e.opacity;
+                this.top = e.top;
+            },
+            opacityChange(e) {
+                this.opacity = e.opacity;
+            },
+            back() {
+                uni.navigateBack();
+            }
+        },
+        onPageScroll(e) {
+            this.scrollTop = e.scrollTop;
+        },
+        onPullDownRefresh() {
+            setTimeout(() => {
+                uni.stopPullDownRefresh();
+            }, 200);
+        },
+        onReachBottom: function() {
+            if (!this.pullUpOn) return;
+        }
+    };
 </script>
 
-<style>
-	.container {
-		position: relative;
-		padding-bottom: 100rpx;
-	}
+<style lang="scss" scoped>
+    .tui-header-box {
+        width: 100%;
+        padding: 0 30rpx 0 20rpx;
+        box-sizing: border-box;
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        height: 32px;
+        transform: translateZ(0);
+        z-index: 9999;
+    }
 
-	.top-container {
-		height: 440rpx;
-		position: relative;
-		display: flex;
-		flex-direction: column;
-	}
+    /* #ifndef MP */
+    .tui-header-icon {
+        // min-width: 120rpx;
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+    }
 
-	.bg-img {
-		position: absolute;
-		width: 100%;
-		height: 440rpx;
-	}
+    /* #endif */
+    /* #ifdef MP */
+    .tui-set-box {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
 
-	.logout {
-		width: 110rpx;
-		height: 36rpx;
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		margin: 42rpx 0 24rpx 32rpx;
-		position: relative;
-		z-index: 2;
-	}
+    /* #endif */
+    .tui-icon-box {
+        position: relative;
+    }
 
-	.logout-img {
-		width: 36rpx;
-		height: 36rpx;
-		margin-right: 11rpx;
-	}
+    .tui-icon-tools {
+        margin-left: 18rpx;
+    }
 
-	.logout-txt {
-		font-size: 28rpx;
-		color: #fefefe;
-		line-height: 28rpx;
-	}
+    .tui-badge {
+        position: absolute;
+        font-size: 24rpx;
+        height: 32rpx;
+        min-width: 20rpx;
+        padding: 0 6rpx;
+        border-radius: 40rpx;
+        right: 10rpx;
+        top: -5rpx;
+        transform: scale(0.8) translateX(60%);
+        transform-origin: center center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+    }
 
-	.user-wrapper {
-		display: flex;
-		justify-content: center;
-		position: relative;
-		z-index: 2;
-	}
+    .tui-badge-red {
+        background: #f74d54;
+        color: #fff;
+    }
 
-	.user {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		position: relative;
-		z-index: 2;
-	}
+    .tui-badge-white {
+        background: #fff;
+        color: #f74d54;
+    }
 
-	.avatar-img {
-		width: 160rpx;
-		height: 160rpx;
-		border-radius: 50%;
-		align-self: center;
-	}
+    .tui-mybg-box {
+        width: 100%;
+        height: 464rpx;
+        position: relative;
+    }
 
-	.user-info {
-		display: flex;
-		flex-direction: row;
-		margin-top: 30rpx;
-		align-items: center;
-	}
+    .tui-my-bg {
+        width: 100%;
+        height: 464rpx;
+        display: block;
+    }
 
-	.user-info-mobile {
-		margin-top: 30rpx;
-		position: relative;
-		font-size: 28rpx;
-		color: #fefefe;
-		line-height: 28rpx;
-		align-self: center;
-		padding: 0 50rpx;
-	}
+    .tui-header-center {
+        position: absolute;
+        width: 100%;
+        height: 128rpx;
+        left: 0;
+        top: 150rpx;
+        padding: 0 30rpx;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+    }
 
-	.edit-img {
-		position: absolute;
-		width: 42rpx;
-		height: 42rpx;
-		right: 0;
-		bottom: -4rpx;
-	}
+    .tui-avatar {
+        flex-shrink: 0;
+        width: 128rpx;
+        height: 128rpx;
+        display: block;
+        border-radius: 50%;
+    }
 
-	.edit-img>image {
-		width: 42rpx;
-		height: 42rpx;
-		padding-left: 25rpx;
-	}
+    .tui-info {
+        width: 60%;
+        padding-left: 30rpx;
+    }
 
-	.middle-container {
-		height: 138rpx;
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		border-radius: 10rpx;
-		background-color: #ffffff;
-		margin: -30rpx 30rpx 26rpx 30rpx;
-		box-shadow: 0 15rpx 10rpx -15rpx #efefef;
-		position: relative;
-		z-index: 2;
-	}
+    .tui-nickname {
+        font-size: 30rpx;
+        font-weight: 500;
+        color: #fff;
+        display: flex;
+        align-items: center;
+    }
 
-	.middle-item {
-		height: 100%;
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-	}
+    .tui-img-vip {
+        width: 56rpx;
+        height: 24rpx;
+        margin-left: 18rpx;
+    }
 
-	.ticket-img {
-		width: 80rpx;
-		height: 80rpx;
-		margin-left: 65rpx;
-	}
+    .tui-explain {
+        width: 80%;
+        font-size: 24rpx;
+        font-weight: 400;
+        color: #fff;
+        opacity: 0.75;
+        padding-top: 8rpx;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 
-	.middle-tag {
-		font-size: 28rpx;
-		color: #333333;
-		line-height: 28rpx;
-		font-weight: bold;
-		padding-left: 22rpx;
-	}
+    .tui-btn-edit {
+        flex-shrink: 0;
+        padding-right: 22rpx;
+    }
 
-	.car-img {
-		width: 80rpx;
-		height: 80rpx;
-		margin-left: 97rpx;
-	}
+    .tui-header-btm {
+        width: 100%;
+        padding: 0 30rpx;
+        box-sizing: border-box;
+        position: absolute;
+        left: 0;
+        top: 340rpx;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: #fff;
+    }
 
-	.bottom-container {
-		height: 334rpx;
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-		padding: 40rpx 74rpx 40rpx 95rpx;
-		margin: 0 30rpx;
-		background-color: #ffffff;
-		border-radius: 10rpx;
-		box-sizing: border-box;
-		box-shadow: 0 0 10rpx #efefef;
-	}
+    .tui-btm-item {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
 
-	.ul-item {
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-	}
+    .tui-btm-num {
+        font-size: 32rpx;
+        font-weight: 600;
+        position: relative;
+    }
 
-	.item {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		position: relative;
-	}
+    .tui-btm-text {
+        font-size: 24rpx;
+        opacity: 0.85;
+        padding-top: 4rpx;
+    }
 
-	.item-img {
-		width: 64rpx;
-		height: 64rpx;
-	}
+    .tui-content-box {
+        /* width: 100%;
+	padding: 0 30rpx;
+	box-sizing: border-box;
+	position: relative;
+	top: -72rpx;
+	z-index: 10; */
+    }
 
-	.item-name {
-		padding-top: 13rpx;
-		font-size: 24rpx;
-		color: #666666;
-		min-width: 80rpx;
-		text-align: center;
-	}
+    /* ====================== */
+    .tui-item-box {
+        width: 100%;
+        display: flex;
+        align-items: center;
+    }
 
-	.btn-feedback {
-		background: transparent !important;
-		position: absolute;
-		height: 100%;
-		width: 100%;
-		left: 0;
-		top: 0;
-		border: 0;
-	}
+    .tui-list-cell_name {
+        padding-left: 20rpx;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
-	.btn-feedback::after {
-		border: 0;
-	}
-	.tui-applets__vip{
-		width: 100%;
-		position: fixed;
-		bottom: 20px;
-		/* #ifdef H5 */
-		bottom: 70px;
-		padding-bottom: env(safe-area-inset-bottom);
-		/* #endif */
-		z-index: 10;
-		font-size: 28rpx;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		color: #586c94;
-	}
-	.tui-applets__vip text{
-		padding-left: 10rpx;
-	}
+    .tui-ml-auto {
+        margin-left: auto;
+    }
+
+    .tui-right {
+        margin-left: auto;
+        margin-right: 34rpx;
+        font-size: 26rpx;
+        color: #999;
+    }
+
+    .tui-logo {
+        height: 52rpx;
+        width: 52rpx;
+        flex-shrink: 0;
+    }
+
+    .tui-list-view {
+        margin-bottom: 8rpx !important;
+    }
 </style>
