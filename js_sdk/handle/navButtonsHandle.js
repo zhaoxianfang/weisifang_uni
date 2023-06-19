@@ -1,4 +1,4 @@
-import helper from './helper.js'
+import helper from '@/js_sdk/helper.js'
 const navButtonsHandle = {
     /**
      * 统一处理顶部标题栏自定义按钮点击事件

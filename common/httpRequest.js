@@ -2,7 +2,7 @@
  * 常用方法封装 请求，文件上传等
  **/
 import config from '@/api/config.js' // 倒入默认配置
-import helper from '@/js_sdk/weisifang/helper.js'
+import helper from '@/js_sdk/helper.js'
 
 const tui = {
     //接口地址

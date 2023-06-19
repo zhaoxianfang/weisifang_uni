@@ -24,7 +24,7 @@
 
 <script>
     import tuiIcon from '@/components/thorui/tui-icon/tui-icon.vue'
-    import scanCode from '@/js_sdk/weisifang/scan_code.js'
+    import scanCode from '@/js_sdk/handle/scan_code.js'
     export default {
         components: {
             tuiIcon

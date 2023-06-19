@@ -4,7 +4,7 @@
 // #ifdef APP-PLUS
 const videoPip = uni.requireNativePlugin('Ba-VideoPip')
 
-import helper from '../weisifang/helper.js'
+import helper from '@/js_sdk/helper.js'
 
 // 打开画中画
 // 属性名	类型	必填	默认值	说明

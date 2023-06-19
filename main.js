@@ -1,7 +1,7 @@
 import App from './App'
 import store from './store'
 import tui from './common/httpRequest'
-import helper from './js_sdk/weisifang/helper'
+import helper from './js_sdk/helper'
 // #ifdef APP-PLUS
 import ba from './js_sdk/ba'
 // #endif

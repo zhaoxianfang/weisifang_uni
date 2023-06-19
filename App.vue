@@ -1,6 +1,6 @@
 <script>
     // #ifdef APP-PLUS
-    import helper from '@/js_sdk/weisifang/helper.js';
+    import helper from '@/js_sdk/helper.js';
     // #endif
     import api from '@/api/index.js'
 
@@ -98,6 +98,7 @@
         methods: {
             // ba 插件的各种监听
             checkArguments() {
+                // #ifdef APP-PLUS
                 var args = plus.runtime.arguments;
                 if (args) {
                     let args1 = JSON.parse(args);
@@ -132,6 +133,7 @@
                         })
                     }
                 }
+                // #endif
             },
         }
     };

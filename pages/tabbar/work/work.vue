@@ -28,7 +28,6 @@
     // 已经安装的应用列表
     import wxy from '@/js_sdk/weisifang/wxy-android.js';
     // #endif
-    import download from '@/js_sdk/weisifang/download.js'
 
     export default {
         data() {
@@ -190,16 +189,7 @@
                     // 文件预览组件
 
                     // 方式一：直接在openFile接口中传递在线url
-                    // this.helper.files.officeViewModule.openFile({
-                    //     url: 'http://silianpan.cn/upload/2022/01/01/1.docx', // 同时支持在线和本地文档，三种参数传递方式，具体查看文档说明
-                    //     isTopBar: true, // 是否显示顶栏，默认为：true（显示）
-                    //     title: 'Office文档在线预览', // 顶栏标题，默认为：APP名称
-                    //     topBarBgColor: '#3394EC', // 顶栏背景颜色，默认为：#177cb0（靛青）
-                    //     isBackArrow: true, // 是否显示返回按钮，默认为：true（显示）
-                    //     isDeleteFile: true, // 退出是否删除缓存的文件，默认为true（删除缓存文件）
-                    //     waterMarkText: '你好，世界\n准备好了吗？时刻准备着', // 水印文本
-                    // });
-
+                    this.helper.files.preview('http://silianpan.cn/upload/2022/01/01/1.docx', 'Office文档在线预览');
 
                 }
                 if (e.type == 'webview') {

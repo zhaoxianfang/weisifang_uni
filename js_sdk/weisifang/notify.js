@@ -1,8 +1,8 @@
-// 极速通知
+// 极速通知 已取消接入
 // https://ext.dcloud.net.cn/plugin?id=5959
 
 // #ifdef APP-PLUS
-import helper from './helper.js'
+import helper from '@/js_sdk/helper.js'
 let defaultContent = {
     title: '您有一条新的消息',
     text: '消息内容',

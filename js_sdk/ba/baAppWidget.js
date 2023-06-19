@@ -4,7 +4,7 @@
 // #ifdef APP-PLUS
 const appWidget = uni.requireNativePlugin('Ba-AppWidget')
 
-import helper from '../weisifang/helper.js'
+import helper from '@/js_sdk/helper.js'
 
 let textColor1 = "#FF0000";
 let contents = [{

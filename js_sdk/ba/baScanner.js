@@ -20,7 +20,7 @@ let defaultOpt = {
     scanTimeSpace: 2000, // 连续扫描时间间隔，单位毫秒，默认 1000
     isShowToast: true, //扫码成功是否 toast 提示，默认 true
 }
-import helper from '../weisifang/helper.js'
+import helper from '@/js_sdk/helper.js'
 // #endif
 
 const baScanner = {

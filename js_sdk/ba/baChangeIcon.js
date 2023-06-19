@@ -4,7 +4,7 @@
 // #ifdef APP-PLUS
 const changeIcon = uni.requireNativePlugin('Ba-ChangeIcon')
 
-import helper from '../weisifang/helper.js'
+import helper from '@/js_sdk/helper.js'
 // #endif
 // 更换icon 图标
 const baChangeIcon = {

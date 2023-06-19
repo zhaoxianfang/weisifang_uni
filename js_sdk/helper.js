@@ -1,14 +1,14 @@
 var isIos = false
-import download from '@/js_sdk/weisifang/download.js'
-import files from '@/js_sdk/weisifang/files.js'
+import download from '@/js_sdk/files/download.js'
+import files from '@/js_sdk/files/files.js'
 import permissions from '@/js_sdk/weisifang/permissions.js'
-import scanCode from '@/js_sdk/weisifang/scan_code.js'
-import navButtonsHandle from '@/js_sdk/weisifang/navButtonsHandle.js'
+import scanCode from '@/js_sdk/handle/scan_code.js'
+import navButtonsHandle from '@/js_sdk/handle/navButtonsHandle.js'
 
 // #ifdef APP-PLUS
 import {
     checkUpdate
-} from '../../components/app-upgrade/js/app-update-check.js'
+} from '@/components/app-upgrade/js/app-update-check.js'
 import utils from '@/js_sdk/weisifang/utils.js'
 import ba from '@/js_sdk/ba.js'
 isIos = (plus.os.name === 'iOS')

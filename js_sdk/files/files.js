@@ -3,8 +3,9 @@
 const mediaPicker = uni.requireNativePlugin('Ba-MediaPicker') // 图文选择
 const filePicker = uni.requireNativePlugin('Ba-FilePicker') // 文件选择
 const officeViewModule = uni.requireNativePlugin("Seal-OfficeOnline") // 文件预览
+const mediaUtil = uni.requireNativePlugin('Ba-MediaUtil'); // 刷新媒体库插件
 // #endif
-import helper from './helper.js'
+import helper from '@/js_sdk/helper.js'
 // 离线文件预览插件
 const tbs_core_file_url = 'https://weisifang.com/sdk/tbs_core_20210925_release.tbs'
 const files = {
@@ -281,19 +282,31 @@ const files = {
             return false
         }
 
-        let waterText = '威四方\n' + today;
+        let waterText = '威四方\n' + today; // 水印文本 例如：你好，世界\n准备好了吗？时刻准备着
         officeViewModule.openFile({
-            url: url, // 同时支持在线和本地文档，三种参数传递方式，具体查看文档说明
-            isTopBar: true, // 是否显示顶栏，默认为：true（显示）
-            title: title || '在线预览', // 顶栏标题，默认为：APP名称
-            topBarBgColor: '#3394EC', // 顶栏背景颜色，默认为：#177cb0（靛青）
-            isBackArrow: true, // 是否显示返回按钮，默认为：true（显示）
-            isDeleteFile: isDeleteFile, // 退出是否删除缓存的文件，默认为true（删除缓存文件）// 会删除文件
-            waterMarkText: waterText, // 水印文本
-            // 离线文件tbs
-            installOfflineCore: true, // 是否离线安装内核
-            coreLocalPath: files.tbs_core_url, // 离线安装内核本地路径
-        });
+                url: url, // 同时支持在线和本地文档，三种参数传递方式，具体查看文档说明
+                isTopBar: true, // 是否显示顶栏，默认为：true（显示）
+                title: title || '在线预览', // 顶栏标题，默认为：APP名称
+                topBarBgColor: '#3394EC', // 顶栏背景颜色，默认为：#177cb0（靛青）
+                isBackArrow: true, // 是否显示返回按钮，默认为：true（显示）
+                isDeleteFile: isDeleteFile, // 退出是否删除缓存的文件，默认为true（删除缓存文件）// 会删除文件
+                waterMarkText: waterText, // 水印文本
+                // 离线文件tbs
+                installOfflineCore: true, // 是否离线安装内核
+                coreLocalPath: files.tbs_core_url, // 离线安装内核本地路径
+
+                // fileType: 'pdf',
+                // fileName: 'example',
+                // docRequestHeaders: {
+                //   'Authorization': 'Token xxxxxxxx',
+                //   'Other': 'other'
+                // }, // 文档下载请求头
+                topBarAutoHide: false, //顶栏是否自动隐藏，isTopBar=true时生效，IOS端无此配置
+            },
+            res => {
+                // '打开在线文档事件结果：', res
+                console.log('打开在线文档事件结果：', res)
+            });
     },
     /**
      * 图片预览，支持jpg、jpeg、png、bmp、jpg、gif等多种常用图片格式
@@ -371,7 +384,7 @@ const files = {
         const imageEditor = uni.requireNativePlugin('Ba-ImageEditor')
         //选择图片，本插件自带
         imageEditor.selectImage((ret) => {
-            console.log(ret)
+            // console.log(ret)
             if (ret.outputPath) {
                 let path = ret.outputPath;
 
@@ -381,14 +394,28 @@ const files = {
                         'outputPath': this.outputPath, //保存图片路径
                     },
                     (ret) => {
-                        console.log(ret)
+                        // console.log(ret)
                         if (ret.outputPath && ret.isImageEdit) {
                             path = ret.outputPath;
-                            console.log(ret, path)
+                            // console.log(ret, path)
                         }
                     });
             }
         });
+    },
+    refreshFile(file_path) { //刷新 媒体库文件
+        //检查文件是否已存在
+        plus.io.resolveLocalFileSystemURL(file_path, function(entry) {
+            //如果文件存在 则刷新媒体库
+            mediaUtil.refreshFile({
+                path: file_path
+            }, (ret) => {
+                console.log(ret)
+            });
+        }, function(e) {
+            //如果文件不存在
+            return false
+        })
     }
     // #endif
 }

@@ -10,6 +10,108 @@
  */
 
 
+var isIos
+// #ifdef APP-PLUS
+isIos = (plus.os.name == "iOS")
+// #endif
+
+// https://ext.dcloud.net.cn/plugin?id=13097
+// 判断推送权限是否开启
+function judgeIosPermissionPush() {
+    var result = false;
+    var UIApplication = plus.ios.import("UIApplication");
+    var app = UIApplication.sharedApplication();
+    var enabledTypes = 0;
+    if (app.currentUserNotificationSettings) {
+        var settings = app.currentUserNotificationSettings();
+        enabledTypes = settings.plusGetAttribute("types");
+        console.log("enabledTypes1:" + enabledTypes);
+        if (enabledTypes == 0) {
+            console.log("推送权限没有开启");
+        } else {
+            result = true;
+            console.log("已经开启推送功能!")
+        }
+        plus.ios.deleteObject(settings);
+    } else {
+        enabledTypes = app.enabledRemoteNotificationTypes();
+        if (enabledTypes == 0) {
+            console.log("推送权限没有开启!");
+        } else {
+            result = true;
+            console.log("已经开启推送功能!")
+        }
+        console.log("enabledTypes2:" + enabledTypes);
+    }
+    plus.ios.deleteObject(app);
+    plus.ios.deleteObject(UIApplication);
+    return result;
+}
+
+// Android权限查询
+function requestAndroidPermission(permissionID) {
+    return new Promise((resolve, reject) => {
+        plus.android.requestPermissions(
+            [permissionID], // 理论上支持多个权限同时查询，但实际上本函数封装只处理了一个权限的情况。有需要的可自行扩展封装
+            function(resultObj) {
+                var result = 0;
+                for (var i = 0; i < resultObj.granted.length; i++) {
+                    var grantedPermission = resultObj.granted[i];
+                    console.log('已获取的权限：' + grantedPermission);
+                    result = 1
+                }
+                for (var i = 0; i < resultObj.deniedPresent.length; i++) {
+                    var deniedPresentPermission = resultObj.deniedPresent[i];
+                    console.log('拒绝本次申请的权限：' + deniedPresentPermission);
+                    result = 0
+                }
+                for (var i = 0; i < resultObj.deniedAlways.length; i++) {
+                    var deniedAlwaysPermission = resultObj.deniedAlways[i];
+                    console.log('永久拒绝申请的权限：' + deniedAlwaysPermission);
+                    result = -1
+                }
+                resolve(result);
+                // 若所需权限被拒绝,则打开APP设置界面,可以在APP设置界面打开相应权限
+                // if (result != 1) {
+                //    openSetting()
+                // }
+            },
+            function(error) {
+                console.log('申请权限错误：' + error.code + " = " + error.message);
+                resolve({
+                    code: error.code,
+                    message: error.message
+                });
+            }
+        );
+    });
+}
+
+// 检查系统的设备服务是否开启
+// var checkSystemEnableLocation = async function () {
+function checkSystemEnableLocation() {
+    if (isIos) {
+        var result = false;
+        var cllocationManger = plus.ios.import("CLLocationManager");
+        var result = cllocationManger.locationServicesEnabled();
+        console.log("系统定位开启:" + result);
+        plus.ios.deleteObject(cllocationManger);
+        return result;
+    } else {
+        var context = plus.android.importClass("android.content.Context");
+        var locationManager = plus.android.importClass("android.location.LocationManager");
+        var main = plus.android.runtimeMainActivity();
+        var mainSvr = main.getSystemService(context.LOCATION_SERVICE);
+        var result = mainSvr.isProviderEnabled(locationManager.GPS_PROVIDER);
+        console.log("系统定位开启:" + result);
+        return result
+    }
+}
+
+// ===============================================
+// https://ext.dcloud.net.cn/plugin?id=13097  end
+// ===============================================
+
 /**
  * 打开系统设置页面
  * @param {String} setting 设置页面标识
@@ -21,15 +123,34 @@
  * 调用模块的方法
  * wxy.open(wxy.SETTINGS);
  */
-function openSetting(setting) {
+function openSetting(setting = '') {
     try {
         let os = plus.os.name;
         if ('Android' == os) {
-            const main = plus.android.runtimeMainActivity();
-            let intent = plus.android.newObject('android.content.Intent', setting);
-            main.startActivity(intent);
+            // const main = plus.android.runtimeMainActivity();
+            // let intent = plus.android.newObject('android.content.Intent', setting);
+            // main.startActivity(intent);
+            var Intent = plus.android.importClass("android.content.Intent");
+            var Settings = plus.android.importClass("android.provider.Settings");
+            var Uri = plus.android.importClass("android.net.Uri");
+            var mainActivity = plus.android.runtimeMainActivity();
+            var intent = new Intent();
+            intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+            var uri = Uri.fromParts("package", mainActivity.getPackageName(), null);
+            intent.setData(uri);
+            mainActivity.startActivity(intent);
         } else {
             //unsupport, nothing to do.
+            var UIApplication = plus.ios.import("UIApplication");
+            var application2 = UIApplication.sharedApplication();
+            var NSURL2 = plus.ios.import("NSURL");
+            // var setting2 = NSURL2.URLWithString("prefs:root=LOCATION_SERVICES");		
+            var setting2 = NSURL2.URLWithString("app-settings:");
+            application2.openURL(setting2);
+
+            plus.ios.deleteObject(setting2);
+            plus.ios.deleteObject(NSURL2);
+            plus.ios.deleteObject(application2);
         }
     } catch (e) {
         console.error('error @openSettings!!');
@@ -299,5 +420,9 @@ module.exports = {
     openAppSetting: openAppSetting,
     openApp: openApp,
     broadCast: broadCast,
-    getApplication: getApplication
+    getApplication: getApplication,
+
+    // https://ext.dcloud.net.cn/plugin?id=13097
+    requestAndroidPermission: requestAndroidPermission,
+    checkSystemEnableLocation: checkSystemEnableLocation
 }

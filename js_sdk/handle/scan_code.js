@@ -1,5 +1,5 @@
 // 扫码相关的
-import helper from './helper.js'
+import helper from '@/js_sdk/helper.js'
 const scanCode = {
     // 扫码
     scan(onlyCamera = false) {

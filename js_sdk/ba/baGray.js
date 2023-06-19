@@ -4,7 +4,7 @@
 // #ifdef APP-PLUS
 const gray = uni.requireNativePlugin('Ba-Gray')
 
-import helper from '../weisifang/helper.js'
+import helper from '@/js_sdk/helper.js'
 // #endif
 
 const baGray = {

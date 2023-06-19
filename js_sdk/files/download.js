@@ -1,4 +1,5 @@
 // https://www.html5plus.org/doc/zh_cn/downloader.html#plus.downloader.createDownload
+import files from './files.js'
 const download = {
     callFun: null, // 下载完成后的回调函数
     // 下载文件 到本应用 的 downloads 文件夹下，
@@ -108,6 +109,8 @@ const download = {
     setFileFromLocal(relativePath) {
         //获取 SD卡绝对路径
         var sd_path = plus.io.convertLocalFileSystemURL(relativePath)
+        // 刷新媒体库
+        files.refreshFile(sd_path)
         // console.log('文件路径', sd_path)
         if (typeof this.callFun === "function") {
             this.callFun(sd_path)

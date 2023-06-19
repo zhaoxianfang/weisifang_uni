@@ -5,7 +5,7 @@
 const notify = uni.requireNativePlugin('Ba-Notify')
 const beep = uni.requireNativePlugin('Ba-Beep')
 
-import helper from '../weisifang/helper.js'
+import helper from '@/js_sdk/helper.js'
 let defaultContent = {
     channelID: '1', //渠道Id
     channelName: '新消息通知', // 渠道名称
