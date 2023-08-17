@@ -9,7 +9,7 @@ var apiList = {
     },
     // 获取app 最新版本
     test_live(data) {
-        return fetch.request("test/app/live", "POST", data)
+        return fetch.request("app/submit_logs", "POST", data)
     }
 }
 

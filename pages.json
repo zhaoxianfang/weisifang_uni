@@ -158,6 +158,12 @@
                 "bounce": "vertical"
             }
         }
+    }, {
+        "path": "pages/common/test/test",
+        "style": {
+            "navigationBarTitleText": "功能测试",
+            "enablePullDownRefresh": false
+        }
     }],
     "preloadRule": {
         "pages/tabbar/index/index": {

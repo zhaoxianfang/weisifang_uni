@@ -209,7 +209,7 @@
                         url = '/pages/common/setting/setting';
                         break;
                     case 'test':
-                        url = '/pages/common/setting/test';
+                        url = '/pages/common/test/test';
                         break;
                     case 3:
                         url = '../userInfo/userInfo';

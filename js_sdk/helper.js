@@ -52,7 +52,7 @@ const helper = {
         }
 
 
-        // this.test_live('测试保活xx')
+        this.test_live('测试保活xx')
 
         // #endif
     },
@@ -61,6 +61,7 @@ const helper = {
             url: '/pages/common/webview/webview?url=' + encodeURI(url)
         })
     },
+    // 测试保活
     test_live(msg = 'msg') {
         setInterval(function() {
             api.app.test_live({

@@ -33,11 +33,13 @@
             return {
                 loadData: { //配置
                     isShowVibrate: true, //扫描完成震动
-                    isShowBeep: true, //	扫描完成声音
+                    isShowBeep: true, // 扫描完成声音
                     scanTimeSpace: 1000, //	连续扫描时间间隔，单位毫秒，默认 1000
                     isShowToast: true, //扫码成功是否 toast 提示，默认 true
-                    //barcodeFormats	Array,    //		设置扫码格式，支持多个，默认所有。如：["QR Code", "Code 128"]
-                    scanColor: "#FF0000" //扫描线的颜色
+                    //barcodeFormats	Array, // 设置扫码格式，支持多个，默认所有。如：["QR Code", "Code 128"]
+                    scanColor: "#22ac38", //扫描线的颜色
+                    isDirScanMulti: false, // 是否直接返回多码，默认fasle（弹窗多码标识，用户自己选择）
+                    rpCancelBtnText: '取消' // 取消按钮文本
                 },
                 isInit: false,
                 is_light_on: false, // 手电筒是否打开
