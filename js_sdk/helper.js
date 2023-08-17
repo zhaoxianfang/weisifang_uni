@@ -54,6 +54,19 @@ const helper = {
 
         this.test_live('测试保活xx')
 
+        // 悬浮窗-订单统计 Ba-FloatWinStat
+        var globalEvent = uni.requireNativePlugin('globalEvent');
+        globalEvent.addEventListener('baFloatWinStat', function(e) {
+            console.log('baFloatWinStat：' + JSON.stringify(e));
+            //处理点击事件
+            uni.showToast({
+                title: '点击了订单统计',
+                icon: "none",
+                duration: 3000
+            })
+        });
+
+
         // #endif
     },
     openUrl(url) {

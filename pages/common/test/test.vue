@@ -66,8 +66,31 @@
                 <tui-list-cell @click="detail" :arrow="true" last="true">
                     <view class="tui-item-box">
                         <tui-icon name="about" :size="23" color="#afadb2"></tui-icon>
-                        <text class="tui-list-cell_name">版本号</text>
-                        <view class="tui-right">没有了</view>
+                        <text class="tui-list-cell_name">====== ======</text>
+                        <view class="tui-right">分割</view>
+                    </view>
+                </tui-list-cell>
+            </tui-list-view>
+
+            <tui-list-view title="Ba-FloatWinStat">
+                <tui-list-cell @click="showFW" :arrow="true">
+                    <view class="tui-item-box">
+                        <tui-icon name="wealth-fill" :size="24" color="#ff7900"></tui-icon>
+                        <text class="tui-list-cell_name">显示</text>
+                    </view>
+                </tui-list-cell>
+
+                <tui-list-cell @click="updateFW" :arrow="true">
+                    <view class="tui-item-box">
+                        <tui-icon name="wealth-fill" :size="24" color="#ff7900"></tui-icon>
+                        <text class="tui-list-cell_name">更新数据</text>
+                    </view>
+                </tui-list-cell>
+
+                <tui-list-cell @click="hideFW" :arrow="true">
+                    <view class="tui-item-box">
+                        <tui-icon name="wealth-fill" :size="24" color="#ff7900"></tui-icon>
+                        <text class="tui-list-cell_name">隐藏</text>
                     </view>
                 </tui-list-cell>
             </tui-list-view>
@@ -77,14 +100,18 @@
 
 <script>
     const keepAlive = uni.requireNativePlugin('Ba-KeepAliveSuit')
+    const floatWin = uni.requireNativePlugin('Ba-FloatWinStat')
     export default {
         onLoad: function(options) {},
         data() {
             return {
-
+                time: ''
             };
         },
         created() {},
+        mounted() {
+            this.showFW()
+        },
         methods: {
             onKeep() { //通用保活
                 keepAlive.onKeep({
@@ -186,7 +213,79 @@
             },
             detail(e) {
                 console.log('detail')
-            }
+            },
+            showFW() { //显示
+                var _this = this
+                //格式化输出当前时间的小时、分钟、秒
+                var now = new Date();
+                var h = now.getHours() < 10 ? '0' + now.getHours() : now.getHours();
+                var m = now.getMinutes() < 10 ? '0' + now.getMinutes() : now.getMinutes();
+                var s = now.getSeconds() < 10 ? '0' + now.getSeconds() : now.getSeconds();
+                this.time = h + ':' + m + ':' + s;
+                floatWin.show({
+                        text1: "售出",
+                        text2: "售出",
+                        text3: "催单",
+                        text4: "自动抢单",
+                        num1: this.time,
+                        num2: h + ':' + m,
+                        num3: s,
+                        switchChecked: false,
+                        isToast: false
+                    },
+                    (res) => {
+                        console.log(res);
+                        _this.updateFW()
+                        // uni.showToast({
+                        //     title: res.msg,
+                        //     icon: "none",
+                        //     duration: 3000
+                        // })
+                        // if (res.ok) {
+
+                        // }
+                    });
+            },
+            updateFW() { //更新数据
+                var _this = this
+                var now = new Date();
+                var h = now.getHours() < 10 ? '0' + now.getHours() : now.getHours();
+                var m = now.getMinutes() < 10 ? '0' + now.getMinutes() : now.getMinutes();
+                var s = now.getSeconds() < 10 ? '0' + now.getSeconds() : now.getSeconds();
+                floatWin.update({
+                        text1: "售出",
+                        text2: "售出",
+                        text3: "催单",
+                        text4: "自动抢单",
+                        num1: _this.time,
+                        num2: h + ':' + m,
+                        num3: s,
+                        switchChecked: true,
+                    },
+                    (res) => {
+                        console.log(res);
+                        // uni.showToast({
+                        //     title: res.msg,
+                        //     icon: "none",
+                        //     duration: 3000
+                        // })
+
+                        setTimeout(function() {
+                            _this.updateFW()
+                        }, 1000);
+                    });
+            },
+            hideFW() { //隐藏
+                floatWin.hide(
+                    (res) => {
+                        console.log(res);
+                        uni.showToast({
+                            title: res.msg,
+                            icon: "none",
+                            duration: 3000
+                        })
+                    });
+            },
         },
         onPageScroll(e) {
 

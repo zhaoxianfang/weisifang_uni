@@ -200,20 +200,6 @@
                     "parameters" : {}
                 }
             },
-            "Ba-Gray" : {
-                "__plugin_info__" : {
-                    "name" : "全局置灰、哀悼置灰（可动态、同时支持nvue、vue） Ba-Gray",
-                    "description" : "Ba-Gray 是一款全局动态置灰的uniapp插件。可在特殊节日比如清明，或者其他哀悼日使用，全局哀悼置灰。",
-                    "platforms" : "Android",
-                    "url" : "https://ext.dcloud.net.cn/plugin?id=10312",
-                    "android_package_name" : "com.weisifang",
-                    "ios_bundle_id" : "",
-                    "isCloud" : true,
-                    "bought" : 1,
-                    "pid" : "10312",
-                    "parameters" : {}
-                }
-            },
             "Ba-ImageEditor" : {
                 "__plugin_info__" : {
                     "name" : "图片编辑插件（涂鸦、贴图、滤镜、裁剪、美颜、文字） Ba-ImageEditor",
@@ -365,6 +351,20 @@
                     "isCloud" : true,
                     "bought" : 1,
                     "pid" : "4469",
+                    "parameters" : {}
+                }
+            },
+            "Ba-FloatWinStat" : {
+                "__plugin_info__" : {
+                    "name" : "悬浮窗-订单统计 Ba-FloatWinStat",
+                    "description" : "Ba-FloatWinStat 是一款定制的订单悬浮窗插件，有其他定制需要可联系作者。",
+                    "platforms" : "Android",
+                    "url" : "https://ext.dcloud.net.cn/plugin?id=14055",
+                    "android_package_name" : "com.weisifang",
+                    "ios_bundle_id" : "",
+                    "isCloud" : true,
+                    "bought" : 1,
+                    "pid" : "14055",
                     "parameters" : {}
                 }
             }
