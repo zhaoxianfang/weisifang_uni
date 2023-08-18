@@ -1,9 +1,6 @@
 // 文件操作相关。例如选择文件等
 // #ifdef APP-PLUS
-const mediaPicker = uni.requireNativePlugin('Ba-MediaPicker') // 图文选择
-const filePicker = uni.requireNativePlugin('Ba-FilePicker') // 文件选择
 const officeViewModule = uni.requireNativePlugin("Seal-OfficeOnline") // 文件预览
-const mediaUtil = uni.requireNativePlugin('Ba-MediaUtil'); // 刷新媒体库插件
 // #endif
 import helper from '@/js_sdk/helper.js'
 // 离线文件预览插件
@@ -12,55 +9,8 @@ const files = {
     // 选择资源文件 主要是 图片，视频，音频
     selectImgOrVideo(options = {}, callbackFun) {
         // #ifdef APP-PLUS
-        var defautl_options = {
-            'onlyCamera': false, // 是否仅拍照
-            'mediaType': 0, // 选择媒体类型 0:所有 1:图片 2:视频 3:音频
-            'single': false, // 是否单选
-            'singleBack': true, // 单选模式直接返回
-            'max': 9, // 多选最大选择数
-            'maxVideo': 1, // 多选最大选择数（视频）
-            'compress': false, // 是否压缩
-            'crop': false, // 是否裁剪
-            'cropScale': 0, // 裁剪比例 0(默认) 1(1:1) 2(3:4) 3(3:2) 4(16:9)
-            'cropRound': false, // 是否裁剪圆形
-            'gif': false, // 是否显示gif图片
-            'language': 0, // 语言 0简体中文 1繁体中文 2英语 3韩语 4德语 5法语 6日语 7越语 8西班牙语 9葡萄牙语 10阿拉伯语 11俄语
-            'slide': true, // 滑动选择
-            'isCamera': true, // 显示拍摄、拍照、录音
-            'isDisplayTimeAxis': false, // 显示资源时间轴
-            'isOriginalControl': true, // 是否开启原图功能
-            'isOpenClickSound': true, // 是否开启点击声音
-            'isMaxSelectEnabledMask': true, // 是否显示蒙层(达到最大可选数量，默认false,弹窗提示)
-            'selectedList': [], //已选择项回显，注意：需传选择回调返回的data数组
-            'position': 0, //初始显示第几项（已选择预览时使用）
-        }
-        var opts = Object.assign({}, defautl_options, options)
         // 图片视频选择
-        mediaPicker.selectPicture(opts, (ret) => { //回调参数
-            if (ret.data) {
-                if (opts.single) {
-                    callbackFun && callbackFun(ret.data[0])
-                } else {
-                    callbackFun && callbackFun(ret.data)
-                }
-                // ret.data.forEach(item => {
-                // item.fileName	文件名
-                // item.path	初始路径
-                // item.realPath	绝对路径
-                // item.compressed	是否压缩
-                // item.compressPath	压缩文件路径
-                // item.isCut	是否裁剪
-                // item.cutPath	裁剪路径
-                // item.isOriginal	是否开启原图
-                // item.originalPath	原图路径
-                // item.videoThumbnailPath	视频缩略图
-                // item.size	文件大小
-                // item.duration	文件时长
-                // })
-            } else {
-                callbackFun && callbackFun(false)
-            }
-        });
+        helper.ba.mediaPicker.selectPicture(options, callbackFun)
         // #endif
 
         // #ifndef APP-PLUS
@@ -84,61 +34,8 @@ const files = {
     },
     // 选择文件
     selectFiles(options = {}, callbackFun) {
-        var defautl_options = {
-            'selectType': 2, // 选择类型：默认为0（ 0：浏览文件目录 1：文件分类 2:类型分组）
-            'maxCount': 9, // 最大选择数，默认为9
-            // 'filetypes': 'doc,docx,ppt,xls,xlsx,zip,mp3,mp4,avi,mov,rmvb,rm,flv,wmv,apk' // 文件类型，多个英文","隔开
-            groupTypes: [{ //有默认值，可自定义
-                name: "图片",
-                fileTypes: ["png", "jpg", "jpeg", "gif"]
-            }, {
-                name: "视频",
-                fileTypes: ["mp4", "avi", "mpeg", "wmv", "rm", "rmvb", "3gp", "mov", "m4v", "dat",
-                    "mkv", "flv", "vob"
-                ]
-            }, {
-                name: "音频",
-                fileTypes: ["mp3", "ogg", "flac", "wav", "wma", "m4a", "mid", "mka", "mpa", "mpc",
-                    "ape", "ofr", "ogg", "mv"
-                ]
-            }, {
-                name: "文档",
-                fileTypes: ["log", "txt", "doc", "docx", "xls", "xlsx", "pdf", "ppt", "pptx"]
-            }, {
-                name: "压缩包",
-                fileTypes: ["zip", "rar", "7z"]
-            }, {
-                name: "应用",
-                fileTypes: ["apk", "exe"]
-            }],
-            strings: { //自定义文本
-                barTitle: "文件选择",
-                barBtnOk: "确认",
-                selectedDialogTitle: "已选文件",
-                selectedFileCount: "已选(%1$s/%2$s)",
-                searchInputHint: "请输入搜索内容",
-                sortDialogTitle: "请选择",
-                sortDialogItemMC: "按名称",
-                sortDialogItemSJ: "按时间",
-                sortDialogItemDX: "按大小",
-                sortDialogItemLX: "按类型",
-                sortDialogBtnAsc: "升序",
-                sortDialogBtnDesc: "降序",
-            },
-            sortType: 3, //排序类型：默认为0（ 0：名称-升序 1：名称-降序 2:时间-升序 3:时间-降序 4:大小-升序 5:大小-降序 6:类型-升序 7:类型-降序）
-        }
-        var opts = Object.assign({}, defautl_options, options)
-
         // #ifdef APP-PLUS
-        filePicker.selectFile(opts, (ret) => {
-            callbackFun && callbackFun(ret.data)
-            // 返回 data 格式
-            // name	String	文件名
-            // absolutePath	String	文件路径
-            // mimeType	String	文件类型
-            // size	Number	文件大小（单位B）
-            // sizeS	String	文件大小（智能显示）
-        });
+        helper.ba.filePicker.selectFile2(options, callbackFun)
         // #endif
 
         // #ifndef APP-PLUS
@@ -407,11 +304,7 @@ const files = {
         //检查文件是否已存在
         plus.io.resolveLocalFileSystemURL(file_path, function(entry) {
             //如果文件存在 则刷新媒体库
-            mediaUtil.refreshFile({
-                path: file_path
-            }, (ret) => {
-                console.log(ret)
-            });
+            helper.ba.mediaUtil.refreshFile(file_path)
         }, function(e) {
             //如果文件不存在
             return false

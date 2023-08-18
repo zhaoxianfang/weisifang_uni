@@ -99,8 +99,6 @@
 </template>
 
 <script>
-    const keepAlive = uni.requireNativePlugin('Ba-KeepAliveSuit')
-    const floatWin = uni.requireNativePlugin('Ba-FloatWinStat')
     export default {
         onLoad: function(options) {},
         data() {
@@ -114,102 +112,25 @@
         },
         methods: {
             onKeep() { //通用保活
-                keepAlive.onKeep({
-                        //channelId: "Ba-KeepAlive",
-                        //channelName: "Ba-KeepAlive",
-                        title: "测试",
-                        content: "常驻通知描述",
-                    },
-                    (res) => {
-                        console.log(res);
-                        uni.showToast({
-                            title: res.msg,
-                            icon: "none",
-                            duration: 3000
-                        })
-                    });
+                this.ba.keepAliveSuit.onKeep()
             },
             onAutoStart() { //去设置自启动、后台运行
-                keepAlive.onAutoStart(
-                    (res) => {
-                        console.log(res);
-                        uni.showToast({
-                            title: res.msg,
-                            icon: "none",
-                            duration: 3000
-                        })
-                    });
+                this.ba.keepAliveSuit.onAutoStart()
             },
             requestIgnoreBattery() { //申请加入电池优化白名单
-                keepAlive.requestIgnoreBattery(
-                    res => {
-                        console.log(res);
-                        uni.showToast({
-                            title: res.msg,
-                            icon: "none",
-                            duration: 3000
-                        })
-                    });
+                this.ba.keepAliveSuit.requestIgnoreBattery()
             },
             goIgnoreBattery() { //跳转到电池优化设置页
-                keepAlive.goIgnoreBattery(
-                    res => {
-                        console.log(res);
-                        uni.showToast({
-                            title: res.msg,
-                            icon: "none",
-                            duration: 3000
-                        })
-                    });
+                this.ba.keepAliveSuit.goIgnoreBattery()
             },
             isIgnoringBattery() { //是否加入电池优化白名单
-                keepAlive.isIgnoringBattery(
-                    res => {
-                        console.log(res);
-                        // if (res.data) {
-                        //  this.msgList.unshift(JSON.stringify(res.data))
-                        //  this.msgList.unshift(dateUtil.now())
-                        // }
-                        uni.showToast({
-                            title: res.msg,
-                            icon: "none",
-                            duration: 3000
-                        })
-                    });
+                this.ba.keepAliveSuit.isIgnoringBattery()
             },
             onShowNotify() { //常驻通知保活
-                keepAlive.onShowNotify({
-                        //channelId: "Ba-KeepAlive",
-                        //channelName: "Ba-KeepAlive",
-                        //ID:99
-                        //title: "测试",
-                        //content: "常驻通知描述",
-                    },
-                    (res) => {
-                        console.log(res);
-                        uni.showToast({
-                            title: res.msg,
-                            icon: "none",
-                            duration: 3000
-                        })
-                    });
+                this.ba.keepAliveSuit.onShowNotify()
             },
             onCancelNotify() { //取消常驻通知保活
-                keepAlive.onCancelNotify({
-                        //channelId: "Ba-KeepAlive",
-                        //channelName: "Ba-KeepAlive",
-                        //ID:99
-                        //title: "测试",
-                        //content: "常驻通知描述",
-                    },
-                    (res) => {
-                        console.log(res);
-                        uni.showToast({
-                            title: res.msg,
-                            icon: "none",
-                            duration: 3000
-                        })
-                    });
+                this.ba.keepAliveSuit.onCancelNotify()
             },
             detail(e) {
                 console.log('detail')
@@ -218,73 +139,42 @@
                 var _this = this
                 //格式化输出当前时间的小时、分钟、秒
                 var now = new Date();
+                var year = now.getFullYear();
+                var month = (now.getMonth() < 9 ? '0' : '') + (now.getMonth() + 1);
+                var day = now.getDate() < 10 ? '0' + now.getDate() : now.getDate();
                 var h = now.getHours() < 10 ? '0' + now.getHours() : now.getHours();
                 var m = now.getMinutes() < 10 ? '0' + now.getMinutes() : now.getMinutes();
                 var s = now.getSeconds() < 10 ? '0' + now.getSeconds() : now.getSeconds();
                 this.time = h + ':' + m + ':' + s;
-                floatWin.show({
-                        text1: "售出",
-                        text2: "售出",
-                        text3: "催单",
-                        text4: "自动抢单",
-                        num1: this.time,
-                        num2: h + ':' + m,
-                        num3: s,
-                        switchChecked: false,
-                        isToast: false
-                    },
-                    (res) => {
-                        console.log(res);
-                        _this.updateFW()
-                        // uni.showToast({
-                        //     title: res.msg,
-                        //     icon: "none",
-                        //     duration: 3000
-                        // })
-                        // if (res.ok) {
 
-                        // }
-                    });
+                this.ba.floatWinStat.setData({
+                    text1: year,
+                    text2: h,
+                    text3: h,
+                    text4: "开/关",
+                    num1: month + ':' + day,
+                    num2: m + ':' + s,
+                    num3: m + ':' + s,
+                })
+                this.ba.floatWinStat.showFW(true)
             },
             updateFW() { //更新数据
                 var _this = this
+                //格式化输出当前时间的小时、分钟、秒
                 var now = new Date();
                 var h = now.getHours() < 10 ? '0' + now.getHours() : now.getHours();
                 var m = now.getMinutes() < 10 ? '0' + now.getMinutes() : now.getMinutes();
                 var s = now.getSeconds() < 10 ? '0' + now.getSeconds() : now.getSeconds();
-                floatWin.update({
-                        text1: "售出",
-                        text2: "售出",
-                        text3: "催单",
-                        text4: "自动抢单",
-                        num1: _this.time,
-                        num2: h + ':' + m,
-                        num3: s,
-                        switchChecked: true,
-                    },
-                    (res) => {
-                        console.log(res);
-                        // uni.showToast({
-                        //     title: res.msg,
-                        //     icon: "none",
-                        //     duration: 3000
-                        // })
 
-                        setTimeout(function() {
-                            _this.updateFW()
-                        }, 1000);
-                    });
+                this.ba.floatWinStat.setData({
+                    text3: h,
+                    text4: "开/关",
+                    num3: m + ':' + s,
+                })
+                this.ba.floatWinStat.updateFW(true)
             },
             hideFW() { //隐藏
-                floatWin.hide(
-                    (res) => {
-                        console.log(res);
-                        uni.showToast({
-                            title: res.msg,
-                            icon: "none",
-                            duration: 3000
-                        })
-                    });
+                this.ba.floatWinStat.hideFW()
             },
         },
         onPageScroll(e) {

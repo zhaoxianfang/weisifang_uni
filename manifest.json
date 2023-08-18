@@ -340,20 +340,6 @@
                     "parameters" : {}
                 }
             },
-            "sn-videoframe" : {
-                "__plugin_info__" : {
-                    "name" : "视频缩略图、封面",
-                    "description" : "获取视频缩略图",
-                    "platforms" : "Android,iOS",
-                    "url" : "https://ext.dcloud.net.cn/plugin?id=4469",
-                    "android_package_name" : "com.weisifang",
-                    "ios_bundle_id" : "",
-                    "isCloud" : true,
-                    "bought" : 1,
-                    "pid" : "4469",
-                    "parameters" : {}
-                }
-            },
             "Ba-FloatWinStat" : {
                 "__plugin_info__" : {
                     "name" : "悬浮窗-订单统计 Ba-FloatWinStat",

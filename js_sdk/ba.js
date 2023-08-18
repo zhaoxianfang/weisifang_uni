@@ -2,10 +2,17 @@
 // https://ext.dcloud.net.cn/publisher?id=114807
 
 import baBeep from '@/js_sdk/ba/baBeep.js'
+import baNotify from '@/js_sdk/ba/baNotify.js'
+import baFloatWinStat from '@/js_sdk/ba/baFloatWinStat.js'
+import baKeepAliveSuit from '@/js_sdk/ba/baKeepAliveSuit.js'
+import baFilePicker from '@/js_sdk/ba/baFilePicker.js'
+import baMediaPicker from '@/js_sdk/ba/baMediaPicker.js'
+import baMediaUtil from '@/js_sdk/ba/baMediaUtil.js'
+import baSqlite from '@/js_sdk/ba/baSqlite.js'
+
 // import baChangeIcon from '@/js_sdk/ba/baChangeIcon.js'
 // import baIdCode from '@/js_sdk/ba/baIdCode.js'
 // import baLocation from '@/js_sdk/ba/baLocation.js'
-import baNotify from '@/js_sdk/ba/baNotify.js'
 // import baScanner from '@/js_sdk/ba/baScanner.js'
 // import baGray from '@/js_sdk/ba/baGray.js'
 // import baBroadcast from '@/js_sdk/ba/baBroadcast.js'
@@ -18,6 +25,13 @@ const ba = {
     // idCode: baIdCode,
     // location: baLocation,
     notify: baNotify,
+    floatWinStat: baFloatWinStat,
+    keepAliveSuit: baKeepAliveSuit,
+    filePicker: baFilePicker,
+    mediaPicker: baMediaPicker,
+    mediaUtil: baMediaUtil,
+    sqlite: baSqlite,
+
     // scanner: baScanner,
     // gray: baGray,
     // broadcast: baBroadcast,
