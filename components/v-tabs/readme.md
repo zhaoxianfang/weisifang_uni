@@ -1,8 +1,8 @@
-## 插件说明
+# v-tabs
 
 [](https://ext.dcloud.net.cn/plugin?id=1971)
 
-> 2.1.2（2023-06-12）
+> 2.1.3（2023-09-11）
 
 ## 插件说明
 
@@ -160,6 +160,13 @@ export default {
 | change | index | 改变选中项触发, index 选中项的下标 |
 
 ## 更新日志
+
+### 2.1.3（2023-09-11）
+1. [新增]支持自定义插槽模式，具体可以查看示例代码使用方式。[gitee demo](https://github.com/xfjpeter/uni-plugins/blob/master/pages/tabs/tabs.vue#L47-L50) 或 [github demo](https://github.com/xfjpeter/uni-plugins/blob/master/pages/tabs/tabs.vue#L47-L50)
+
+### 2.1.2（2023-06-12）
+1. [新增]添加`z-index`参数控制层级大小，默认1993
+2. [说明]以后该插件只更新`uni_modules`方式的，`zip`方式的不提供更新了，如果需要的请到 [gitee uni-plugins](https://gitee.com/xfjpeter/uni-plugins) 或 [github uni-plugins](https://github.com/xfjpeter/uni-plugins)下载源码，自行使用
 
 ### 2.1.1（2022-09-16）
 

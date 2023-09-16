@@ -1,5 +1,5 @@
 <template>
-	<view class="tui-slide-view">
+	<view class="tui-slide-view" :style="{marginTop:marginTop+'rpx',marginBottom:marginBottom+'rpx'}">
 		<view @transitionend="handler.transitionEnd" :show="shown" :change:show="handler.showChange"
 			:rebounce="rebounce" :change:rebounce="handler.rebounceChange" :change:duration="handler.durationChange"
 			:duration="duration" :change:disable="handler.disableChange" :disable="disable"
@@ -15,8 +15,8 @@
 					<view @tap="handler.hideButton" :data-data="item.data" :data-index="index"
 						class="tui-slideview__btn"
 						:style="{ width: width, height: height, padding: padding, borderRadius: radius, background: item.background }">
-						<view v-if="!item.src"
-							:style="{ fontSize: fontSize + 'rpx', color: item.color }">{{ item.text }}</view>
+						<view v-if="!item.src" :style="{ fontSize: fontSize + 'rpx', color: item.color }">
+							{{ item.text }}</view>
 						<image v-else :src="item.src" :style="{ width: item.width, height: item.height }" />
 					</view>
 				</view>
@@ -85,6 +85,16 @@
 			showMask: {
 				type: Boolean,
 				default: false
+			},
+			//v2.9.0+
+			marginTop: {
+				type: [Number, String],
+				default: 0
+			},
+			//v2.9.0+
+			marginBottom:{
+				type: [Number, String],
+				default: 0
 			}
 		},
 		watch: {
@@ -103,7 +113,7 @@
 		},
 		mounted() {
 			this.$nextTick(() => {
-				setTimeout(()=> {
+				setTimeout(() => {
 					this.shown = this.show;
 					this.updateRight();
 				}, 50);

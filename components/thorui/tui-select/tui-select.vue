@@ -27,7 +27,7 @@
 						<view class="tui-select--flex">
 							<view class="tui-select--icon-box"
 								:class="{'tui-select--icon-ml':!reverse,'tui-select--icon-mr':reverse}"
-								:style="{width:iconWidth+'rpx',height:iconWidth+'rpx'}" v-if="model.src">
+								:style="{width:iconWidth+'rpx',height:iconWidth+'rpx',background:iconBgColor}" v-if="model.src">
 								<image :src="model.src" :style="{width:iconWidth+'rpx',height:iconWidth+'rpx'}"
 									mode="widthFix"></image>
 							</view>
@@ -142,6 +142,11 @@
 			iconWidth: {
 				type: [Number, String],
 				default: 48
+			},
+			//v2.9.0+
+			iconBgColor:{
+				type:String,
+				default:'#F8F8F8'
 			},
 			size: {
 				type: [Number, String],

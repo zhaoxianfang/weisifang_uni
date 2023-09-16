@@ -2,7 +2,7 @@
 	<scroll-view class="tui-scroll__view"
 		:class="[isFixed && !isSticky?'tui-tabs__fixed':'',isSticky?'tui-tabs__sticky':'',classView]"
 		:style="{height: height+'rpx',background:backgroundColor,top: isFixed || isSticky ? top + 'px' : 'auto',zIndex:isFixed || isSticky?zIndex:'auto'}"
-		:scroll-x="scrolling" :scroll-with-animation="scrolling" :scroll-left="scrollLeft">
+		:scroll-x="scrolling" :scroll-with-animation="scrolling" :show-scrollbar="false" :scroll-left="scrollLeft">
 		<view class="tui-tabs__wrap">
 			<view class="tui-tabs__list" :class="[scroll ? 'tui-tabs__scroll' : '']" :style="{height: height+'rpx'}">
 				<view class="tui-tabs__item" :style="{height: height+'rpx'}" v-for="(item,index) in tabs" :key="index"
@@ -270,6 +270,7 @@
 </script>
 
 <style scoped>
+	
 	.tui-scroll__view {
 		width: 100%;
 		height: 80rpx;
@@ -340,4 +341,12 @@
 	.tui-tabs__line.tui-transition {
 		transition: width 0.3s, transform 0.3s;
 	}
+	/* #ifndef APP-NVUE */
+	::-webkit-scrollbar {
+		width: 0 !important;
+		height: 0 !important;
+		color: transparent !important;
+		display: none;
+	}
+	/* #endif */
 </style>

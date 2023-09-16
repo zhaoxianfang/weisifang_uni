@@ -102,15 +102,17 @@
 		display: block;
 		/* #endif */
 	}
-	
-	.tui-row__box::before,
+	/* #ifndef APP-NVUE */
+	.tui-row__box::before{
+		display: table;
+		content: " ";
+	}
 	.tui-row__box::after {
 		display: table;
-		/* #ifndef APP-NVUE */
 		content: " ";
-		/* #endif */
+		
 	}
-	
+	/* #endif */
 	.tui-row__box::after {
 		clear: both;
 	}

@@ -187,6 +187,7 @@
 		-webkit-appearance: none;
 		-moz-appearance: none;
 		appearance: none;
+		pointer-events: none;
 		/* #endif */
 		/* #ifdef APP-NVUE */
 		width: 100wx;

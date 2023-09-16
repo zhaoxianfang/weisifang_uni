@@ -99,7 +99,9 @@
 			}
 		},
 		mounted() {
-			this.columnChange();
+			this.$nextTick(()=>{
+				this.columnChange();
+			})
 		},
 		methods: {
 			columnChange(val) {

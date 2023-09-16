@@ -3,20 +3,16 @@
 </template>
 
 <script>
-//分类菜单左右联动
+//vtabs 左右联动
 export default {
 	name: 'tLinkage',
 	emits: ['linkage'],
 	props: {
 		scrollTop: {
-			type: Number
-		},
-		recalc: {
 			type: Number,
 			default: 0
 		},
-		//px
-		distanceTop: {
+		recalc: {
 			type: Number,
 			default: 0
 		},
@@ -27,25 +23,9 @@ export default {
 		}
 	},
 	watch: {
-		scrollTop(newValue, oldValue) {
-			if (this.initialize != 0) {
-				this.updateScrollChange(() => {
-					this.updateStickyChange();
-					this.initialize = 0;
-				});
-			} else {
-				this.updateStickyChange();
-			}
-		},
 		recalc(newValue, oldValue) {
-			this.updateScrollChange(() => {
-				this.updateStickyChange();
-				this.initialize = 0;
-			});
+			this.updateScrollChange();
 		}
-	},
-	created() {
-		this.initialize = this.recalc;
 	},
 	mounted() {
 		setTimeout(() => {
@@ -54,26 +34,11 @@ export default {
 	},
 	data() {
 		return {
-			timer: null,
-			top: 0,
-			height: 0,
-			initialize: 0 //重新初始化
+			timer: null
 		};
 	},
 	methods: {
-		updateStickyChange() {
-			const top = this.top;
-			const height = this.height;
-			const scrollTop = this.scrollTop;
-			let linkage = scrollTop + this.distanceTop >= top && scrollTop + this.distanceTop < top + height ? true : false;
-			if (linkage) {
-				this.$emit('linkage', {
-					isLinkage: linkage,
-					index: this.index
-				});
-			}
-		},
-		updateScrollChange(callback) {
+		updateScrollChange() {
 			if (this.timer) {
 				clearTimeout(this.timer);
 				this.timer = null;
@@ -85,9 +50,12 @@ export default {
 					.select(className)
 					.boundingClientRect(res => {
 						if (res) {
-							this.top = res.top + (this.scrollTop || 0);
-							this.height = res.height;
-							callback && callback();
+							let top = res.top + this.scrollTop;
+							this.$emit('linkage', {
+								top: top,
+								height:res.height,
+								index:this.index
+							});
 						}
 					})
 					.exec();
@@ -96,5 +64,3 @@ export default {
 	}
 };
 </script>
-
-<style></style>

@@ -1,33 +1,17 @@
 <template>
-	<view class="tui-goods__item" :class="{ 'tui-full__item': isList }" @tap="detail">
-		<view class="tui-image__box" :class="{ 'tui-full__imgbox': isList }">
-			<image class="tui-goods__img" :class="{ 'tui-full__img': isList }" :src="item.img" mode="widthFix"></image>
-		</view>
-		<view class="tui-goods__content" :class="{ 'tui-full__content': isList }">
-			<view class="tui-goods__title">{{ item.name || '' }}</view>
-			<view class="tui-tag__box" v-if="item.newGuest && !isList">
-				<tui-tag plain size="24rpx" type="red" padding="8rpx 12rpx">新客专享</tui-tag>
-			</view>
-			<view class="tui-box__bottom">
-				<view class="tui-price__box">
-					<view class="tui-price">
-						<view class="tui-price__small">￥</view>
-						<view class="tui-price__large">{{ integerPrice }}</view>
-						<view class="tui-price__small">.{{ decimalPrice }}</view>
-					</view>
-					<view class="tui-price__original">￥{{ item.factory || '0.00' }}</view>
+	<view class="tui-product__item" :class="{'tui-flex__list':isList,'tui-product__item-show':isShow}"
+		hover-class="tui-hover" :hover-start-time="150" @tap="detail">
+		<image :src="entity.img" class="tui-product__img" :class="{'tui-img__list':isList}" mode="widthFix"></image>
+		<view class="tui-product__content">
+			<view class="tui-product__title">{{ entity.name || '' }}</view>
+			<view>
+				<view class="tui-product__price">
+					<text class="tui-sale__price">￥{{ entity.sale || '0.00' }}</text>
+					<text class="tui-factory__price">￥{{ entity.factory || '0.00' }}</text>
 				</view>
-				<view :style="{ opacity: item.subscribe && status==3 ? 0.5 : 1 }">
-					<tui-button :width="status == 3 ? '146rpx' : '144rpx'" :height="status == 3 ? '60rpx' : '50rpx'"
-						:size="status == 3 ? 26 : 24" :type="status == 1 ? 'gray' : 'danger'" :disabled="status == 1"
-						:plain="status == 3">
-						{{getBtnText(status,item.subscribe) }}
-					</tui-button>
-				</view>
+				<view class="tui-product__pay">{{ entity.payNum || 0 }}人付款</view>
 			</view>
 		</view>
-		<image v-if="item.newGuest && isList" src="https://thorui.cn/images/mall/img_seckill_newguest.png"
-			class="tui-img__newguest" mode="widthFix"></image>
 	</view>
 </template>
 
@@ -35,7 +19,8 @@
 	export default {
 		name: 'tGoodsItem',
 		props: {
-			item: {
+			//数据obj
+			entity: {
 				type: Object,
 				default () {
 					return {};
@@ -45,163 +30,124 @@
 			isList: {
 				type: Boolean,
 				default: false
-			},
-			//status：1-已结束，2-正在进行，3-即将开枪
-			status: {
-				type: Number,
-				default: 2
-			}
-		},
-		computed: {
-			integerPrice: function() {
-				let price = this.item.sale || '0.00';
-				if (~price.indexOf('.')) {
-					return price.split('.')[0];
-				}
-				return price;
-			},
-			decimalPrice: function() {
-				let price = this.item.sale || '0.00';
-				if (~price.indexOf('.')) {
-					return price.split('.')[1];
-				}
-				return '00';
 			}
 		},
 		data() {
-			return {};
+			return {
+				isShow: false
+			}
+		},
+		mounted() {
+			this.$nextTick(() => {
+				setTimeout(() => {
+					this.isShow = true
+				}, 20)
+			})
 		},
 		methods: {
-			getBtnText(status, subscribe) {
-				status = status || 1;
-				let text = ['活动已结束', '立即抢购', '立即预约'][status - 1];
-				if (status == 3 && subscribe) {
-					text = '取消预约';
-				}
-				return text;
-			},
 			detail() {
-				//项目中应该传id
-				this.tui.href(`../seckillDetail/seckillDetail?status=${this.status}`)
+				uni.showToast({
+					title: '功能开发中~',
+					icon: 'none'
+				})
 			}
 		}
 	};
 </script>
 
-<style scoped>
-	.tui-goods__item {
+<style>
+	.tui-product__item {
 		width: 100%;
-		padding: 20rpx 20rpx 36rpx;
+		margin-bottom: 10rpx;
+		background: #fff;
 		box-sizing: border-box;
 		border-radius: 12rpx;
-		background-color: #fff;
-		margin-bottom: 4%;
+		overflow: hidden;
+		transition: all 0.15s linear;
+		visibility: hidden;
+		opacity: 0;
+	}
+
+	.tui-product__item-show {
+		visibility: visible;
+		opacity: 1;
+	}
+
+	.tui-flex__list {
+		display: flex !important;
+		margin-bottom: 0 !important;
 		position: relative;
 	}
 
-	.tui-full__item {
-		display: flex;
-		margin-bottom: 20rpx !important;
-		padding: 20rpx !important;
-	}
-
-	.tui-img__newguest {
+	.tui-flex__list::after {
+		content: " ";
 		position: absolute;
-		width: 96rpx;
-		height: 32rpx;
 		left: 0;
-		top: 8rpx;
+		right: 0;
+		bottom: 0;
+		height: 1px;
+		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+		-webkit-transform: scaleY(.5);
+		transform: scaleY(.5);
+		-webkit-transform-origin: 0 100%;
+		transform-origin: 0 100%;
+		z-index: 2;
 	}
 
-	.tui-image__box {
+	.tui-product__img {
 		width: 100%;
-		height: 300rpx;
-	}
-
-	.tui-full__imgbox {
-		width: 240rpx !important;
-		height: 240rpx !important;
-		margin-right: 20rpx;
-	}
-
-	.tui-goods__img {
-		max-width: 100%;
-		max-height: 300rpx;
 		display: block;
-		border-radius: 8rpx;
+		background-color: #F1F1F1;
 	}
 
-	.tui-full__img {
-		max-height: 240rpx !important;
+	.tui-img__list {
+		width: 260rpx !important;
+		height: 260rpx !important;
+		border-radius: 12rpx;
+		flex-shrink: 0;
 	}
 
-	.tui-goods__content {
-		width: 100%;
-		padding-top: 16rpx;
-	}
-
-	.tui-full__content {
-		height: 240rpx;
+	.tui-product__content {
+		flex: 1;
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
-		padding-top: 0 !important;
+		box-sizing: border-box;
+		padding: 20rpx;
 	}
 
-	.tui-goods__title {
+	.tui-product__title {
+		color: #2e2e2e;
 		font-size: 26rpx;
-		font-weight: 400;
-		color: #333;
+		line-height: 32rpx;
 		word-break: break-all;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		display: -webkit-box;
 		-webkit-box-orient: vertical;
 		-webkit-line-clamp: 2;
-		margin-bottom: 20rpx;
 	}
 
-	.tui-tag__box {
-		display: flex;
-		padding-bottom: 25rpx;
+	.tui-product__price {
+		padding-top: 18rpx;
 	}
 
-	.tui-box__bottom {
-		width: 100%;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-	}
-
-	.tui-price__box {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.tui-price {
-		display: flex;
-		align-items: flex-end;
-		color: #eb0909;
-	}
-
-	.tui-price__small {
-		font-size: 24rpx;
-		line-height: 24rpx;
-	}
-
-	.tui-price__large {
+	.tui-sale__price {
 		font-size: 34rpx;
-		line-height: 32rpx;
-		font-weight: 600;
+		font-weight: 500;
+		color: #e41f19;
 	}
 
-	.tui-price__original {
+	.tui-factory__price {
 		font-size: 24rpx;
-		line-height: 24rpx;
+		color: #a0a0a0;
 		text-decoration: line-through;
-		color: #999;
+		padding-left: 12rpx;
+	}
+
+	.tui-product__pay {
 		padding-top: 10rpx;
+		font-size: 24rpx;
+		color: #656565;
 	}
 </style>

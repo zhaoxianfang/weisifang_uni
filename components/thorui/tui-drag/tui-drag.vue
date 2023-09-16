@@ -10,7 +10,7 @@
 			<view class="tui-drag__item" v-for="(item, index) in list" :key="item.id" :data-index="index"
 				:style="{ width: 100 / columns + '%', height: itemHeight + 'rpx' }" @longpress="handler.longPress"
 				:data-basedata="baseData" :data-edit="isEdit" @touchstart="handler.touchStart"
-				@touchmove="handler.touchMove" @touchend="handler.touchEnd">
+				@touchmove="handler.touchMove" @touchend="handler.touchEnd" @mousedown="handler.mousedown">
 				<slot :entity="item.data" :fixed="item.fixed" :index="index" :height="itemHeight" :isEdit="isEdit">
 				</slot>
 			</view>
@@ -115,7 +115,9 @@
 		},
 		mounted() {
 			this.$nextTick(() => {
-				this.init();
+				setTimeout(() => {
+					this.init();
+				}, 50);
 			})
 		},
 		methods: {

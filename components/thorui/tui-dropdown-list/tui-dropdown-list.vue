@@ -64,7 +64,7 @@
 <style scoped>
 	.tui-dropdown-list {
 		position: relative;
-		z-index: 6;
+		z-index:12;
 	}
 
 	.tui-dropdown-view {

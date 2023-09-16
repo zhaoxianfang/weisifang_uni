@@ -11,7 +11,8 @@
 				<view class="tui-picker__title" :style="{fontSize:titleSize+'rpx',color:titleColor}">{{title}}</view>
 				<view class="tui-picker__btn-sure" hover-class="tui-picker__opcity" :hover-stay-time="150"
 					@tap.stop="picker"
-					:style="{color:getConfirmColor,fontSize:btnSize+'rpx',fontWeight:bold?'bold':'normal'}">{{confirmText}}
+					:style="{color:getConfirmColor,fontSize:btnSize+'rpx',fontWeight:bold?'bold':'normal'}">
+					{{confirmText}}
 				</view>
 			</view>
 			<view @touchstart.stop="pickstart">
@@ -155,8 +156,8 @@
 				default: 0
 			}
 		},
-		computed:{
-			getConfirmColor(){
+		computed: {
+			getConfirmColor() {
 				return this.confirmColor || (uni && uni.$tui && uni.$tui.color.primary) || '#5677fc'
 			}
 		},
@@ -167,7 +168,8 @@
 				layer1__data: [],
 				layer2__data: [],
 				layer3__data: [],
-				isEnd: true
+				isEnd: true,
+				firstShow: false
 			};
 		},
 		created() {
@@ -178,10 +180,16 @@
 				}, 50)
 			})
 			this.visible = this.show;
+			if (this.visible) {
+				this.firstShow = true
+			}
 		},
 		watch: {
 			show(val) {
 				this.visible = val;
+				if (val) {
+					this.firstShow = true
+				}
 			},
 			value(vals) {
 				if (vals && vals.length > 0) {
@@ -346,6 +354,7 @@
 				}
 			},
 			columnPicker: function(e) {
+				if (!this.firstShow) return;
 				let value = e.detail.value;
 				if (this.layer == 1) {
 					this.layer__one(value)

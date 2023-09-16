@@ -102,7 +102,7 @@
                         "float": "right",
                         "fontSize": "24px",
                         "fontSrc": "/static/fonts/iconfont.ttf", // 也可以使用字体icon uni-app
-                        "text": "\ue8aa",
+                        "text": "\ue704",
                         "width": "auto"
                     }]
                 }

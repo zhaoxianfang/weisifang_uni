@@ -324,7 +324,9 @@
 		},
 		mounted() {
 			this.$nextTick(() => {
-				this.focused = this.focus
+				setTimeout(() => {
+					this.focused = this.focus
+				}, 300)
 			})
 		},
 		methods: {

@@ -199,4 +199,9 @@
 	.tui-text__right {
 		justify-content: flex-end;
 	}
+	/* #ifndef APP-NVUE */
+	.tui-text__content{
+		word-break: break-all;
+	}
+	/* #endif */
 </style>

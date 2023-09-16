@@ -34,8 +34,8 @@ const propsConfig = {
 	tuiListCell: {
 		arrowColor: '#c0c0c0',
 		lineColor: '#eaeef1',
-		lineLeft: 30,
-		padding: '26rpx 30rpx',
+		lineLeft: 44,
+		padding: '26rpx 44rpx',
 		color: '#333',
 		size: 28
 	},

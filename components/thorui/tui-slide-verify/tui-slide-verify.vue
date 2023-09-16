@@ -12,7 +12,7 @@
 			:style="{width:slideBlockWidth+'px',height:slideBlockWidth+'px',borderColor:isPass?getActiveBorderColor: borderColor}"
 			:change:prop="parse.slidereset" :prop="reset" :data-slideBarWidth="slideBarWidth"
 			:data-slideBlockWidth="slideBlockWidth" :data-errorRange="errorRange" :data-disabled="disabled"
-			@touchstart="parse.touchstart" @touchmove="parse.touchmove" @touchend="parse.touchend">
+			@touchstart="parse.touchstart" @touchmove="parse.touchmove" @touchend="parse.touchend" @mousedown="parse.mousedown">
 			<text class="tui-slide-icon tui-icon-double_arrow" :style="{fontSize:iconSize+'rpx',color:arrowColor}"
 				v-if="!isPass"></text>
 			<text class="tui-slide-icon tui-icon-check_mark" :style="{fontSize:iconSize+'rpx',color:getCheckColor}"
@@ -225,6 +225,9 @@
 		left: 0;
 		top: 0;
 		transition: border-color 0.08s;
+		/* #ifdef H5 */
+		cursor: pointer;
+		/* #endif */
 	}
 
 	.tui-text-flashover {

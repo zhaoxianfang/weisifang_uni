@@ -31,7 +31,7 @@
 					:style="{ width: sliderHeight + 'px', height: sliderHeight + 'px', background: getBlockBackground }"
 					:change:prop="parse.slidereset" :prop="reset" :data-width="sliderWidth" :data-height="sliderHeight"
 					:data-errorRange="errorRange" :data-angle="angle" :data-disabled="isPass" :data-type="type"
-					@touchstart="parse.touchstart" @touchmove="parse.touchmove" @touchend="parse.touchend">
+					@touchstart="parse.touchstart" @touchmove="parse.touchmove" @touchend="parse.touchend" @mousedown="parse.mousedown">
 					<text class="tui-rotate-icon tui-icon__arrow"
 						:style="{ color: arrowColor, fontSize: arrowSize + 'rpx' }"></text>
 				</view>
@@ -430,6 +430,9 @@
 		align-items: center;
 		justify-content: center;
 		box-sizing: border-box;
+		/* #ifdef H5 */
+		cursor: pointer;
+		/* #endif */
 	}
 
 	.tui-block__trans {

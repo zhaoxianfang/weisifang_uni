@@ -338,16 +338,9 @@
 		},
 		mounted() {
 			this.$nextTick(() => {
-				// #ifdef MP-TOUTIAO
 				setTimeout(() => {
 					this.focused = this.focus
 				}, 300)
-				// #endif
-				// #ifndef MP-TOUTIAO
-				setTimeout(() => {
-					this.focused = this.focus
-				}, 120)
-				// #endif
 			})
 		},
 		methods: {
@@ -363,8 +356,9 @@
 				let value = event.detail.value;
 				if (this.trim) value = this.trimStr(value);
 				this.inputVal = value
-				if (this.modelModifiers.number || this.type === 'digit' || this.type === 'number') {
-					const cVal = Number(value)
+				//数字类型 数值不能超过最大整数安全范围，一但超过则返回字符串
+				const cVal = Number(value)
+				if ((this.modelModifiers.number || this.type === 'digit' || this.type === 'number') && !isNaN(cVal) && Number.isSafeInteger(cVal)) {
 					let eVal = this.type === 'digit' ? value : cVal
 					if (typeof cVal === 'number') {
 						const min = Number(this.min)

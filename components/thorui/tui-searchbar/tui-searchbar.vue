@@ -1,7 +1,9 @@
 <template>
 	<view class="tui-searchbar__box" :style="{ backgroundColor: backgroundColor, padding: padding }">
+		<slot></slot>
 		<view class="tui-search-bar__form" :style="{height: height}">
 			<view class="tui-search-bar__box"
+				:class="{'tui-searchbar__blur':!isFocus && !searchState && showLabel && !disabled}"
 				:style="{ height: height, borderRadius: radius, backgroundColor: inputBgColor }" v-if="showInput">
 				<icon class="tui-icon-search" type="search" :size="searchSize"></icon>
 				<input type="text" class="tui-search-bar__input" :placeholder="placeholder" :value="valueTxt"
@@ -102,8 +104,8 @@
 				default: true
 			}
 		},
-		computed:{
-			getSearchColor(){
+		computed: {
+			getSearchColor() {
 				return this.searchColor || (uni && uni.$tui && uni.$tui.color.primary) || '#5677fc'
 			}
 		},
@@ -145,6 +147,10 @@
 			inputFocus(e) {
 				if (!this.showLabel) {
 					this.searchState = true
+				} else {
+					// #ifdef H5 || MP-ALIPAY
+					this.tapShowInput();
+					// #endif
 				}
 				this.$emit('focus', e.detail);
 			},
@@ -211,7 +217,19 @@
 		z-index: 1;
 		display: flex;
 		align-items: center;
+		/* #ifdef H5 */
+		opacity: 1;
+		/* #endif */
 	}
+
+	/* #ifdef H5 || MP-ALIPAY */
+	.tui-searchbar__blur {
+		position: relative;
+		opacity: 0;
+		z-index: 3;
+	}
+
+	/* #endif */
 
 	.tui-search-bar__box .tui-search-bar__input {
 		padding: 0 16rpx;
@@ -246,6 +264,9 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		/* #ifdef H5 */
+		cursor: pointer;
+		/* #endif */
 	}
 
 	.tui-search-bar__cancel-btn {

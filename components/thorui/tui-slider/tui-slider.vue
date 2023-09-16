@@ -15,7 +15,7 @@
 	 	}" :change:prop="parse.slidevalue" :prop="initValue" :data-blockWidth="blockWidth" :data-width="width"
 			:data-step="step" :data-min="min" :data-max="max" :data-disabled="disabled" :data-value="start"
 			:data-endValue="end" :data-section="section" @touchstart="parse.touchstart" @touchmove="parse.touchmove"
-			@touchend="parse.touchend">
+			@touchend="parse.touchend" @mousedown="parse.mousedown">
 			<slot name="start"></slot>
 			<view v-if="showValue" class="tui-value__box" :class="['tui-value__' + position]"
 				:style="{ backgroundColor: boxColor, padding: padding, color: valueColor, fontSize: valueSize+'rpx', zIndex: zIndex }"
@@ -38,7 +38,7 @@
 	 	}" :change:prop="parse.sectionSlidevalue" :prop="initEndValue" :data-blockWidth="blockWidth" :data-width="width"
 			:data-step="step" :data-min="min" :data-max="max" :data-disabled="disabled" :data-value="start"
 			:data-endValue="end" :data-section="section" @touchstart="parse.sectionTouchstart"
-			@touchmove="parse.sectionTouchmove" @touchend="parse.sectionTouchend">
+			@touchmove="parse.sectionTouchmove" @touchend="parse.sectionTouchend" @mousedown="parse.endMousedown">
 			<slot name="end"></slot>
 			<view v-if="showValue" class="tui-value__box" :class="['tui-value__' + position]"
 				:style="{ backgroundColor: boxColor, padding: padding, color: valueColor, fontSize: valueSize + 'rpx', zIndex: zIndex }"
@@ -50,7 +50,8 @@
 			</view>
 		</view>
 		<view class="tui-section__glided"
-			:style="{ background: getActiveColor, borderTopRightRadius: radius, borderBottomRightRadius: radius }"></view>
+			:style="{ background: getActiveColor, borderTopRightRadius: radius, borderBottomRightRadius: radius }">
+		</view>
 		<!-- #endif -->
 
 		<!-- #ifndef APP-PLUS || MP-WEIXIN || H5 -->
@@ -103,7 +104,7 @@
 				</view>
 			</view>
 		</view>
-		
+
 		<!-- #endif -->
 	</view>
 </template>
@@ -277,10 +278,12 @@
 		mounted() {
 			this.start = this.value || this.min;
 			this.end = this.endValue || this.max;
-			setTimeout(() => {
-				this.initValue = this.value;
-				this.initEndValue = this.endValue || this.max;
-			}, 10)
+			this.$nextTick(() => {
+				setTimeout(() => {
+					this.initValue = this.value;
+					this.initEndValue = this.endValue || this.max;
+				}, 10)
+			})
 		},
 		methods: {
 			getParams(e) {
@@ -385,6 +388,9 @@
 		box-sizing: border-box;
 		left: 0;
 		top: 50%;
+		/* #ifdef H5 */
+		cursor: pointer;
+		/* #endif */
 	}
 
 	.tui-section__block {
@@ -396,6 +402,9 @@
 		box-sizing: border-box;
 		right: 0;
 		top: 50%;
+		/* #ifdef H5 */
+		cursor: pointer;
+		/* #endif */
 	}
 
 	.tui-value__box {
@@ -403,6 +412,7 @@
 		border-radius: 4px;
 		display: flex;
 		align-items: center;
+		white-space: nowrap;
 	}
 
 	.tui-value__top {
@@ -436,11 +446,13 @@
 		border-width: 5px;
 		border-style: solid;
 	}
+
 	.tui-slider__bar-inner {
 		position: relative;
 		z-index: 1;
 		overflow: hidden;
 	}
+
 	.tui-slider__right {
 		z-index: 5 !important;
 	}

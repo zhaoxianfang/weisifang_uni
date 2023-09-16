@@ -1,5 +1,5 @@
 <template>
-	<view class="tui-button__container" :style="{width: width,height: height,margin:margin,borderRadius: radius}"
+	<view class="tui-button__container" :style="{width: getWidth,height: getHeight,margin:margin,borderRadius: getRadius}"
 		@touchstart="handleStart" @touchend="handleClick" @touchcancel="handleEnd">
 		<button class="tui-button" :class="[
 				bold ? 'tui-text__bold' : '',
@@ -14,7 +14,7 @@
 				background: disabled && disabledBackground ? disabledBackground : (plain ? 'transparent' : getBackground),
 				borderWidth:borderWidth,
 				borderColor: borderColor ? borderColor : disabled && disabledBackground ? disabledBackground : (link?'transparent':getBackground),
-				borderRadius: radius,
+				borderRadius: getRadius,
 				fontSize: getSize + 'rpx',
 				color: disabled && disabledBackground ? disabledColor : getColor
 			}" :loading="loading" :form-type="formType" :open-type="openType" :app-parameter="appParameter"
@@ -34,6 +34,9 @@
 		emits: ['click', 'getuserinfo', 'contact', 'getphonenumber', 'error', 'opensetting'],
 		// #ifdef MP-WEIXIN
 		behaviors: ['wx://form-field-button'],
+		// #endif
+		// #ifdef MP-BAIDU || MP-QQ
+		behaviors: ['uni://form-field'],
 		// #endif
 		props: {
 			//按钮背景色
@@ -67,7 +70,7 @@
 				default: '0.5px'
 				// #endif
 				// #ifndef APP-NVUE
-				default: '1rpx'
+				default: '1px'
 				// #endif
 			},
 			borderColor: {
@@ -301,7 +304,7 @@
 
 	.tui-button__active::after {
 		content: ' ';
-		background-color: rgba(0, 0, 0, 0.1);
+		background: var(--tui-button-active, rgba(255, 255, 255, .1));
 		position: absolute;
 		width: 100%;
 		height: 100%;

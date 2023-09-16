@@ -163,9 +163,11 @@
 			this.getVals(val, true)
 		},
 		mounted() {
-			setTimeout(() => {
-				this.initFocus(this.isFocus)
-			}, 300)
+			this.$nextTick(()=>{
+				setTimeout(() => {
+					this.initFocus(this.isFocus)
+				}, 300)
+			})
 		},
 		methods: {
 			initFocus(val) {
