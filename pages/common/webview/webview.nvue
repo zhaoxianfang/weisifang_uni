@@ -11,18 +11,25 @@
                 @tap="back">返回</tui-button>
         </tui-msg>
 
+        <wsf-popup :itemList="itemList" ref="rtBubble" @click="itemClick"></wsf-popup>
+        <!-- <t-rt-popup :itemList="itemList" ref="rtBubble" @click="itemClick"></t-rt-popup> -->
     </view>
 
 </template>
 
 <script>
+    // import tRtPopup from '@/components/views/t-rt-popup/t-rt-popup';
+    import wsfPopup from '@/components/weisifang/wsf-popup/wsf-popup.vue'
     import thorui from "@/components/common/tui-clipboard/tui-clipboard.js"
     import qrCode from '@/libs/weapp-qrcode.js';
     import tui from '@/common/httpRequest'
     let h5WebView = null;
     let showLoading = null;
     export default {
-        components: {},
+        components: {
+            wsfPopup,
+            // tRtPopup
+        },
         data() {
             return {
                 progress: 0, //加载进度
@@ -36,7 +43,24 @@
                 // 错误提示
                 notFound: false,
                 descTips: '请使用微信、QQ或支付宝进行访问', // 拦截提示语
-                open_url: ''
+                open_url: '',
+
+                showPopup: false,
+
+                itemList: [{
+                        title: '首页',
+                        icon: 'home'
+                    },
+                    {
+                        title: '收藏',
+                        icon: 'star'
+                    },
+                    {
+                        title: '分享',
+                        icon: 'partake'
+                    }
+                ],
+                show: false
             }
         },
         onLoad(options) {
@@ -53,7 +77,18 @@
             if (this.notFound) {
                 return false;
             }
-            h5WebView.reload();
+            console.log('onNavigationBarButtonTap', e)
+            // h5WebView.reload();
+            this.$refs.rtBubble.toggle();
+            setTimeout(() => {
+                // this.showPopup = true;
+                // this.itemList = itemList;
+                // this.maskClosable = maskClosable;
+                // this.tips = tips;
+                // this.color = color;
+                // this.size = size;
+                // this.isCancel = isCancel
+            }, 0)
         },
         mounted() {
             this.customInterceptUrl(this.url);
@@ -228,6 +263,15 @@
                 });
                 //发送消息到h5页面; 要求H5页面必须 定义函数 function receiveAppData(data){}
                 h5WebView.sendMessage(JSON.stringify(obj));
+            },
+            onClickPopMenu(e) {
+                console.log(e)
+            },
+            itemClick(e) {
+                console.log(e)
+                let text = ["首页", "收藏", "分享"][e.index];
+                console.log(`您点击了：${text}`)
+                // this.tui.toast(`您点击了：${text}`);
             }
         }
     }
