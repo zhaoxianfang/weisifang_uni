@@ -1,40 +1,44 @@
 <template>
     <view v-if="show">
-        <view class="tui-popup-show tui-z_index"
-            :style="{ width: '300rpx', backgroundColor: '#4c4c4c', borderRadius: '8rpx', color: '#fff', position: 'fixed', left: 'auto', right: '8px', bottom: 'auto', top: 'auto',transform:`translate(0,0)` }">
+        <view @touchmove.stop.prevent="stop" class="tui-popup-show tui-popup-mask " v-if="mask" @tap="toggle">
+        </view>
 
-            <view class="tui-triangle" :style="{
-            		borderWidth: '12rpx',
-            		borderColor: `transparent transparent #4c4c4c transparent`,
-            		left: 'auto',
-            		right: '16px',
-            		top: '-22rpx',
-            		bottom: 'auto'
-            	}"></view>
-
+        <view class="tui-popup-show tui-z_index tui-item-box" :style="{ top: top }">
+            <!-- #ifdef APP-NVUE -->
+            <list>
+                <!-- 注意事项: 不能使用 index 作为 key 的唯一标识 -->
+                <cell v-for="(item, index) in itemList" :key="item.title" class="tui-popup-item"
+                    :class="{ 'tui-start': index === 0, 'tui-last': index === itemList.length - 1 }"
+                    @tap="handleClick(item)">
+                    <!-- <tui-icon :name="item.icon" color="#fff" :size="40" unit="rpx"
+                        v-if="item.icon && !isImage"></tui-icon> -->
+                    <text :style="{ color: '#fff'}">{{item.title}}</text>
+                </cell>
+            </list>
+            <!-- #endif -->
+            <!-- #ifndef APP-NVUE -->
             <view class="tui-popup-item"
                 :class="{ 'tui-start': index === 0, 'tui-last': index === itemList.length - 1 }"
-                hover-class="tui-item-active" :hover-stay-time="150" @tap="handleClick(index)"
-                v-for="(item, index) in itemList" :key="index">
+                @tap="handleClick(item)" v-for="(item, index) in itemList" :key="index">
                 <tui-icon :name="item.icon" color="#fff" :size="40" unit="rpx" v-if="item.icon && !isImage"></tui-icon>
-                <image :src="item.icon" v-if="item.icon && isImage" :style="{width:width,height:height}"></image>
-                <text class="tui-bubble-popup_title">{{ item.title }}</text>
+                <image :src="item.icon" v-if="item.icon && isImage" :style="{width:'40rpx',height:'40rpx'}"></image>
+                <view class="tui-bubble-popup_title" :style="{ color: '#fff'}">
+                    {{ item.title }}
+                </view>
             </view>
+            <!-- #endif -->
+
         </view>
-        <view @touchmove.stop.prevent="stop" class="tui-popup-mask tui-popup-show" style="backgroundColor:transparent"
-            v-if="mask" @tap="handleClose"></view>
+
     </view>
 </template>
 
 <script>
     //右上角气泡弹层
-    // import popup from './popup.vue'
     export default {
         name: 'wsfPopup',
         emits: ['click'],
-        components: {
-            // popup,
-        },
+        components: {},
         props: {
             itemList: {
                 type: Array,
@@ -45,25 +49,10 @@
                     }];
                 }
             },
-            //遮罩背景色
-            maskBgColor: {
-                type: String,
-                default: 'transparent'
-            },
             //图标是否为图片
             isImage: {
                 type: Boolean,
                 default: false
-            },
-            //图标宽度
-            width: {
-                type: String,
-                default: '40rpx'
-            },
-            //图标高度
-            height: {
-                type: String,
-                default: '40rpx'
             },
             //当为自定义header时传值
             top: {
@@ -89,25 +78,17 @@
             };
         },
         methods: {
-            handleClick(index) {
-                console.log(index)
+            handleClick(item) {
                 this.$emit('click', {
-                    index: index
+                    item: item
                 });
                 this.toggle()
             },
             toggle() {
                 this.show = !this.show;
             },
-            handleClose() {
-                this.toggle()
-                // if (!this.show) {
-                //     return;
-                // }
-                // this.$emit('close', {});
-            },
             stop() {
-                return false;
+                return true;
             }
         }
     };
@@ -115,11 +96,13 @@
 
 <style lang="scss" scoped>
     .tui-popup-item {
-        padding: 10rpx 34rpx;
+        padding: 20rpx;
         display: flex;
         align-items: center;
         font-size: 32rpx;
         position: relative;
+        color: #fff;
+        text-align: center;
 
         &::after {
             position: absolute;
@@ -135,6 +118,7 @@
         }
 
         .tui-bubble-popup_title {
+            color: #fff;
             padding-left: $uni-spacing-row-base;
         }
     }
@@ -153,14 +137,21 @@
         }
     }
 
-    .tui-item-active {
-        background-color: #444;
+    .tui-item-box {
+        width: 300rpx;
+        background-color: #4c4c4c;
+        border-radius: 8rpx;
+        color: #fff;
+        position: fixed;
+        /* left: auto; */
+        right: 8px;
+        /* bottom: auto; */
+        top: 10rpx;
+        transform: translate(0, 0)
     }
-</style>
 
-<style scoped>
     .tui-z_index {
-        z-index: 996;
+        z-index: 99996;
     }
 
     .tui-popup-show {
@@ -170,26 +161,18 @@
         /* #endif */
     }
 
-    .tui-triangle {
-        position: absolute;
-        width: 0;
-        height: 0;
-        border-style: solid;
-        z-index: 997;
-    }
-
     .tui-popup-mask {
         position: fixed;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
-        z-index: 995;
+        z-index: 99990;
         /* #ifndef APP-NVUE */
         transition: all 0.3s ease-in-out;
         visibility: hidden;
         /* #endif */
         opacity: 0;
-
+        background-color: transparent;
     }
 </style>

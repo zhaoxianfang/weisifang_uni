@@ -10,22 +10,25 @@ const scanCode = {
             helper.ba.scanner.scan({
                 isContinuous: false
             }, (res) => {
-                if (_this.checkIsOnlineFile(res)) {
-                    console.log('预览文件：' + res);
-                    return _this.previewFileHandle(res)
-                }
-                if (_this.checkIsUrl(res)) {
-                    console.log('打开网页：' + res);
-                    return _this.urlHandle(res)
-                } else {
-                    return _this.textHandle(res)
-                }
+                _this.autoParseUrl(res)
             })
         } else {
             // baScanView 扫码组件板
             uni.navigateTo({
                 url: '/pages/common/ba/baScanView'
             })
+        }
+    },
+    autoParseUrl(url) {
+        if (this.checkIsOnlineFile(url)) {
+            console.log('预览文件：' + url);
+            return this.previewFileHandle(url)
+        }
+        if (this.checkIsUrl(url)) {
+            // console.log('打开网页：' + url);
+            return this.urlHandle(url)
+        } else {
+            return this.textHandle(url)
         }
     },
     // 检查是否为url
@@ -49,8 +52,11 @@ const scanCode = {
             .indexOf(ext.toLowerCase()) !== -1;
         let isPdf = ['pdf', 'pdf?'].indexOf(ext.toLowerCase()) !== -1;
         let isAudio = ['mp3', 'mp3?'].indexOf(ext.toLowerCase()) !== -1; // 音频
+        let isOffice = ['wps', 'doc', 'docx', 'xls', 'xlsx', 'csv', 'ppt', 'pptx', 'txt', 'properties', 'log',
+            'ini', 'lua', 'conf', 'm', 'cpp', 'java', 'h', 'xml', 'html', 'htm', 'php', 'js'
+        ].indexOf(ext.toLowerCase()) !== -1;
 
-        return isImages || isVideo || isPdf || isAudio
+        return isImages || isVideo || isPdf || isAudio || isOffice
     },
     // url 操作
     urlHandle(url) {

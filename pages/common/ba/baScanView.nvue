@@ -107,16 +107,17 @@
             },
             // 处理扫码结果
             handleResult(res) {
+
+                if (scanCode.checkIsUrl(res)) {
+                    console.log('打开网页：' + res);
+                    return scanCode.urlHandle(res)
+                }
                 if (scanCode.checkIsOnlineFile(res)) {
                     console.log('预览文件：' + res);
                     return scanCode.previewFileHandle(res)
                 }
-                if (scanCode.checkIsUrl(res)) {
-                    console.log('打开网页：' + res);
-                    return scanCode.urlHandle(res)
-                } else {
-                    return scanCode.textHandle(res)
-                }
+                return scanCode.textHandle(res)
+
             }
         }
     }

@@ -126,10 +126,14 @@
                             icon: "none",
                             duration: 3000
                         })
-                        console.log('BaShareReceive', args1)
+                        // console.log('BaShareReceive', args1)
                         //跳转并传值到你的业务界面，仅做参考，逻辑根据实际业务即可
-                        uni.navigateTo({
-                            url: '/pages/common/ba/shareReceive?filePath=' + args1.filePath
+                        // uni.navigateTo({
+                        //     url: '/pages/common/ba/shareReceive?filePath=' + args1.filePath
+                        // })
+                        helper.navBtns.handle({
+                            uni_code: 'ba_share_receive',
+                            file_path: args1.filePath
                         })
                     }
                 }

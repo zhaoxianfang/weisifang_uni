@@ -11,14 +11,12 @@
                 @tap="back">返回</tui-button>
         </tui-msg>
 
-        <wsf-popup :itemList="itemList" ref="rtBubble" @click="itemClick"></wsf-popup>
-        <!-- <t-rt-popup :itemList="itemList" ref="rtBubble" @click="itemClick"></t-rt-popup> -->
+        <wsf-popup :itemList="itemList" ref="wsfPopup" @click="onClickPopupMenu"></wsf-popup>
     </view>
 
 </template>
 
 <script>
-    // import tRtPopup from '@/components/views/t-rt-popup/t-rt-popup';
     import wsfPopup from '@/components/weisifang/wsf-popup/wsf-popup.vue'
     import thorui from "@/components/common/tui-clipboard/tui-clipboard.js"
     import qrCode from '@/libs/weapp-qrcode.js';
@@ -27,8 +25,7 @@
     let showLoading = null;
     export default {
         components: {
-            wsfPopup,
-            // tRtPopup
+            wsfPopup
         },
         data() {
             return {
@@ -48,18 +45,27 @@
                 showPopup: false,
 
                 itemList: [{
-                        title: '首页',
-                        icon: 'home'
+                        title: '复制地址',
+                        icon: 'circle-selected',
+                        type: 'copy'
                     },
                     {
-                        title: '收藏',
-                        icon: 'star'
+                        title: '刷新页面',
+                        icon: 'refresh',
+                        type: 'refresh'
                     },
                     {
-                        title: '分享',
-                        icon: 'partake'
+                        title: '返回上页',
+                        icon: 'back',
+                        type: 'h5_back'
+                    },
+                    {
+                        title: '退出页面',
+                        icon: 'close',
+                        type: 'close'
                     }
                 ],
+                currentUrl: '', // h5页面跳转的最新url
                 show: false
             }
         },
@@ -77,18 +83,9 @@
             if (this.notFound) {
                 return false;
             }
-            console.log('onNavigationBarButtonTap', e)
             // h5WebView.reload();
-            this.$refs.rtBubble.toggle();
-            setTimeout(() => {
-                // this.showPopup = true;
-                // this.itemList = itemList;
-                // this.maskClosable = maskClosable;
-                // this.tips = tips;
-                // this.color = color;
-                // this.size = size;
-                // this.isCancel = isCancel
-            }, 0)
+            this.$refs.wsfPopup.toggle();
+
         },
         mounted() {
             this.customInterceptUrl(this.url);
@@ -112,6 +109,7 @@
             },
             // 自定义拦截url,和组件无关,被拦截的返回 true 否则返回 false
             customInterceptUrl(open_url = '') {
+                this.currentUrl = open_url // 最新的url
                 if (open_url == '' || open_url == undefined) {
                     return true;
                 }
@@ -228,11 +226,11 @@
                 switch (uni.getSystemInfoSync().platform) {
                     case 'android':
                         console.log('运行Android上')
-                        h5WebView.setUserAgent("hhhhh1asasasas_android");
+                        h5WebView.setUserAgent("wsf_android");
                         break;
                     case 'ios':
                         console.log('运行iOS上')
-                        h5WebView.setUserAgent("hhhhh1asasasas_ios");
+                        h5WebView.setUserAgent("wsf_ios");
                         break;
                     default:
                         console.log('运行在开发者工具上')
@@ -264,14 +262,28 @@
                 //发送消息到h5页面; 要求H5页面必须 定义函数 function receiveAppData(data){}
                 h5WebView.sendMessage(JSON.stringify(obj));
             },
-            onClickPopMenu(e) {
-                console.log(e)
-            },
-            itemClick(e) {
-                console.log(e)
-                let text = ["首页", "收藏", "分享"][e.index];
-                console.log(`您点击了：${text}`)
-                // this.tui.toast(`您点击了：${text}`);
+            onClickPopupMenu(e) {
+                if (e.item.type === 'refresh') {
+                    console.log(this.url, this.currentUrl)
+                    h5WebView.reload();
+                }
+                if (e.item.type === 'copy') {
+                    thorui.getClipboardData(this.currentUrl, (res) => {
+                        // #ifdef H5 || MP-ALIPAY
+                        if (res) {
+                            tui.toast("链接复制成功")
+                        } else {
+                            tui.toast("链接复制失败")
+                        }
+                        // #endif
+                    })
+                }
+                if (e.item.type === 'close') {
+                    this.back();
+                }
+                if (e.item.type === 'h5_back') {
+                    this.goH5Back();
+                }
             }
         }
     }

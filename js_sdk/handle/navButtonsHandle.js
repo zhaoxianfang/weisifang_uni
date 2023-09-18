@@ -16,6 +16,9 @@ const navButtonsHandle = {
             case 'webview_menu': // webview 顶部菜单
                 // 
                 break;
+            case 'ba_share_receive': // ba 分享/打开文件
+                event = helper.scanCode.autoParseUrl(e.file_path)
+                break;
             default:
                 break;
         }
