@@ -9,7 +9,7 @@ export function checkUpdate(update_info, type = 0) {
             // console.log('当前版本', inf.version);
             // console.log('最新版本', update_info.version);
             let need_update = await compareVersion(inf.version, update_info
-            .version); // 检查是否需要升级（对比版本号）
+                .version); // 检查是否需要升级（对比版本号）
             if (!need_update) {
                 // return reolve({
                 // 	msg: "已经是最新版本了"
@@ -44,7 +44,6 @@ export function checkUpdate(update_info, type = 0) {
                     msg: ''
                 })
             }
-
             //弹出更新
             uni.navigateTo({
                 url: "/components/app-upgrade/views/app-upgrade?updata_info=" + JSON

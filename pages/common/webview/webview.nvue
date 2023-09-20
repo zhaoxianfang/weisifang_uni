@@ -46,7 +46,7 @@
 
                 itemList: [{
                         title: '复制地址',
-                        icon: 'circle-selected',
+                        icon: 'link',
                         type: 'copy'
                     },
                     {
@@ -56,12 +56,12 @@
                     },
                     {
                         title: '返回上页',
-                        icon: 'back',
+                        icon: 'towardsleft',
                         type: 'h5_back'
                     },
                     {
                         title: '退出页面',
-                        icon: 'close',
+                        icon: 'shut',
                         type: 'close'
                     }
                 ],

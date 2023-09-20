@@ -159,6 +159,17 @@
             }
         }
     }, {
+        "path": "components/app-upgrade/views/app-upgrade", //第2步新建的app-uodate.vue文件
+        "style": {
+            "navigationBarTitleText": "应用更新",
+            "navigationStyle": "custom",
+            "app-plus": {
+                "background": "transparent",
+                "webviewBGTransparent": true, //webview的背景是否透明//配合background属性防止跳转闪白
+                "popGesture": "none" //禁止侧滑关闭（ios）
+            }
+        }
+    }, {
         "path": "pages/common/test/test",
         "style": {
             "navigationBarTitleText": "功能测试",

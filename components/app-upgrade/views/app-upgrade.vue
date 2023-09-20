@@ -7,7 +7,7 @@
                         <view class="update-wrap">
                             <image src="../images/up1.png" class="top-img"></image>
                             <view class="content">
-                                <text class="title">发现新版本V{{update_info.version}}</text>
+                                <text class="title">发现新版本 V{{update_info.version}}</text>
                                 <!-- 升级描述 -->
                                 <view class="content-sub" v-html="update_info.note"></view>
                                 <!-- 升级按钮 -->
@@ -242,20 +242,24 @@
         display: flex;
         flex-direction: column;
         background-color: #ffffff;
+        // background-color: rgba(#000000, 0);
         padding: 170rpx 30rpx 0;
 
         .top-img {
             position: absolute;
             left: 0;
             width: 100%;
-            height: 256rpx;
-            top: -128rpx;
+            // height: 256rpx;
+            height: 100%;
+            top: -270rpx;
+            background-color: rgba(#000000, 0);
         }
 
         .content {
             display: flex;
             flex-direction: column;
             align-items: center;
+            background-color: #ffffff;
             padding-bottom: 40rpx;
 
             .title {

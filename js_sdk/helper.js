@@ -124,8 +124,9 @@ const helper = {
         let platform = plus.os.name.toLocaleLowerCase();
         plus.runtime.getProperty(plus.runtime.appid, widgetInfo => {
             api.app.app_latest_version({
-                    platform: platform,
-                    version: widgetInfo.version //资源版本号
+                    platform: platform, // 操作系统：（android || ios)
+                    version: widgetInfo.version, //资源版本号 1.0.0
+                    version_value: widgetInfo.versionCode, //资源版本号 100
                 })
                 .then(res => {
                     if (res.code === 200 && res.data && res.data.latest && res.data.latest.url) {
@@ -136,12 +137,11 @@ const helper = {
                             }
                         })
                     } else {
-                        console.log('获取app/version:失败');
-
+                        // console.log('app version:无需更新');
                     }
                 })
                 .catch(e => {
-                    console.log('出错啦', e);
+                    console.log('检查更新出错啦', e);
                 });
         });
         // #endif

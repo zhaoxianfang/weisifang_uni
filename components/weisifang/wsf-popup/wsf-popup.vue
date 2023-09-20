@@ -3,16 +3,17 @@
         <view @touchmove.stop.prevent="stop" class="tui-popup-show tui-popup-mask " v-if="mask" @tap="toggle">
         </view>
 
-        <view class="tui-popup-show tui-z_index tui-item-box" :style="{ top: top }">
+        <view class="tui-popup-show tui-z_index tui-item-box"
+            :style="{ left: left, right: right, bottom: bottom, top: top,position: position }">
             <!-- #ifdef APP-NVUE -->
             <list>
                 <!-- 注意事项: 不能使用 index 作为 key 的唯一标识 -->
                 <cell v-for="(item, index) in itemList" :key="item.title" class="tui-popup-item"
                     :class="{ 'tui-start': index === 0, 'tui-last': index === itemList.length - 1 }"
                     @tap="handleClick(item)">
-                    <!-- <tui-icon :name="item.icon" color="#fff" :size="40" unit="rpx"
-                        v-if="item.icon && !isImage"></tui-icon> -->
-                    <text :style="{ color: '#fff'}">{{item.title}}</text>
+                    <tui-icon class="nvue-item-icon" :name="item.icon" color="#fff" :size="45" unit="rpx"
+                        v-if="item.icon && !isImage"></tui-icon>
+                    <text class="nvue-item-text" :style="{ color: '#fff'}">{{item.title}}</text>
                 </cell>
             </list>
             <!-- #endif -->
@@ -45,7 +46,8 @@
                 default: () => {
                     return [{
                         title: '关闭',
-                        icon: 'close'
+                        icon: 'shut',
+                        type: 'close'
                     }];
                 }
             },
@@ -58,6 +60,22 @@
             top: {
                 type: String,
                 default: '12rpx'
+            },
+            right: {
+                type: String,
+                default: '12rpx'
+            },
+            left: {
+                type: String,
+                default: 'auto'
+            },
+            bottom: {
+                type: String,
+                default: 'auto'
+            },
+            position: {
+                type: String,
+                default: 'fixed'
             }
 
         },
@@ -96,13 +114,16 @@
 
 <style lang="scss" scoped>
     .tui-popup-item {
-        padding: 20rpx;
+        padding: 10rpx 20rpx;
         display: flex;
         align-items: center;
         font-size: 32rpx;
         position: relative;
         color: #fff;
         text-align: center;
+
+        flex-direction: row;
+        border-bottom: #666 solid 1rpx;
 
         &::after {
             position: absolute;
@@ -142,11 +163,6 @@
         background-color: #4c4c4c;
         border-radius: 8rpx;
         color: #fff;
-        position: fixed;
-        /* left: auto; */
-        right: 8px;
-        /* bottom: auto; */
-        top: 10rpx;
         transform: translate(0, 0)
     }
 
@@ -174,5 +190,17 @@
         /* #endif */
         opacity: 0;
         background-color: transparent;
+    }
+
+    .nvue-item-icon {
+        width: 55rpx;
+        height: 55rpx;
+    }
+
+    .nvue-item-text {
+        height: 55rpx;
+        flex: 1;
+        color: #fff;
+        padding-left: 8rpx;
     }
 </style>
