@@ -59,7 +59,7 @@
             //当为自定义header时传值
             top: {
                 type: String,
-                default: '12rpx'
+                default: '2rpx'
             },
             right: {
                 type: String,
@@ -114,7 +114,12 @@
 
 <style lang="scss" scoped>
     .tui-popup-item {
+        /* #ifdef APP-NVUE */
         padding: 10rpx 20rpx;
+        /* #endif */
+        /* #ifndef APP-NVUE */
+        padding: 30rpx;
+        /* #endif */
         display: flex;
         align-items: center;
         font-size: 32rpx;
@@ -123,7 +128,9 @@
         text-align: center;
 
         flex-direction: row;
+        /* #ifdef APP-NVUE */
         border-bottom: #666 solid 1rpx;
+        /* #endif */
 
         &::after {
             position: absolute;
@@ -172,9 +179,6 @@
 
     .tui-popup-show {
         opacity: 1;
-        /* #ifndef APP-NVUE */
-        visibility: visible;
-        /* #endif */
     }
 
     .tui-popup-mask {
@@ -186,7 +190,6 @@
         z-index: 99990;
         /* #ifndef APP-NVUE */
         transition: all 0.3s ease-in-out;
-        visibility: hidden;
         /* #endif */
         opacity: 0;
         background-color: transparent;

@@ -57,13 +57,7 @@ const helper = {
         // 悬浮窗-订单统计 Ba-FloatWinStat
         var globalEvent = uni.requireNativePlugin('globalEvent');
         globalEvent.addEventListener('baFloatWinStat', function(e) {
-            console.log('baFloatWinStat：' + JSON.stringify(e));
-            //处理点击事件
-            uni.showToast({
-                title: '点击了订单统计',
-                icon: "none",
-                duration: 3000
-            })
+            ba.floatWinStat.onClick(e)
         });
 
 
@@ -138,10 +132,24 @@ const helper = {
                         })
                     } else {
                         // console.log('app version:无需更新');
+                        type > 0 && uni.showToast({
+                            // #ifndef MP-ALIPAY
+                            duration: 2000,
+                            // #endif
+                            title: "暂无新版本",
+                            icon: 'none'
+                        })
                     }
                 })
                 .catch(e => {
                     console.log('检查更新出错啦', e);
+                    type > 0 && uni.showToast({
+                        // #ifndef MP-ALIPAY
+                        duration: 2000,
+                        // #endif
+                        title: "暂无新版本",
+                        icon: 'none'
+                    })
                 });
         });
         // #endif

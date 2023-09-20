@@ -22,7 +22,8 @@
         <view class="tui-mybg-box">
             <image src="/static/images/my/mine_bg_3x.png" class="tui-my-bg" mode="widthFix"></image>
             <view class="tui-header-center">
-                <image :src="user.userinfo.cover" class="tui-avatar" @tap="href(3)"></image>
+                <image :src="user.userinfo.cover || '/static/images/my/def_user.png'" class="tui-avatar" @tap="href(3)">
+                </image>
                 <view class="tui-info">
                     <view class="tui-nickname">
                         {{user.userinfo.nickname || '请登录'}}
@@ -32,8 +33,10 @@
                 </view>
                 <!-- #ifndef MP -->
                 <view class="tui-btn-edit">
-                    <tui-button type="white" :plain="true" shape="circle" width="92rpx" height="40rpx" :size="22"
-                        @click="href('mini')">个人信息</tui-button>
+                    <tui-button type="white" plain shape="circle" width="125rpx" height="55rpx" :size="22"
+                        @click="href('mini')">
+                        <view style="color: #fff;">个人信息</view>
+                    </tui-button>
                 </view>
                 <!-- #endif -->
                 <!-- #ifdef MP -->
@@ -134,13 +137,6 @@
                         <view class="tui-right"></view>
                     </view>
                 </tui-list-cell>
-                <tui-list-cell @click="toLogs" :arrow="true" last="true">
-                    <view class="tui-item-box">
-                        <tui-icon name="about" :size="23" color="#afadb2"></tui-icon>
-                        <text class="tui-list-cell_name">版本号</text>
-                        <view class="tui-right">{{version}}</view>
-                    </view>
-                </tui-list-cell>
             </tui-list-view>
 
             <!--为你推荐-->
@@ -182,25 +178,20 @@
                 webURL: '',
                 top: 0, //标题图标距离顶部距离
                 opacity: 0,
-                scrollTop: 0.5,
-                version: '1.0.0'
+                scrollTop: 0.5
             };
         },
         created() {
-            console.log(this.user.userinfo)
-            // 获取本地应用资源版本号
-            plus.runtime.getProperty(plus.runtime.appid, (info) => {
-                this.version = info.version;
-            })
+            // console.log(this.user.userinfo)
+        },
+        onShow() {
+            // console.log(this.user, this.user.userinfo)
         },
         methods: {
             scanCode(e) {
                 this.helper.navBtns.handle({
                     'uni_code': 'scan'
                 })
-            },
-            toLogs(e) {
-                this.tui.href('/pages/common/log/log');
             },
             href(type) {
                 let url = '';

@@ -1,5 +1,6 @@
 <template>
     <view class="container">
+        <wsf-popup :itemList="menuList" ref="wsfPopup" @click="onClickPopupMenu"></wsf-popup>
         <wsf-tabs-swiper :tabs="tabs" @loadMore="loadList" :list="items">
             <template v-slot:tab="{ tab }">
                 <view class="" style="height: 60px;background-color: #fff;margin: 10rpx;">接收激活的tab
@@ -20,45 +21,34 @@
     export default {
         data() {
             return {
+                menuList: [{
+                    title: '扫一扫',
+                    icon: 'sweep',
+                    type: 'scan'
+                }, {
+                    title: '订阅栏目',
+                    icon: 'listview',
+                    type: 'subscribe_column'
+                }],
                 tabs: [{
                         id: 1,
-                        title: '栏目一'
+                        title: '热门'
                     },
                     {
                         id: 2,
-                        title: '栏目二'
+                        title: '娱乐'
                     },
                     {
                         id: 3,
-                        title: '栏目三'
+                        title: '教育'
                     },
                     {
                         id: 4,
-                        title: '栏目四'
+                        title: '新闻'
                     },
                     {
                         id: 5,
-                        title: '栏目五'
-                    },
-                    {
-                        id: 6,
-                        title: '栏目六'
-                    },
-                    {
-                        id: 7,
-                        title: '栏目七'
-                    },
-                    {
-                        id: 8,
-                        title: '栏目八'
-                    },
-                    {
-                        id: 9,
-                        title: '栏目九'
-                    },
-                    {
-                        id: 10,
-                        title: '栏目十'
+                        title: '电影'
                     }
                 ],
                 // 当前激活的tab 数据
@@ -68,9 +58,19 @@
 
         onLoad() {},
         onNavigationBarButtonTap(e) {
-            this.helper.navBtns.handle(e)
+            this.$refs.wsfPopup.toggle();
         },
         methods: {
+            onClickPopupMenu(e) {
+                if (e.item.type === 'scan') {
+                    console.log('扫一扫')
+                    this.helper.scanCode.scan()
+                }
+                if (e.item.type === 'subscribe_column') {
+                    console.log('订阅栏目')
+                }
+
+            },
             loadList(obj) {
                 // console.log('需要加载数据：', obj)
 

@@ -11,12 +11,12 @@
                 // #ifdef APP-PLUS
                 "titleNView": {
                     "buttons": [{
-                        "id": "1",
-                        "uni_code": "scan",
+                        "id": "home",
+                        "uni_code": "home_menu",
                         "float": "right",
-                        "fontSize": "26px",
-                        "fontSrc": "/static/fonts/iconfont.ttf", // 也可以使用字体icon
-                        "text": "\ue61c",
+                        "fontSize": "24px",
+                        "fontSrc": "/static/fonts/iconfont.ttf", // 也可以使用字体icon uni-app
+                        "text": "\ue704",
                         "width": "auto"
                     }]
                 }
@@ -31,7 +31,18 @@
             // #endif
             "navigationBarTitleText": "应用",
             "app-plus": {
-                "bounce": "vertical"
+                "bounce": "vertical",
+                "titleNView": {
+                    "buttons": [{
+                        "id": "work",
+                        "uni_code": "work_menu",
+                        "float": "right",
+                        "fontSize": "24px",
+                        "fontSrc": "/static/fonts/iconfont.ttf", // 也可以使用字体icon uni-app
+                        "text": "\ue704",
+                        "width": "auto"
+                    }]
+                }
             }
         }
     }, {
@@ -168,6 +179,24 @@
                 "webviewBGTransparent": true, //webview的背景是否透明//配合background属性防止跳转闪白
                 "popGesture": "none" //禁止侧滑关闭（ios）
             }
+        }
+    }, {
+        "path": "pages/common/doc/protocol",
+        "style": {
+            "navigationBarTitleText": "用户协议",
+            "enablePullDownRefresh": false
+        }
+    }, {
+        "path": "pages/common/doc/about",
+        "style": {
+            "navigationBarTitleText": "关于我们",
+            "enablePullDownRefresh": false
+        }
+    }, {
+        "path": "pages/common/setting/setting",
+        "style": {
+            "navigationBarTitleText": "应用设置",
+            "enablePullDownRefresh": false
         }
     }, {
         "path": "pages/common/test/test",

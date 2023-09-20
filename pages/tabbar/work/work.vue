@@ -18,6 +18,7 @@
                 </tui-grid-item>
             </block>
         </tui-grid>
+        <wsf-popup :itemList="menuList" ref="wsfPopup" @click="onClickPopupMenu"></wsf-popup>
     </view>
 </template>
 
@@ -34,6 +35,11 @@
             return {
                 baSelectedList: [], // ba 图片文件选择返回值
                 gridColumn: 2,
+                menuList: [{
+                    title: '扫一扫',
+                    icon: 'sweep',
+                    type: 'scan'
+                }],
                 dataList: [{
                         name: 'picture',
                         label: '相册',
@@ -144,7 +150,17 @@
         onHide: function() {
             // uni.hideTabBar()
         },
+        onNavigationBarButtonTap(e) {
+            this.$refs.wsfPopup.toggle();
+        },
         methods: {
+            onClickPopupMenu(e) {
+                if (e.item.type === 'scan') {
+                    console.log('扫一扫')
+                    this.helper.scanCode.scan()
+                }
+            },
+
             jump_page: function(e) {
                 // (1)uni.navigateTo(OBJECT) 保留当前页面，跳转到应用内的某个页面
                 // (2)uni.redirectTo(OBJECT) 关闭当前页面，跳转到应用内的某个页面

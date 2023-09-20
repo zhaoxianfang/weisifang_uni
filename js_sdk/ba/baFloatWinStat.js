@@ -8,6 +8,7 @@ import helper from '@/js_sdk/helper.js'
 // #endif
 
 const baFloatWinStat = {
+    timer: false, // 是否更新
     data: {
         text1: "Text1",
         text2: "Text2",
@@ -16,7 +17,7 @@ const baFloatWinStat = {
         num1: 'Num1',
         num2: 'Num2',
         num3: 'Num3',
-        switchChecked: false,
+        switchChecked: true,
         isToast: false
     },
     setData(obj) {
@@ -26,10 +27,10 @@ const baFloatWinStat = {
         }
     },
     showFW(timer = false) { //显示
-        var _this = this
+        this.timer = timer;
+        var _this = this;
         floatWin.show(this.data, (res) => {
-            console.log(res);
-            _this.updateFW(timer)
+            _this.updateFW(_this.timer)
         });
     },
     updateFW(timer = false) { //更新数据
@@ -48,15 +49,15 @@ const baFloatWinStat = {
         })
 
         floatWin.update(this.data, (res) => {
-            console.log(res);
-            timer && setTimeout(function() {
-                _this.updateFW(timer)
+            _this.timer && setTimeout(function() {
+                _this.updateFW(_this.timer)
             }, 1000);
         });
     },
     hideFW() { //隐藏
+        var _this = this
         floatWin.hide((res) => {
-            console.log(res);
+            _this.timer = false
             uni.showToast({
                 title: res.msg,
                 icon: "none",
@@ -64,5 +65,14 @@ const baFloatWinStat = {
             })
         });
     },
+    onClick(e) {
+        if (e.tag === 'switch_off') {
+            this.hideFW()
+        }
+        if (e.tag === 'switch_on') {
+            this.hideFW()
+        }
+
+    }
 }
 export default baFloatWinStat

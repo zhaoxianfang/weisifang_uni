@@ -1,8 +1,9 @@
 <template>
     <view>
         <view class="wrap">
-            <v-tabs fixed v-model="tabIndex" :tabs="topTabs" lineHeight="6rpx" :lineScale="0.7" @change="tabChange"
-                height="70rpx" fontSize="32rpx" padding="4rpx"></v-tabs>
+            <v-tabs fixed class="nav_tabs" :scroll="topTabs.length>5" v-model="tabIndex" :tabs="topTabs"
+                lineHeight="6rpx" :lineScale="0.7" @change="tabChange" height="70rpx" fontSize="32rpx"
+                padding="4rpx"></v-tabs>
 
             <swiper class="swiper-box" :current="tabIndex" @change="swiperChange" :duration="300"
                 @transition="transition" @animationfinish="animationfinish">
@@ -65,6 +66,10 @@
         watch: {
             list(val) {
                 this.addData(val)
+            },
+            tabs(val) {
+                this.initTabs()
+                this.initSwiper()
             }
         },
         data() {
@@ -396,5 +401,9 @@
 
     .swiper-item {
         height: 100%;
+    }
+
+    .nav_tabs {
+        border-bottom: 1rpx solid #e5e5e5;
     }
 </style>

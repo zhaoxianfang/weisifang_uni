@@ -101,8 +101,8 @@ const user = {
             commit,
             state
         }) {
-            console.log('退出')
             commit('LOGOUT', true)
+            tui.toLogin()
         },
         /**
          * 获取用户权限
@@ -136,16 +136,7 @@ const user = {
                     reject(error)
                 })
             })
-        },
-
-        // 退出
-        Logout({
-            commit,
-            state
-        }) {
-
         }
-
     }
 }
 
