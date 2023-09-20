@@ -148,23 +148,17 @@
             }
         }
     }, {
-        "path": "pages/common/update/update",
+        "path": "pages/common/doc/log",
         "style": {
-            "backgroundColorTop": "#fff",
-            "backgroundColorBottom": "#fff",
+            "navigationBarTitleText": "更新日志",
             "app-plus": {
-                "navigationBarTitleText": "",
-                // #ifndef MP
-                "titleNView": false,
-                // #endif
-                "scrollIndicator": "none",
-                "popGesture": "none"
+                "bounce": "vertical"
             }
         }
     }, {
-        "path": "pages/common/log/log",
+        "path": "pages/common/contactUs/contactUs",
         "style": {
-            "navigationBarTitleText": "更新日志",
+            "navigationBarTitleText": "联系我们",
             "app-plus": {
                 "bounce": "vertical"
             }

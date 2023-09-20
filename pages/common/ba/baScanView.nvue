@@ -1,8 +1,8 @@
 <template>
     <view class="container">
         <view class="scan-box">
-            <Ba-ScanViewS ref="scanViewS" style="height: 200;width: 100%;" :load="loadData" @onScan="onScan">
-            </Ba-ScanViewS>
+            <Ba-ScanViewS ref="scanViewS" style="height: 300;width: 100%;" :load="loadData"
+                @onScan="onScan"></Ba-ScanViewS>
             <view class="scan-tools">
                 <view class="scan-btn" @click="openScanLight" v-if="!is_light_on">
                     <image class="icon-img" src="@/static/icon_imgs/torch_off.png"></image>
@@ -17,7 +17,7 @@
             </view>
         </view>
         <view class="content">
-            <view class="msg" v-for="(item,index) in msgList" :key="index">{{item}}</view>
+            <view class="item-msg" v-for="(item,index) in msgList" :key="index">{{item}}</view>
         </view>
     </view>
 </template>
@@ -35,7 +35,7 @@
                     isShowVibrate: true, //扫描完成震动
                     isShowBeep: true, // 扫描完成声音
                     scanTimeSpace: 1000, //	连续扫描时间间隔，单位毫秒，默认 1000
-                    isShowToast: true, //扫码成功是否 toast 提示，默认 true
+                    isShowToast: false, //扫码成功是否 toast 提示，默认 true
                     //barcodeFormats	Array, // 设置扫码格式，支持多个，默认所有。如：["QR Code", "Code 128"]
                     scanColor: "#22ac38", //扫描线的颜色
                     isDirScanMulti: false, // 是否直接返回多码，默认fasle（弹窗多码标识，用户自己选择）
@@ -58,13 +58,11 @@
         },
         methods: {
             onScan(e) { //扫码监听
-                console.log("onScan：", e);
-                uni.showToast({
-                    title: e.detail.result,
-                    icon: 'none'
-                })
-                this.msgList.unshift(JSON.stringify(e.detail))
-
+                // uni.showToast({
+                //     title: e.detail.result,
+                //     icon: 'none'
+                // })
+                this.msgList.unshift(JSON.stringify(e.detail.result))
                 this.handleResult(e.detail.result);
             },
             openScanLight() { //打开闪光灯
@@ -107,17 +105,7 @@
             },
             // 处理扫码结果
             handleResult(res) {
-
-                if (scanCode.checkIsUrl(res)) {
-                    console.log('打开网页：' + res);
-                    return scanCode.urlHandle(res)
-                }
-                if (scanCode.checkIsOnlineFile(res)) {
-                    console.log('预览文件：' + res);
-                    return scanCode.previewFileHandle(res)
-                }
-                return scanCode.textHandle(res)
-
+                return scanCode.autoParseUrl(res)
             }
         }
     }
@@ -132,11 +120,13 @@
         top: 0;
         left: 0;
         right: 0;
+        // bottom: 0;
+        height: 300;
     }
 
     .scan-tools {
         padding: 20rpx 40rpx;
-        margin-top: -100rpx;
+        margin-top: -120rpx;
         width: 750rpx;
         // height: 200rpx;
         align-items: center;
@@ -145,7 +135,6 @@
         // flex-wrap: row;
         display: flex;
         flex-flow: row wrap;
-
     }
 
     .scan-btn {
@@ -173,11 +162,15 @@
     }
 
     .content {
-        margin-top: 410rpx;
         padding: 6rpx 14rpx;
+        margin-top: 300;
         width: 750rpx;
-        height: 9000rpx;
+        background-color: #f2f2f2;
     }
 
-    .msg {}
+    .item-msg {
+        background-color: #ffffff;
+        margin: 5rpx 8rpx;
+        padding: 6rpx;
+    }
 </style>

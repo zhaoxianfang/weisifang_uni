@@ -223,7 +223,6 @@ const files = {
             isDeleteFile = true
         }
         let os = plus.os.name;
-        console.log(os)
         if ('Android' == os) {
             // Android
             officeViewModule.openFile({

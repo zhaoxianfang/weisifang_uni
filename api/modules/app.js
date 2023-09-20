@@ -7,6 +7,10 @@ var apiList = {
     app_latest_version(data) {
         return fetch.request("app/version", "POST", data)
     },
+    // 联系我们
+    contact_us(data) {
+        return fetch.request("app/contact_us", "POST", data)
+    },
     // 获取app 最新版本
     test_live(data) {
         return fetch.request("app/submit_logs", "POST", data)

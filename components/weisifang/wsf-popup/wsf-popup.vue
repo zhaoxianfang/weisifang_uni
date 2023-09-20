@@ -115,7 +115,7 @@
 <style lang="scss" scoped>
     .tui-popup-item {
         /* #ifdef APP-NVUE */
-        padding: 10rpx 20rpx;
+        padding: 20rpx 20rpx 10rpx 20rpx;
         /* #endif */
         /* #ifndef APP-NVUE */
         padding: 30rpx;
@@ -128,13 +128,11 @@
         text-align: center;
 
         flex-direction: row;
-        /* #ifdef APP-NVUE */
         border-bottom: #666 solid 1rpx;
-        /* #endif */
 
         &::after {
             position: absolute;
-            border-bottom: 1rpx solid #888;
+            // border-bottom: 1rpx solid #888;
             /* #ifndef APP-NVUE */
             content: '';
             -webkit-transform: scaleY(0.5);

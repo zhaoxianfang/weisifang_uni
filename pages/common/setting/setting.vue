@@ -18,13 +18,9 @@
                         <view class="tui-right"></view>
                     </view>
                 </tui-list-cell>
-                <tui-list-cell @click="logs" :arrow="true" last="true">
-                    <view class="tui-item-box">
-                        <tui-icon name="notice" :size="23" color="#afadb2"></tui-icon>
-                        <text class="tui-list-cell_name">更新日志</text>
-                        <view class="tui-right"></view>
-                    </view>
-                </tui-list-cell>
+            </tui-list-view>
+
+            <tui-list-view title="">
                 <tui-list-cell @click="about" :arrow="true" last="true">
                     <view class="tui-item-box">
                         <tui-icon name="about" :size="23" color="#afadb2"></tui-icon>
@@ -35,17 +31,31 @@
                         </view>
                     </view>
                 </tui-list-cell>
-            </tui-list-view>
-
-            <tui-list-view title="">
+                <tui-list-cell @click="logs" :arrow="true" last="true">
+                    <view class="tui-item-box">
+                        <tui-icon name="order" :size="23" color="#afadb2"></tui-icon>
+                        <text class="tui-list-cell_name">更新日志</text>
+                        <view class="tui-right"></view>
+                    </view>
+                </tui-list-cell>
                 <tui-list-cell @click="check_version" :arrow="true" last="true">
                     <view class="tui-item-box">
-                        <tui-icon name="about" :size="23" color="#afadb2"></tui-icon>
+                        <tui-icon name="refresh" :size="23" color="#afadb2"></tui-icon>
                         <text class="tui-list-cell_name">检查更新</text>
                         <view class="tui-right">{{version}}</view>
                     </view>
                 </tui-list-cell>
             </tui-list-view>
+
+            <tui-list-view title="">
+                <tui-list-cell @click="contactUs" :arrow="true">
+                    <view class="tui-item-box">
+                        <tui-icon name="kefu" :size="24" color="#19be6b"></tui-icon>
+                        <text class="tui-list-cell_name">联系我们</text>
+                    </view>
+                </tui-list-cell>
+            </tui-list-view>
+
         </view>
 
         <view class="tui-exit">
@@ -87,7 +97,10 @@
                 this.tui.href('/pages/common/doc/about', false)
             },
             logs(e) {
-                this.tui.href('/pages/common/log/log');
+                this.tui.href('/pages/common/doc/log', false);
+            },
+            contactUs(e) {
+                this.tui.href('/pages/common/contactUs/contactUs', false);
             },
             detail(e) {
                 console.log('detail')

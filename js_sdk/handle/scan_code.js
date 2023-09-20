@@ -21,15 +21,13 @@ const scanCode = {
     },
     autoParseUrl(url) {
         if (this.checkIsOnlineFile(url)) {
-            console.log('预览文件：' + url);
             return this.previewFileHandle(url)
         }
         if (this.checkIsUrl(url)) {
-            // console.log('打开网页：' + url);
             return this.urlHandle(url)
-        } else {
-            return this.textHandle(url)
         }
+        return this.textHandle(url)
+
     },
     // 检查是否为url
     checkIsUrl(str) {
@@ -53,7 +51,7 @@ const scanCode = {
         let isPdf = ['pdf', 'pdf?'].indexOf(ext.toLowerCase()) !== -1;
         let isAudio = ['mp3', 'mp3?'].indexOf(ext.toLowerCase()) !== -1; // 音频
         let isOffice = ['wps', 'doc', 'docx', 'xls', 'xlsx', 'csv', 'ppt', 'pptx', 'txt', 'properties', 'log',
-            'ini', 'lua', 'conf', 'm', 'cpp', 'java', 'h', 'xml', 'html', 'htm', 'php', 'js'
+            'ini', 'lua', 'conf', 'm', 'cpp', 'java', 'h', 'xml', 'html', 'htm'
         ].indexOf(ext.toLowerCase()) !== -1;
 
         return isImages || isVideo || isPdf || isAudio || isOffice

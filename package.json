@@ -1,15 +1,26 @@
 {
-	"uni-app": {
-		"scripts": {
-			"mp-dingtalk": {
-				"title": "钉钉小程序",
-				"env": {
-					"UNI_PLATFORM": "mp-alipay"
-				},
-				"define": {
-					"MP-DINGTALK": true
-				}
-			}
-		}
-	}
+    "id": "weisifang",
+    "name": "威四方",
+    "description": "威四方是一个为个人和企业提供个性化定制和服务的综合性平台",
+    "keywords": [
+        "在线相册",
+        "在线文档",
+        "在线工具",
+        "仓库管理WMS",
+        "客户关系管理CRM",
+        "商家服务"
+    ],
+    "uni-app": {
+        "scripts": {
+            "mp-dingtalk": {
+                "title": "钉钉小程序",
+                "env": {
+                    "UNI_PLATFORM": "mp-alipay"
+                },
+                "define": {
+                    "MP-DINGTALK": true
+                }
+            }
+        }
+    }
 }

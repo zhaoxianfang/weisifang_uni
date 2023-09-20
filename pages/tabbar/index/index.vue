@@ -63,7 +63,6 @@
         methods: {
             onClickPopupMenu(e) {
                 if (e.item.type === 'scan') {
-                    console.log('扫一扫')
                     this.helper.scanCode.scan()
                 }
                 if (e.item.type === 'subscribe_column') {
