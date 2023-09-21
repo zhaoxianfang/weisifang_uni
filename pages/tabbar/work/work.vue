@@ -48,10 +48,17 @@
                         size: 30
                     },
                     {
-                        name: 'shop',
+                        name: 'manage',
                         label: '仓库管理',
                         color: '#8a5966',
                         page: '/pagesA/wms/index/index',
+                        size: 30
+                    },
+                    {
+                        name: 'shop',
+                        label: '商家点单',
+                        color: '#8a5966',
+                        page: '/pagesShop/tabbar/menu?m_id=1',
                         size: 30
                     },
                     {

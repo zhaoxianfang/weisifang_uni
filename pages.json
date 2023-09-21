@@ -206,7 +206,7 @@
         },
         "pages/tabbar/work/work": {
             "network": "all",
-            "packages": ["pagesWork"]
+            "packages": ["pagesWork", "pagesShop"]
         }
     },
     "subPackages": [{
@@ -215,6 +215,66 @@
     }, {
         "root": "pagesWork",
         "pages": []
+    }, {
+        "root": "pagesShop",
+        "pages": [{
+            "path": "tabbar/menu",
+            "style": {
+                // #ifndef MP
+                "titleNView": false,
+                // #endif
+                "navigationStyle": "custom",
+                "navigationBarTitleText": "",
+                "navigationBarTextStyle": "white",
+                "app-plus": {
+                    "bounce": "vertical"
+                },
+                "mp-alipay": {
+                    "transparentTitle": "always",
+                    "titlePenetrate": "YES"
+                }
+            }
+        }, {
+            "path": "orderDetail/orderDetail",
+            "style": {
+                "navigationBarTitleText": "订单详情",
+                "app-plus": {
+                    "bounce": "vertical"
+                }
+            }
+        }, {
+            "path": "submitOrder/submitOrder",
+            "style": {
+                "navigationBarTitleText": "账单结算",
+                "app-plus": {
+                    "bounce": "vertical"
+                }
+            }
+        }, {
+            "path": "address/address",
+            "style": {
+                "navigationBarTitleText": "收货地址",
+                "app-plus": {
+                    "bounce": "vertical"
+                }
+            }
+        }, {
+            "path": "editAddress/editAddress",
+            "style": {
+                "navigationBarTitleText": "编辑地址",
+                "app-plus": {
+                    "bounce": "vertical"
+                }
+            }
+        }, {
+            "path": "verifyLogin/verifyLogin",
+            "style": {
+                "navigationBarTitleText": "登录",
+                "app-plus": {
+                    "bounce": "vertical"
+                }
+            }
+        }]
     }],
     "easycom": {
         "autoscan": true,

@@ -1,0 +1,656 @@
+@font-face {
+    font-family: "iconfont";
+    src: url('@/static/fonts/iconfont.ttf') format('truetype');
+}
+
+.iconfont {
+    font-family: "iconfont" !important;
+    font-size: 16px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.iconshipinjianshi-bofanganniu:before {
+    content: "\e672";
+}
+
+.iconcopy:before {
+    content: "\e706";
+}
+
+.iconimage:before {
+    content: "\e66b";
+}
+
+.iconvideo:before {
+    content: "\e7cc";
+}
+
+.iconmenu:before {
+    content: "\e704";
+}
+
+.iconimage1:before {
+    content: "\e6f5";
+}
+
+.iconimage-copy:before {
+    content: "\e917";
+}
+
+.iconsetting1:before {
+    content: "\e64b";
+}
+
+.iconshare:before {
+    content: "\e63e";
+}
+
+.iconsearch1:before {
+    content: "\e86e";
+}
+
+.iconinfo:before {
+    content: "\e8a5";
+}
+
+.iconerror1:before {
+    content: "\e8a9";
+}
+
+.iconrefresh:before {
+    content: "\e8aa";
+}
+
+.iconsuccess:before {
+    content: "\e8ad";
+}
+
+.iconhome1:before {
+    content: "\e629";
+}
+
+.iconplus-box:before {
+    content: "\e604";
+}
+
+.iconedit:before {
+    content: "\e6ae";
+}
+
+.iconproject:before {
+    content: "\e627";
+}
+
+.iconuser-manager:before {
+    content: "\e60b";
+}
+
+.iconIcon_scan:before {
+    content: "\e61c";
+}
+
+.iconwendang:before {
+    content: "\e663";
+}
+
+.iconuploading:before {
+    content: "\e626";
+}
+
+.iconshanchu:before {
+    content: "\e8b6";
+}
+
+.icon01zhushuju_zhongduanxinxi:before {
+    content: "\e60e";
+}
+
+.icon01zhushuju_jiaoseguanli:before {
+    content: "\e610";
+}
+
+.icon01zhushuju_wuliaoguanli:before {
+    content: "\e611";
+}
+
+.icon00CRM_DMS:before {
+    content: "\e612";
+}
+
+.icon00CRM_xitongshezhi:before {
+    content: "\e614";
+}
+
+.icon00CRM_SFA:before {
+    content: "\e616";
+}
+
+.icon02TPM_hexiaoshenqing:before {
+    content: "\e617";
+}
+
+.icon02TPM_bumenfeiyong:before {
+    content: "\e618";
+}
+
+.icon02TPM_feiyongshangzhang:before {
+    content: "\e619";
+}
+
+.icon02TPM_huodongyufu-huodong:before {
+    content: "\e61a";
+}
+
+.icon03DMS_kehuhudong:before {
+    content: "\e61b";
+}
+
+.icon04SFA_linshirenwu:before {
+    content: "\e61d";
+}
+
+.icon04SFA_shangpinxinxichaxun:before {
+    content: "\e61e";
+}
+
+.icon04SFA_chanpinbiaozhunqudaoshoujia:before {
+    content: "\e61f";
+}
+
+.icon04SFA_zhongduanguanli:before {
+    content: "\e620";
+}
+
+.icon04SFA_qingjiashenqingmingxibaobiao:before {
+    content: "\e621";
+}
+
+.icon04SFA_baifangjihuamingxi:before {
+    content: "\e622";
+}
+
+.icon04SFA_baifangguanli:before {
+    content: "\e623";
+}
+
+.icon04SFA_gongzuoritiaozhenghuizongbaobiao:before {
+    content: "\e624";
+}
+
+.icon04SFA_gongzuozongjiechaxun-01:before {
+    content: "\e625";
+}
+
+.icongonghaichi:before {
+    content: "\e697";
+}
+
+.iconhuokefenxiang:before {
+    content: "\e699";
+}
+
+.iconjiedan:before {
+    content: "\e69a";
+}
+
+.iconzhaopianshu:before {
+    content: "\e613";
+}
+
+.iconchakanzhaopian:before {
+    content: "\e615";
+}
+
+.iconjilu:before {
+    content: "\e644";
+}
+
+.iconcangku:before {
+    content: "\e641";
+}
+
+.iconshouye:before {
+    content: "\e60c";
+}
+
+.iconshouye1:before {
+    content: "\e62e";
+}
+
+.iconfile-exception:before {
+    content: "\e7b5";
+}
+
+.iconfilesync:before {
+    content: "\e7b6";
+}
+
+.iconfilesearch:before {
+    content: "\e7b7";
+}
+
+.iconsolution:before {
+    content: "\e7b8";
+}
+
+.iconfileprotect:before {
+    content: "\e7b9";
+}
+
+.iconfile-add:before {
+    content: "\e7ba";
+}
+
+.iconfile-excel:before {
+    content: "\e7bb";
+}
+
+.iconfile-exclamation:before {
+    content: "\e7bc";
+}
+
+.iconfile-pdf:before {
+    content: "\e7bd";
+}
+
+.iconfile-image:before {
+    content: "\e7be";
+}
+
+.iconfile-markdown:before {
+    content: "\e7bf";
+}
+
+.iconfile-unknown:before {
+    content: "\e7c0";
+}
+
+.iconfile-ppt:before {
+    content: "\e7c1";
+}
+
+.iconfile-word:before {
+    content: "\e7c2";
+}
+
+.iconfile:before {
+    content: "\e7c3";
+}
+
+.iconfile-zip:before {
+    content: "\e7c4";
+}
+
+.iconfile-text:before {
+    content: "\e7c5";
+}
+
+.iconfile-copy:before {
+    content: "\e7c6";
+}
+
+.iconsnippets:before {
+    content: "\e7c7";
+}
+
+.iconaudit:before {
+    content: "\e7c8";
+}
+
+.icondiff:before {
+    content: "\e7c9";
+}
+
+.iconbulb:before {
+    content: "\e7ca";
+}
+
+.iconhome:before {
+    content: "\e7cb";
+}
+
+.iconshop:before {
+    content: "\e7ce";
+}
+
+.iconfolder:before {
+    content: "\e7d1";
+}
+
+.iconfolder-open:before {
+    content: "\e7d2";
+}
+
+.iconfolder-add:before {
+    content: "\e7d3";
+}
+
+.icondeploymentunit:before {
+    content: "\e7d4";
+}
+
+.iconcontacts:before {
+    content: "\e7d5";
+}
+
+.iconscan:before {
+    content: "\e7d6";
+}
+
+.iconlaptop:before {
+    content: "\e7d7";
+}
+
+.iconbarcode:before {
+    content: "\e7d8";
+}
+
+.iconcamera:before {
+    content: "\e7d9";
+}
+
+.iconcar:before {
+    content: "\e7da";
+}
+
+.iconprinter:before {
+    content: "\e7db";
+}
+
+.iconsound:before {
+    content: "\e7dc";
+}
+
+.iconqrcode:before {
+    content: "\e7dd";
+}
+
+.iconidcard:before {
+    content: "\e7de";
+}
+
+.iconerror:before {
+    content: "\e7df";
+}
+
+.iconstar:before {
+    content: "\e7e0";
+}
+
+.iconwifi:before {
+    content: "\e7e1";
+}
+
+.iconkey:before {
+    content: "\e7e2";
+}
+
+.iconlink:before {
+    content: "\e7e3";
+}
+
+.iconman:before {
+    content: "\e7e4";
+}
+
+.iconpushpin:before {
+    content: "\e7e5";
+}
+
+.iconverticalright:before {
+    content: "\e7ea";
+}
+
+.iconverticalleft:before {
+    content: "\e7eb";
+}
+
+.iconright:before {
+    content: "\e7ec";
+}
+
+.iconleft:before {
+    content: "\e7ed";
+}
+
+.iconup:before {
+    content: "\e7ee";
+}
+
+.icondown:before {
+    content: "\e7ef";
+}
+
+.iconarrowright:before {
+    content: "\e7f0";
+}
+
+.iconarrowup:before {
+    content: "\e7f1";
+}
+
+.iconarrowleft:before {
+    content: "\e7f2";
+}
+
+.iconarrowdown:before {
+    content: "\e7f3";
+}
+
+.iconupload:before {
+    content: "\e7f4";
+}
+
+.icondownload:before {
+    content: "\e7f5";
+}
+
+.iconsort-descending:before {
+    content: "\e7f6";
+}
+
+.iconsort-ascending:before {
+    content: "\e7f7";
+}
+
+.iconfont-size:before {
+    content: "\e7f8";
+}
+
+.iconnumber:before {
+    content: "\e7f9";
+}
+
+.iconcode:before {
+    content: "\e7fc";
+}
+
+.iconcheck:before {
+    content: "\e7fd";
+}
+
+.iconclose:before {
+    content: "\e7fe";
+}
+
+.icongift:before {
+    content: "\e842";
+}
+
+.iconstop:before {
+    content: "\e843";
+}
+
+.iconfire:before {
+    content: "\e844";
+}
+
+.iconcomment:before {
+    content: "\e8e8";
+}
+
+.iconverified:before {
+    content: "\e8e9";
+}
+
+.iconswitchuser:before {
+    content: "\e8ea";
+}
+
+.iconsearch:before {
+    content: "\e8ef";
+}
+
+.iconswap-right:before {
+    content: "\e8f1";
+}
+
+.iconswap-left:before {
+    content: "\e8f2";
+}
+
+.iconwoman:before {
+    content: "\e8f3";
+}
+
+.iconplus:before {
+    content: "\e8fe";
+}
+
+.iconclear:before {
+    content: "\e900";
+}
+
+.icontranslate:before {
+    content: "\e902";
+}
+
+.iconPartition:before {
+    content: "\e90e";
+}
+
+.iconaim:before {
+    content: "\e913";
+}
+
+.iconcompress:before {
+    content: "\e914";
+}
+
+.iconexpend:before {
+    content: "\e915";
+}
+
+.iconfile-GIF:before {
+    content: "\e916";
+}
+
+.iconinfo-circle:before {
+    content: "\e77e";
+}
+
+.iconminus-circle:before {
+    content: "\e780";
+}
+
+.iconplus-circle:before {
+    content: "\e781";
+}
+
+.iconplay-circle:before {
+    content: "\e782";
+}
+
+.iconquestion-circle:before {
+    content: "\e783";
+}
+
+.icontime-circle:before {
+    content: "\e784";
+}
+
+.icontimeout:before {
+    content: "\e785";
+}
+
+.iconwarning-circle:before {
+    content: "\e786";
+}
+
+.iconsync:before {
+    content: "\e787";
+}
+
+.iconundo:before {
+    content: "\e788";
+}
+
+.iconredo:before {
+    content: "\e789";
+}
+
+.iconreload:before {
+    content: "\e78a";
+}
+
+.iconreloadtime:before {
+    content: "\e78b";
+}
+
+.iconmessage:before {
+    content: "\e78c";
+}
+
+.iconissuesclose:before {
+    content: "\e78d";
+}
+
+.iconlocation:before {
+    content: "\e790";
+}
+
+.iconappstore:before {
+    content: "\e792";
+}
+
+.iconcontrol:before {
+    content: "\e794";
+}
+
+.iconcodelibrary:before {
+    content: "\e793";
+}
+
+.iconcalculator:before {
+    content: "\e799";
+}
+
+.iconadduser:before {
+    content: "\e7ae";
+}
+
+.icondeleteteam:before {
+    content: "\e7af";
+}
+
+.icondeleteuser:before {
+    content: "\e7b0";
+}
+
+.iconaddteam:before {
+    content: "\e7b1";
+}
+
+.iconuser:before {
+    content: "\e7b2";
+}
+
+.iconteam:before {
+    content: "\e7b3";
+}
+
+.iconfiledone:before {
+    content: "\e7b4";
+}
