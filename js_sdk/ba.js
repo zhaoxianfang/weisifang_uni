@@ -9,6 +9,7 @@ import baFilePicker from '@/js_sdk/ba/baFilePicker.js'
 import baMediaPicker from '@/js_sdk/ba/baMediaPicker.js'
 import baMediaUtil from '@/js_sdk/ba/baMediaUtil.js'
 import baSqlite from '@/js_sdk/ba/baSqlite.js'
+import baPictureSelector from '@/js_sdk/ba/baPictureSelector.js'
 
 // import baChangeIcon from '@/js_sdk/ba/baChangeIcon.js'
 // import baIdCode from '@/js_sdk/ba/baIdCode.js'
@@ -31,6 +32,7 @@ const ba = {
     mediaPicker: baMediaPicker,
     mediaUtil: baMediaUtil,
     sqlite: baSqlite,
+    pictureSelector: baPictureSelector,
 
     // scanner: baScanner,
     // gray: baGray,

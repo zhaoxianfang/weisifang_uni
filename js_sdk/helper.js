@@ -70,12 +70,12 @@ const helper = {
     },
     // 测试保活
     test_live(msg = 'msg') {
-        setInterval(function() {
-            api.app.test_live({
-                'name': "test setInterval live",
-                'msg': msg
-            })
-        }, 3000);
+        // setInterval(function() {
+        //     api.app.test_live({
+        //         'name': "test setInterval live",
+        //         'msg': msg
+        //     })
+        // }, 3000);
     },
     fullscreen() {
         // 设置应用全屏显示！  

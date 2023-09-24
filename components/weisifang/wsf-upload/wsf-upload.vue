@@ -27,7 +27,7 @@
             </view>
 
             <tui-lazyload-img v-else width="100%" height="320rpx" mode="scaleToFill"
-                placeholder="/static/images/photo/image-default-small.png" :src="getFileUrl(item)"
+                placeholder="/static/images/photo/default.png" :src="getFileUrl(item)"
                 @click="imgPreview(getFileUrl(item))"></tui-lazyload-img>
 
             <view class="wsf-upload-Item-del" v-if="remove" @click="imgDel(index)">×</view>
@@ -147,7 +147,7 @@
             },
             appVideoPoster: { //app端视频展示封面 只对app有效
                 type: String,
-                default: '/static/images/common/play.png',
+                default: '/static/images/photo/play.png',
             },
         },
         data() {
@@ -290,9 +290,9 @@
                 }
                 // #ifdef APP-PLUS
 
-                this.helper.files.selectImgOrVideo({
-                    'mediaType': 0,
-                    'max': this.max
+                this.helper.ba.pictureSelector.selectPicture({
+                    // 'mediaType': 0,
+                    // 'max': 99
                 }, function(file) {
                     if (file === false) {
                         console.log('选择文件出错啦 ')
@@ -309,22 +309,26 @@
                         } else {
                             _this.chooseSuccessMethod([item.realPath], 0)
                         }
-                        // item.fileName	文件名
-                        // item.path	初始路径
-                        // item.realPath	绝对路径
-                        // item.compressed	是否压缩
-                        // item.compressPath	压缩文件路径
-                        // item.isCut	是否裁剪
-                        // item.cutPath	裁剪路径
-                        // item.isOriginal	是否开启原图
-                        // item.originalPath	原图路径
-                        // item.videoThumbnailPath	视频缩略图
-                        // item.size	文件大小
-                        // item.duration	文件时长
+                        //文件名： item.fileName
+                        //初始路径： item.path
+                        //绝对路径： item.realPath
+                        //是否压缩： item.compressed
+                        //压缩文件路径： item.compressPath
+                        //是否裁剪： item.isCut
+                        //裁剪路径： item.cutPath
+                        //是否开启原图： item.isOriginal
+                        //原图路径： item.originalPath
+                        //视频缩略图： item.videoThumbnailPath
+                        //文件大小： item.size
+                        //文件时长： item.duration
                     })
-
-
                 })
+
+                // this.helper.ba.selectImgOrVideo({
+                //     'mediaType': 0,
+                //     'max': this.max
+                // }, function(file) {
+                // })
                 // #endif
                 // #ifndef APP-PLUS
                 switch (this.mediaTypeData.indexOf(this.mediaType)) {
@@ -958,6 +962,6 @@
     img,
     .uni-uploader__img {
         /* background-image:url('@/static/images/photo/default.png')); */
-        background: #f2f2f2 url('@/static/images/photo/default_img.png') top left no-repeat;
+        background: #f2f2f2 url('@/static/images/photo/default.png') top left no-repeat;
     }
 </style>

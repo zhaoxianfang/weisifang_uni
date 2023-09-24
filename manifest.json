@@ -1,62 +1,62 @@
 {
-    "name": "威四方",
-    "appid": "__UNI__F89051B",
-    "description": "一个为个人和企业提供个性化定制和服务的综合性平台",
-    "versionName": "1.0.0",
-    "versionCode": 100,
-    "transformPx": false,
+    "name" : "威四方",
+    "appid" : "__UNI__F89051B",
+    "description" : "一个为个人和企业提供个性化定制和服务的综合性平台",
+    "versionName" : "1.0.0",
+    "versionCode" : 100,
+    "transformPx" : false,
     /* 5+App特有相关 */
-    "app-plus": {
+    "app-plus" : {
         // 设置全屏https://www.weisifang.com/qq_conn/101985870/
         // "fullscreen" : true,
         // "screenOrientation" : [ "portrait-primary" ], //竖屏
-        "softinput": {
-            "mode": "adjustPan" // 禁止软键盘顶起菜单
+        "softinput" : {
+            "mode" : "adjustPan" // 禁止软键盘顶起菜单
         },
-        "error": {
-            "url": "hybrid/html/error.html"
+        "error" : {
+            "url" : "hybrid/html/error.html"
         },
         // 应用启动后的系统状态栏相关配置 配置后容易导致 tabbar 溢出手机底部可视边界
         // "statusbar" : {
         //     "immersed" : "none"
         // },
-        "usingComponents": true,
-        "safearea": {
-            "background": "#FFFFFF",
-            "bottom": {
-                "offset": "none"
+        "usingComponents" : true,
+        "safearea" : {
+            "background" : "#FFFFFF",
+            "bottom" : {
+                "offset" : "none"
             },
-            "left": {
-                "offset": "none"
+            "left" : {
+                "offset" : "none"
             },
-            "right": {
-                "offset": "none"
+            "right" : {
+                "offset" : "none"
             }
         },
-        "nvueStyleCompiler": "uni-app",
-        "compilerVersion": 3,
-        "splashscreen": {
-            "alwaysShowBeforeRender": true,
-            "waiting": true,
-            "autoclose": true,
-            "delay": 0
+        "nvueStyleCompiler" : "uni-app",
+        "compilerVersion" : 3,
+        "splashscreen" : {
+            "alwaysShowBeforeRender" : true,
+            "waiting" : true,
+            "autoclose" : true,
+            "delay" : 0
         },
         /* 模块配置 */
-        "modules": {
-            "Share": {},
-            "VideoPlayer": {},
-            "Bluetooth": {},
-            "Geolocation": {},
-            "iBeacon": {},
-            "OAuth": {},
-            "Push": {},
-            "SQLite": {}
+        "modules" : {
+            "Share" : {},
+            "VideoPlayer" : {},
+            "Bluetooth" : {},
+            "Geolocation" : {},
+            "iBeacon" : {},
+            "OAuth" : {},
+            "Push" : {},
+            "SQLite" : {}
         },
         /* 应用发布信息 */
-        "distribute": {
+        "distribute" : {
             /* android打包配置 */
-            "android": {
-                "permissions": [
+            "android" : {
+                "permissions" : [
                     "<uses-feature android:name=\"android.hardware.camera\"/>",
                     "<uses-feature android:name=\"android.hardware.camera.autofocus\"/>",
                     "<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>",
@@ -91,328 +91,342 @@
                     "<uses-permission android:name=\"android.permission.BLUETOOTH\"/>",
                     "<uses-permission android:name=\"android.permission.BLUETOOTH_ADMIN\"/>"
                 ],
-                "abiFilters": ["armeabi-v7a", "arm64-v8a", "x86"],
-                "schemes": "wsf,weisifang",
-                "minSdkVersion": 23,
-                "targetSdkVersion": 23
+                "abiFilters" : [ "armeabi-v7a", "arm64-v8a", "x86" ],
+                "schemes" : "wsf,weisifang",
+                "minSdkVersion" : 23,
+                "targetSdkVersion" : 23
             },
             /* ios打包配置 */
-            "ios": {
-                "idfa": false,
-                "capabilities": {
-                    "entitlements": {
-                        "com.apple.developer.associated-domains": ["applinks:www.weisifang.com"]
+            "ios" : {
+                "idfa" : false,
+                "capabilities" : {
+                    "entitlements" : {
+                        "com.apple.developer.associated-domains" : [ "applinks:www.weisifang.com" ]
                     }
                 },
-                "urltypes": "wsf,weisifang",
-                "UIBackgroundModes": "audio,location",
-                "dSYMs": false
+                "urltypes" : "wsf,weisifang",
+                "UIBackgroundModes" : "audio,location",
+                "dSYMs" : false
             },
             /* SDK配置 */
-            "sdkConfigs": {
-                "maps": {
-                    "amap": {
-                        "appkey_ios": "6eb4c6fedf0009d65b559c6fbf68025e",
-                        "appkey_android": "6eb4c6fedf0009d65b559c6fbf68025e"
+            "sdkConfigs" : {
+                "maps" : {
+                    "amap" : {
+                        "appkey_ios" : "6eb4c6fedf0009d65b559c6fbf68025e",
+                        "appkey_android" : "6eb4c6fedf0009d65b559c6fbf68025e"
                     }
                 },
-                "geolocation": {
-                    "system": {
-                        "__platform__": ["ios", "android"]
+                "geolocation" : {
+                    "system" : {
+                        "__platform__" : [ "ios", "android" ]
                     }
                 },
-                "oauth": {
-                    "qq": {
-                        "appid": "101985870",
-                        "UniversalLinks": "https://www.weisifang.com/qq_conn/101985870/"
+                "oauth" : {
+                    "qq" : {
+                        "appid" : "101985870",
+                        "UniversalLinks" : "https://www.weisifang.com/qq_conn/101985870/"
                     }
                 },
-                "share": {
-                    "qq": {
-                        "appid": "101985870",
-                        "UniversalLinks": "https://www.weisifang.com/qq_conn/101985870/"
+                "share" : {
+                    "qq" : {
+                        "appid" : "101985870",
+                        "UniversalLinks" : "https://www.weisifang.com/qq_conn/101985870/"
                     }
                 },
-                "push": {},
-                "ad": {}
+                "push" : {},
+                "ad" : {}
             },
-            "splashscreen": {
-                "useOriginalMsgbox": true,
-                "androidStyle": "common"
+            "splashscreen" : {
+                "useOriginalMsgbox" : true,
+                "androidStyle" : "common"
             },
-            "icons": {
-                "android": {
-                    "hdpi": "unpackage/res/icons/72x72.png",
-                    "xhdpi": "unpackage/res/icons/96x96.png",
-                    "xxhdpi": "unpackage/res/icons/144x144.png",
-                    "xxxhdpi": "unpackage/res/icons/192x192.png"
+            "icons" : {
+                "android" : {
+                    "hdpi" : "unpackage/res/icons/72x72.png",
+                    "xhdpi" : "unpackage/res/icons/96x96.png",
+                    "xxhdpi" : "unpackage/res/icons/144x144.png",
+                    "xxxhdpi" : "unpackage/res/icons/192x192.png"
                 },
-                "ios": {
-                    "appstore": "unpackage/res/icons/1024x1024.png",
-                    "ipad": {
-                        "app": "unpackage/res/icons/76x76.png",
-                        "app@2x": "unpackage/res/icons/152x152.png",
-                        "notification": "unpackage/res/icons/20x20.png",
-                        "notification@2x": "unpackage/res/icons/40x40.png",
-                        "proapp@2x": "unpackage/res/icons/167x167.png",
-                        "settings": "unpackage/res/icons/29x29.png",
-                        "settings@2x": "unpackage/res/icons/58x58.png",
-                        "spotlight": "unpackage/res/icons/40x40.png",
-                        "spotlight@2x": "unpackage/res/icons/80x80.png"
+                "ios" : {
+                    "appstore" : "unpackage/res/icons/1024x1024.png",
+                    "ipad" : {
+                        "app" : "unpackage/res/icons/76x76.png",
+                        "app@2x" : "unpackage/res/icons/152x152.png",
+                        "notification" : "unpackage/res/icons/20x20.png",
+                        "notification@2x" : "unpackage/res/icons/40x40.png",
+                        "proapp@2x" : "unpackage/res/icons/167x167.png",
+                        "settings" : "unpackage/res/icons/29x29.png",
+                        "settings@2x" : "unpackage/res/icons/58x58.png",
+                        "spotlight" : "unpackage/res/icons/40x40.png",
+                        "spotlight@2x" : "unpackage/res/icons/80x80.png"
                     },
-                    "iphone": {
-                        "app@2x": "unpackage/res/icons/120x120.png",
-                        "app@3x": "unpackage/res/icons/180x180.png",
-                        "notification@2x": "unpackage/res/icons/40x40.png",
-                        "notification@3x": "unpackage/res/icons/60x60.png",
-                        "settings@2x": "unpackage/res/icons/58x58.png",
-                        "settings@3x": "unpackage/res/icons/87x87.png",
-                        "spotlight@2x": "unpackage/res/icons/80x80.png",
-                        "spotlight@3x": "unpackage/res/icons/120x120.png"
+                    "iphone" : {
+                        "app@2x" : "unpackage/res/icons/120x120.png",
+                        "app@3x" : "unpackage/res/icons/180x180.png",
+                        "notification@2x" : "unpackage/res/icons/40x40.png",
+                        "notification@3x" : "unpackage/res/icons/60x60.png",
+                        "settings@2x" : "unpackage/res/icons/58x58.png",
+                        "settings@3x" : "unpackage/res/icons/87x87.png",
+                        "spotlight@2x" : "unpackage/res/icons/80x80.png",
+                        "spotlight@3x" : "unpackage/res/icons/120x120.png"
                     }
                 }
             }
         },
-        "nvueCompiler": "uni-app",
-        "nativePlugins": {
-            "Ba-Beep": {
-                "__plugin_info__": {
-                    "name": "声音提示、震动提示、语音播报 Ba-Beep",
-                    "description": "Ba-Beep 是一款uniapp提供声音提示、震动提示的插件，如操作提示音（扫码、读卡、打印、按键、金额、到账、窗口叫号、计算等）。也可实现简单的语音播报功能，支持定制。",
-                    "platforms": "Android",
-                    "url": "https://ext.dcloud.net.cn/plugin?id=9974",
-                    "android_package_name": "com.weisifang",
-                    "ios_bundle_id": "",
-                    "isCloud": true,
-                    "bought": 1,
-                    "pid": "9974",
-                    "parameters": {}
+        "nvueCompiler" : "uni-app",
+        "nativePlugins" : {
+            "Ba-Beep" : {
+                "__plugin_info__" : {
+                    "name" : "声音提示、震动提示、语音播报 Ba-Beep",
+                    "description" : "Ba-Beep 是一款uniapp提供声音提示、震动提示的插件，如操作提示音（扫码、读卡、打印、按键、金额、到账、窗口叫号、计算等）。也可实现简单的语音播报功能，支持定制。",
+                    "platforms" : "Android",
+                    "url" : "https://ext.dcloud.net.cn/plugin?id=9974",
+                    "android_package_name" : "com.weisifang",
+                    "ios_bundle_id" : "",
+                    "isCloud" : true,
+                    "bought" : 1,
+                    "pid" : "9974",
+                    "parameters" : {}
                 }
             },
-            "Ba-FilePicker": {
-                "__plugin_info__": {
-                    "name": "文件选择插件（支持Android11、12） Ba-FilePicker",
-                    "description": "Ba-FilePicker 是一款uniapp文件选择插件。支持Android11、12；支持浏览目录、文件分类、类型分组3种方式（效果如图）；支持单选、多选、数量限制；支持搜索、排序、预览等等。",
-                    "platforms": "Android",
-                    "url": "https://ext.dcloud.net.cn/plugin?id=9161",
-                    "android_package_name": "com.weisifang",
-                    "ios_bundle_id": "",
-                    "isCloud": true,
-                    "bought": 1,
-                    "pid": "9161",
-                    "parameters": {}
+            "Ba-FilePicker" : {
+                "__plugin_info__" : {
+                    "name" : "文件选择插件（支持Android11、12） Ba-FilePicker",
+                    "description" : "Ba-FilePicker 是一款uniapp文件选择插件。支持Android11、12；支持浏览目录、文件分类、类型分组3种方式（效果如图）；支持单选、多选、数量限制；支持搜索、排序、预览等等。",
+                    "platforms" : "Android",
+                    "url" : "https://ext.dcloud.net.cn/plugin?id=9161",
+                    "android_package_name" : "com.weisifang",
+                    "ios_bundle_id" : "",
+                    "isCloud" : true,
+                    "bought" : 1,
+                    "pid" : "9161",
+                    "parameters" : {}
                 }
             },
-            "Ba-ImageEditor": {
-                "__plugin_info__": {
-                    "name": "图片编辑插件（涂鸦、贴图、滤镜、裁剪、美颜、文字） Ba-ImageEditor",
-                    "description": "Ba-ImageEditor 是一款功能强大的uniapp图片编辑插件，支持涂鸦、贴图、滤镜、裁剪、旋转、添加文字、美颜等等。",
-                    "platforms": "Android",
-                    "url": "https://ext.dcloud.net.cn/plugin?id=9095",
-                    "android_package_name": "com.weisifang",
-                    "ios_bundle_id": "",
-                    "isCloud": true,
-                    "bought": 1,
-                    "pid": "9095",
-                    "parameters": {}
+            "Ba-ImageEditor" : {
+                "__plugin_info__" : {
+                    "name" : "图片编辑插件（涂鸦、贴图、滤镜、裁剪、美颜、文字） Ba-ImageEditor",
+                    "description" : "Ba-ImageEditor 是一款功能强大的uniapp图片编辑插件，支持涂鸦、贴图、滤镜、裁剪、旋转、添加文字、美颜等等。",
+                    "platforms" : "Android",
+                    "url" : "https://ext.dcloud.net.cn/plugin?id=9095",
+                    "android_package_name" : "com.weisifang",
+                    "ios_bundle_id" : "",
+                    "isCloud" : true,
+                    "bought" : 1,
+                    "pid" : "9095",
+                    "parameters" : {}
                 }
             },
-            "Ba-KeepAliveSuit": {
-                "__plugin_info__": {
-                    "name": "安卓保活套装（通用、常驻通知、电池优化、自启管理、后台运行等）",
-                    "description": "在Ba-KeepAlive的基础上，新增了忽略电池优化、自启管理、常驻通知。为定位、推送、websocket、定时任务、蓝牙、聊天等保驾护航（**注意：**不保证支持所有机型和场景，建议先试用再购买）",
-                    "platforms": "Android",
-                    "url": "https://ext.dcloud.net.cn/plugin?id=11765",
-                    "android_package_name": "com.weisifang",
-                    "ios_bundle_id": "",
-                    "isCloud": true,
-                    "bought": 1,
-                    "pid": "11765",
-                    "parameters": {}
+            "Ba-KeepAliveSuit" : {
+                "__plugin_info__" : {
+                    "name" : "安卓保活套装（通用、常驻通知、电池优化、自启管理、后台运行等）",
+                    "description" : "在Ba-KeepAlive的基础上，新增了忽略电池优化、自启管理、常驻通知。为定位、推送、websocket、定时任务、蓝牙、聊天等保驾护航（**注意：**不保证支持所有机型和场景，建议先试用再购买）",
+                    "platforms" : "Android",
+                    "url" : "https://ext.dcloud.net.cn/plugin?id=11765",
+                    "android_package_name" : "com.weisifang",
+                    "ios_bundle_id" : "",
+                    "isCloud" : true,
+                    "bought" : 1,
+                    "pid" : "11765",
+                    "parameters" : {}
                 }
             },
-            "Ba-MediaPicker": {
-                "__plugin_info__": {
-                    "name": "图片选择插件（支持视频、音频） Ba-MediaPicker",
-                    "description": "Ba-MediaPicker 是一款功能强大的uniapp图片、音视频选择插件，可自定义配置，支持单选、多选，支持已选择项回显，支持图片压缩、裁剪，支持预览大图、视频、音频，支持返回图片大小等等。",
-                    "platforms": "Android",
-                    "url": "https://ext.dcloud.net.cn/plugin?id=9033",
-                    "android_package_name": "com.weisifang",
-                    "ios_bundle_id": "",
-                    "isCloud": true,
-                    "bought": 1,
-                    "pid": "9033",
-                    "parameters": {}
+            "Ba-MediaPicker" : {
+                "__plugin_info__" : {
+                    "name" : "图片选择插件（支持视频、音频） Ba-MediaPicker",
+                    "description" : "Ba-MediaPicker 是一款功能强大的uniapp图片、音视频选择插件，可自定义配置，支持单选、多选，支持已选择项回显，支持图片压缩、裁剪，支持预览大图、视频、音频，支持返回图片大小等等。",
+                    "platforms" : "Android",
+                    "url" : "https://ext.dcloud.net.cn/plugin?id=9033",
+                    "android_package_name" : "com.weisifang",
+                    "ios_bundle_id" : "",
+                    "isCloud" : true,
+                    "bought" : 1,
+                    "pid" : "9033",
+                    "parameters" : {}
                 }
             },
-            "Ba-MediaUtil": {
-                "__plugin_info__": {
-                    "name": "刷新媒体库插件（图片、音频、视频、文件等） Ba-MediaUtil",
-                    "description": "Ba-MediaUtil 是一款刷新媒体库文件的插件，解决在下载、保存或者添加图片、视频、音频等文件后，本应用或其他应用不能扫描到该文件的问题。",
-                    "platforms": "Android",
-                    "url": "https://ext.dcloud.net.cn/plugin?id=11598",
-                    "android_package_name": "com.weisifang",
-                    "ios_bundle_id": "",
-                    "isCloud": true,
-                    "bought": 1,
-                    "pid": "11598",
-                    "parameters": {}
+            "Ba-MediaUtil" : {
+                "__plugin_info__" : {
+                    "name" : "刷新媒体库插件（图片、音频、视频、文件等） Ba-MediaUtil",
+                    "description" : "Ba-MediaUtil 是一款刷新媒体库文件的插件，解决在下载、保存或者添加图片、视频、音频等文件后，本应用或其他应用不能扫描到该文件的问题。",
+                    "platforms" : "Android",
+                    "url" : "https://ext.dcloud.net.cn/plugin?id=11598",
+                    "android_package_name" : "com.weisifang",
+                    "ios_bundle_id" : "",
+                    "isCloud" : true,
+                    "bought" : 1,
+                    "pid" : "11598",
+                    "parameters" : {}
                 }
             },
-            "Ba-Notify": {
-                "__plugin_info__": {
-                    "name": "应用消息通知插件（多种样式，新增支持常驻通知模式） Ba-Notify",
-                    "description": "Ba-Notify 是一款功能全面的uniapp消息通知插件，可在状态栏显示各种样式的消息通知。包含普通、常驻、大图、多行、进度、按钮等通知；支持检查、设置、清除通知；支持根据渠道和ID，分类管管理；",
-                    "platforms": "Android",
-                    "url": "https://ext.dcloud.net.cn/plugin?id=9231",
-                    "android_package_name": "com.weisifang",
-                    "ios_bundle_id": "",
-                    "isCloud": true,
-                    "bought": 1,
-                    "pid": "9231",
-                    "parameters": {}
+            "Ba-Notify" : {
+                "__plugin_info__" : {
+                    "name" : "应用消息通知插件（多种样式，新增支持常驻通知模式） Ba-Notify",
+                    "description" : "Ba-Notify 是一款功能全面的uniapp消息通知插件，可在状态栏显示各种样式的消息通知。包含普通、常驻、大图、多行、进度、按钮等通知；支持检查、设置、清除通知；支持根据渠道和ID，分类管管理；",
+                    "platforms" : "Android",
+                    "url" : "https://ext.dcloud.net.cn/plugin?id=9231",
+                    "android_package_name" : "com.weisifang",
+                    "ios_bundle_id" : "",
+                    "isCloud" : true,
+                    "bought" : 1,
+                    "pid" : "9231",
+                    "parameters" : {}
                 }
             },
-            "Ba-ScanView": {
-                "__plugin_info__": {
-                    "name": "扫码原生插件 - 组件版（毫秒级、连续扫码、多码、相册）Ba-ScanView",
-                    "description": "Ba-ScanView 是一款**毫秒级**扫码插件，采用component组件模式，可直接在uniapp界面直接引用，高宽可随意设置。",
-                    "platforms": "Android",
-                    "url": "https://ext.dcloud.net.cn/plugin?id=12029",
-                    "android_package_name": "com.weisifang",
-                    "ios_bundle_id": "",
-                    "isCloud": true,
-                    "bought": 1,
-                    "pid": "12029",
-                    "parameters": {}
+            "Ba-ScanView" : {
+                "__plugin_info__" : {
+                    "name" : "扫码原生插件 - 组件版（毫秒级、连续扫码、多码、相册）Ba-ScanView",
+                    "description" : "Ba-ScanView 是一款**毫秒级**扫码插件，采用component组件模式，可直接在uniapp界面直接引用，高宽可随意设置。",
+                    "platforms" : "Android",
+                    "url" : "https://ext.dcloud.net.cn/plugin?id=12029",
+                    "android_package_name" : "com.weisifang",
+                    "ios_bundle_id" : "",
+                    "isCloud" : true,
+                    "bought" : 1,
+                    "pid" : "12029",
+                    "parameters" : {}
                 }
             },
-            "Ba-ShareReceive": {
-                "__plugin_info__": {
-                    "name": "添加到“用其他应用打开”中，用于文件传递、分享等 Ba-ShareReceive",
-                    "description": "Ba-ShareReceive 是可以让其他应用（如微信、qq等等），在“用其他应用打开”中发现你的应用，并分享文件到你的应用打开。",
-                    "platforms": "Android",
-                    "url": "https://ext.dcloud.net.cn/plugin?id=11130",
-                    "android_package_name": "com.weisifang",
-                    "ios_bundle_id": "",
-                    "isCloud": true,
-                    "bought": 1,
-                    "pid": "11130",
-                    "parameters": {}
+            "Ba-ShareReceive" : {
+                "__plugin_info__" : {
+                    "name" : "添加到“用其他应用打开”中，用于文件传递、分享等 Ba-ShareReceive",
+                    "description" : "Ba-ShareReceive 是可以让其他应用（如微信、qq等等），在“用其他应用打开”中发现你的应用，并分享文件到你的应用打开。",
+                    "platforms" : "Android",
+                    "url" : "https://ext.dcloud.net.cn/plugin?id=11130",
+                    "android_package_name" : "com.weisifang",
+                    "ios_bundle_id" : "",
+                    "isCloud" : true,
+                    "bought" : 1,
+                    "pid" : "11130",
+                    "parameters" : {}
                 }
             },
-            "Ba-Sqlite": {
-                "__plugin_info__": {
-                    "name": "原生sqlite本地数据库管理 Ba-Sqlite",
-                    "description": "Ba-Sqlite 是一款原生sqlite数据库管理插件。支持创建表、删除表；增、删、改、查；事务控制；分页查询；批量删、改、查等等。",
-                    "platforms": "Android",
-                    "url": "https://ext.dcloud.net.cn/plugin?id=9402",
-                    "android_package_name": "com.weisifang",
-                    "ios_bundle_id": "",
-                    "isCloud": true,
-                    "bought": 1,
-                    "pid": "9402",
-                    "parameters": {}
+            "Ba-Sqlite" : {
+                "__plugin_info__" : {
+                    "name" : "原生sqlite本地数据库管理 Ba-Sqlite",
+                    "description" : "Ba-Sqlite 是一款原生sqlite数据库管理插件。支持创建表、删除表；增、删、改、查；事务控制；分页查询；批量删、改、查等等。",
+                    "platforms" : "Android",
+                    "url" : "https://ext.dcloud.net.cn/plugin?id=9402",
+                    "android_package_name" : "com.weisifang",
+                    "ios_bundle_id" : "",
+                    "isCloud" : true,
+                    "bought" : 1,
+                    "pid" : "9402",
+                    "parameters" : {}
                 }
             },
-            "CL-WebH5View": {
-                "__plugin_info__": {
-                    "name": "封装了原生webview实现h5与app交互",
-                    "description": "封装了原生webview 实现h5与app交互,传值、支持h5 拍照,录像,选择、js注入、支持h5微信支付宝支付，支持设置cookie",
-                    "platforms": "Android,iOS",
-                    "url": "https://ext.dcloud.net.cn/plugin?id=1034",
-                    "android_package_name": "com.weisifang",
-                    "ios_bundle_id": "",
-                    "isCloud": true,
-                    "bought": 1,
-                    "pid": "1034",
-                    "parameters": {}
+            "CL-WebH5View" : {
+                "__plugin_info__" : {
+                    "name" : "封装了原生webview实现h5与app交互",
+                    "description" : "封装了原生webview 实现h5与app交互,传值、支持h5 拍照,录像,选择、js注入、支持h5微信支付宝支付，支持设置cookie",
+                    "platforms" : "Android,iOS",
+                    "url" : "https://ext.dcloud.net.cn/plugin?id=1034",
+                    "android_package_name" : "com.weisifang",
+                    "ios_bundle_id" : "",
+                    "isCloud" : true,
+                    "bought" : 1,
+                    "pid" : "1034",
+                    "parameters" : {}
                 }
             },
-            "Seal-OfficeOnline": {
-                "__plugin_info__": {
-                    "name": "跨平台Office文档预览原生插件【非X5离线、组件嵌入、水印、WPS预览编辑】",
-                    "description": "非腾讯X5，无内核加载，稳定高可用，在线文档URL和离线均可使用，支持Android和IOS，支持Office文档，常用图片和音视频格式",
-                    "platforms": "Android,iOS",
-                    "url": "https://ext.dcloud.net.cn/plugin?id=3226",
-                    "android_package_name": "com.weisifang",
-                    "ios_bundle_id": "",
-                    "isCloud": true,
-                    "bought": 1,
-                    "pid": "3226",
-                    "parameters": {}
+            "Seal-OfficeOnline" : {
+                "__plugin_info__" : {
+                    "name" : "跨平台Office文档预览原生插件【非X5离线、组件嵌入、水印、WPS预览编辑】",
+                    "description" : "非腾讯X5，无内核加载，稳定高可用，在线文档URL和离线均可使用，支持Android和IOS，支持Office文档，常用图片和音视频格式",
+                    "platforms" : "Android,iOS",
+                    "url" : "https://ext.dcloud.net.cn/plugin?id=3226",
+                    "android_package_name" : "com.weisifang",
+                    "ios_bundle_id" : "",
+                    "isCloud" : true,
+                    "bought" : 1,
+                    "pid" : "3226",
+                    "parameters" : {}
                 }
             },
-            "Ba-FloatWinStat": {
-                "__plugin_info__": {
-                    "name": "悬浮窗-订单统计 Ba-FloatWinStat",
-                    "description": "Ba-FloatWinStat 是一款定制的订单悬浮窗插件，有其他定制需要可联系作者。",
-                    "platforms": "Android",
-                    "url": "https://ext.dcloud.net.cn/plugin?id=14055",
-                    "android_package_name": "com.weisifang",
-                    "ios_bundle_id": "",
-                    "isCloud": true,
-                    "bought": 1,
-                    "pid": "14055",
-                    "parameters": {}
+            "Ba-FloatWinStat" : {
+                "__plugin_info__" : {
+                    "name" : "悬浮窗-订单统计 Ba-FloatWinStat",
+                    "description" : "Ba-FloatWinStat 是一款定制的订单悬浮窗插件，有其他定制需要可联系作者。",
+                    "platforms" : "Android",
+                    "url" : "https://ext.dcloud.net.cn/plugin?id=14055",
+                    "android_package_name" : "com.weisifang",
+                    "ios_bundle_id" : "",
+                    "isCloud" : true,
+                    "bought" : 1,
+                    "pid" : "14055",
+                    "parameters" : {}
+                }
+            },
+            "Ba-PictureSelector" : {
+                "__plugin_info__" : {
+                    "name" : "图片选择插件-新（支持视频、音频） Ba-PictureSelector",
+                    "description" : "Ba-PictureSelector 是一款功能强大的uniapp图片、音视频选择插件，可自定义配置，支持单选、多选，支持回显，支持图片压缩、裁剪，支持预览大图、音视频等等。",
+                    "platforms" : "Android",
+                    "url" : "https://ext.dcloud.net.cn/plugin?id=14535",
+                    "android_package_name" : "com.weisifang",
+                    "ios_bundle_id" : "",
+                    "isCloud" : true,
+                    "bought" : 1,
+                    "pid" : "14535",
+                    "parameters" : {}
                 }
             }
         }
     },
     /* 快应用特有相关 */
-    "quickapp": {},
+    "quickapp" : {},
     /* 小程序特有相关 */
-    "mp-weixin": {
-        "appid": "wx6fc5ac358509673b",
-        "setting": {
-            "urlCheck": false,
-            "es6": true,
-            "minified": true
+    "mp-weixin" : {
+        "appid" : "wx6fc5ac358509673b",
+        "setting" : {
+            "urlCheck" : false,
+            "es6" : true,
+            "minified" : true
         },
-        "usingComponents": true,
-        "permission": {
-            "scope.userLocation": {
-                "desc": "你的位置信息将用于定位效果展示"
+        "usingComponents" : true,
+        "permission" : {
+            "scope.userLocation" : {
+                "desc" : "你的位置信息将用于定位效果展示"
             }
         }
     },
-    "mp-alipay": {
-        "usingComponents": true,
-        "appid": "2019060565492461"
+    "mp-alipay" : {
+        "usingComponents" : true,
+        "appid" : "2019060565492461"
     },
-    "mp-baidu": {
-        "usingComponents": true,
-        "appid": "24300714"
+    "mp-baidu" : {
+        "usingComponents" : true,
+        "appid" : "24300714"
     },
-    "mp-toutiao": {
-        "usingComponents": true,
-        "appid": ""
+    "mp-toutiao" : {
+        "usingComponents" : true,
+        "appid" : ""
     },
-    "uniStatistics": {
-        "enable": false
+    "uniStatistics" : {
+        "enable" : false
     },
-    "h5": {
-        "title": "威四方",
-        "sdkConfigs": {
-            "maps": {
-                "qqmap": {
-                    "key": "W4WBZ-TUD65-IDAIR-QPM36-HMFQ5-CGBZP"
+    "h5" : {
+        "title" : "威四方",
+        "sdkConfigs" : {
+            "maps" : {
+                "qqmap" : {
+                    "key" : "W4WBZ-TUD65-IDAIR-QPM36-HMFQ5-CGBZP"
                 }
             }
         },
-        "domain": "http://www.weisifang.com/",
-        "router": {
-            "mode": "hash",
-            "base": "/app/h5/"
+        "domain" : "http://www.weisifang.com/",
+        "router" : {
+            "mode" : "hash",
+            "base" : "/app/h5/"
         },
-        "devServer": {
-            "https": false
+        "devServer" : {
+            "https" : false
         }
     },
-    "mp-qq": {
-        "appid": "1109627073"
+    "mp-qq" : {
+        "appid" : "1109627073"
     },
-    "vueVersion": "2",
-    "fallbackLocale": "zh-Hans",
-    "locale": "zh-Hans"
+    "vueVersion" : "2",
+    "fallbackLocale" : "zh-Hans",
+    "locale" : "zh-Hans"
 }
