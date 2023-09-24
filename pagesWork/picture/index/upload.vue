@@ -73,6 +73,7 @@
                     });
                     this.imageData.push(_res);
                 } else {
+                    this.tui.toast('上传失败:', _res)
                     this.tui.toast('上传失败:' + _res.msg)
                 }
                 /*******************************/
