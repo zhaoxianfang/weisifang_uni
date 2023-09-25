@@ -9,6 +9,9 @@ const tui = {
     interfaceUrl: function() {
         return config.baseURL
     },
+    getDomain: function() {
+        return config.domain
+    },
     toast: function(text, duration, success) {
         uni.showToast({
             // #ifndef MP-ALIPAY

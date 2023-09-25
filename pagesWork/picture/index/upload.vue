@@ -96,7 +96,7 @@
                         this.tui.toast('请求太频繁了')
                     } else {
                         // console.log('上传失败:', _res)
-                        this.tui.toast('上传失败:' + (_res.msg || '出错啦'))
+                        this.tui.toast('上传失败:' + (_res.msg || _res.message || '出错啦'))
                     }
                 }
                 /*******************************/

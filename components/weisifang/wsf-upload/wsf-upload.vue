@@ -5,46 +5,48 @@
             <view class="wsf-upload-Item-video" v-if="isVideo(item)">
                 <!-- #ifndef APP-PLUS -->
                 <video :disabled="false" :controls="false" :src="getFileUrl(item)">
-                    <cover-view class="wsf-upload-Item-video-fixed" @click="previewVideo(getFileUrl(item))">
+                    <cover-view class="wsf-upload-Item-video-fixed" @click.native.stop="previewVideo(getFileUrl(item))">
                     </cover-view>
 
                     <cover-view class="wsf-upload-Item-del-cover" v-if="remove && previewVideoSrc==''"
-                        @click="imgDel(index)">×</cover-view>
+                        @click.native.stop="imgDel(index)">×</cover-view>
                     <view v-if="!isVideo(item.url)">
                         <cover-view class="wsf-upload-Item-capital-cover cover-active"
                             v-if="manage && previewVideoSrc=='' && coverIndex === index ">封面图</cover-view>
                         <cover-view class="wsf-upload-Item-capital-cover"
-                            v-if="manage && previewVideoSrc=='' && coverIndex !== index " @click="setCapital(index)">
+                            v-if="manage && previewVideoSrc=='' && coverIndex !== index "
+                            @click.native.stop="setCapital(index)">
                             设为封面图</cover-view>
                     </view>
                 </video>
                 <!-- #endif -->
                 <!-- #ifdef APP-PLUS -->
                 <view class="wsf-upload-Item-video-fixed" :poster="appVideoPoster"
-                    @click="previewVideo(getFileUrl(item))"></view>
+                    @click.native.stop="previewVideo(getFileUrl(item))"></view>
                 <image class="wsf-upload-Item-video-app-poster" mode="scaleToFill" :src="appVideoPoster"></image>
                 <!-- #endif -->
             </view>
 
             <tui-lazyload-img v-else width="100%" height="320rpx" mode="scaleToFill"
                 placeholder="/static/images/photo/default.png" :src="getFileUrl(item)"
-                @click="imgPreview(getFileUrl(item))"></tui-lazyload-img>
+                @click.native.stop="imgPreview(index)"></tui-lazyload-img>
 
-            <view class="wsf-upload-Item-del" v-if="remove" @click="imgDel(index)">×</view>
+            <view class="wsf-upload-Item-del" v-if="remove" @click.native.stop="imgDel(index)">×</view>
             <view v-if="!isVideo(item.url)">
                 <view class="wsf-upload-Item-capital cover-active" v-if="manage && coverIndex === index">封面图</view>
-                <view class="wsf-upload-Item-capital" v-if="manage && coverIndex !== index" @click="setCapital(index)">
+                <view class="wsf-upload-Item-capital" v-if="manage && coverIndex !== index"
+                    @click.native.stop="setCapital(index)">
                     设为封面图</view>
             </view>
         </tui-col>
         <tui-col :sm="8" :md="6" :lg="4" :span="4" class="wsf-upload-col" v-if="uploadLists.length < max && add">
-            <view class="wsf-upload-Item-add" @click="chooseFile">
+            <view class="wsf-upload-Item-add" @click.native.stop="chooseFile">
                 +
             </view>
         </tui-col>
         <view class="preview-full" v-if="previewVideoSrc!=''">
             <video :autoplay="true" :src="previewVideoSrc" :show-fullscreen-btn="false">
-                <cover-view class="preview-full-close" @click="previewVideoClose"> ×
+                <cover-view class="preview-full-close" @click.native.stop="previewVideoClose"> ×
                 </cover-view>
             </video>
         </view>
@@ -266,22 +268,41 @@
                 this.$emit("setCover", item);
             },
             imgPreview(index) {
+                // 如果index 是数字 或者 数字的字符串（索引值）则加一，否则就是字符串(url)
+                let current = Number.isFinite(index) ? parseInt(index) : index.toString();
                 // 先关闭预览
                 uni.closePreviewImage();
                 // 再预览
                 var imgData = []
 
-                this.uploadLists.forEach(item => {
+                let videoNum = 0;
+                let indexIsNumber = typeof current === 'number'; // 判断index 是否为数字
+                this.uploadLists.forEach((item, i) => {
                     if (!this.isVideo(item)) {
+                        // 图片预览和视频预览不是使用同一个接口
                         imgData.push(this.getFileUrl(item))
+                    } else {
+                        videoNum += 1;
+                    }
+                    if (indexIsNumber && current - 1 === i) {
+                        // 需要重新计算current定位的位置索引
+                        current = current - videoNum;
                     }
                 })
-                console.log(imgData.length)
-
+                // console.log(index, current, imgData.length, imgData)
                 uni.previewImage({
                     urls: imgData,
-                    current: index,
+                    current: current, // current 为当前显示图片的链接/索引值
                     loop: true,
+                    success: function(res) {
+                        // console.log('预览成功', res);
+                    },
+                    fail: function(error) {
+                        // console.log('预览失败', error);
+                    },
+                    complete(result) {
+                        // console.log(result)
+                    }
                 });
 
 
@@ -554,14 +575,14 @@
             },
             imgUpload(tempFilePaths, type) { //type 0 为图片 1为视频
                 var _this = this
-                // if (this.action == '') {
-                // 	uni.showToast({
-                // 		title: '未配置上传地址',
-                // 		icon: 'none',
-                // 		duration: 2000
-                // 	});
-                // 	return false;
-                // }
+                if (this.action == '') {
+                    uni.showToast({
+                        title: '未配置上传地址',
+                        icon: 'none',
+                        duration: 2000
+                    });
+                    return false;
+                }
                 if (this.action == 'uniCloud') {
                     this.uniCloudUpload(tempFilePaths, type)
                     return
@@ -595,6 +616,10 @@
                                     this.uploading = false
                                     this.$emit("uploadFail", '上传出错啦');
                                     return false
+                                }
+                                var _res = JSON.parse(uploadFileRes.data);
+                                if (_res.code !== 200) {
+
                                 }
                                 uploadFileRes.fileType = type
                                 if (typeof this.uploadSuccess == 'function') {

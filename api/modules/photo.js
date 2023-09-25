@@ -3,8 +3,8 @@ import fetch from '@/common/httpRequest'
 /* 相册列表 */
 var apiList = {
     // 获取我的相册列表
-    get_photo_list() {
-        return fetch.request('photo/list', "POST", {})
+    get_photo_list(data) {
+        return fetch.request('photo/list', "POST", data)
     },
     // 新建相册
     create_photos(data) {

@@ -121,7 +121,10 @@
                 }
                 this.finished = false
                 this.$api.photo.get_photo_item_list(this.photo_id, this.queryList).then(res => {
-                        // console.log(res.data)
+                        // console.log(res.data && res.data.length > 0, res)
+                        if (res.code === 429) {
+                            this.tui.toast('请求太过频繁了')
+                        }
                         if (res.data && res.data.length > 0) {
                             if (this.queryList.page > 1) {
                                 this.photoList = [...this.photoList, ...res.data]
