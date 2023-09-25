@@ -214,7 +214,29 @@
         "pages": []
     }, {
         "root": "pagesWork",
-        "pages": []
+        "pages": [{
+            "path": "picture/index/index",
+            "style": {
+                "navigationBarTitleText": "我的相册",
+                "enablePullDownRefresh": false,
+                "app-plus": {
+                    "bounce": "vertical"
+                }
+            }
+        }, {
+            "path": "picture/index/detail",
+            "style": {
+                "navigationBarTitleText": "相片列表详情",
+                "enablePullDownRefresh": false,
+                "onReachBottomDistance": 250
+            }
+        }, {
+            "path": "picture/index/upload",
+            "style": {
+                "navigationBarTitleText": "上传图片",
+                "enablePullDownRefresh": false
+            }
+        }]
     }, {
         "root": "pagesShopMall",
         "pages": [{

@@ -149,8 +149,8 @@
                     uni.login({
                         provider: 'qq',
                         success: function(loginRes) {
-                            // console.log('qq 登录 success', loginRes, loginRes.authResult);
-                            console.log('qq 登录 success', loginRes);
+                            console.log('qq 登录 success', loginRes, loginRes.authResult);
+                            // console.log('qq 登录 success', loginRes);
 
                             that.$store.dispatch('qq_login', loginRes.authResult).then(
                                 () => {

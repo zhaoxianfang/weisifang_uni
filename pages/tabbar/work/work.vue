@@ -44,7 +44,7 @@
                         name: 'picture',
                         label: '相册',
                         color: '#8a5966',
-                        page: '/pagesA/picture/index/index',
+                        page: '/pagesWork/picture/index/index',
                         size: 30
                     },
                     {
@@ -81,6 +81,13 @@
                         color: '#8a5966',
                         size: 30,
                         type: 'img'
+                    },
+                    {
+                        name: 'tool',
+                        label: '图片、音频、视频',
+                        color: '#8a5966',
+                        size: 30,
+                        type: 'picture'
                     },
                     {
                         name: 'feedback',
@@ -199,6 +206,20 @@
                         console.log('file', file)
                     })
                 }
+                if (e.type == 'picture') {
+                    // 图片、音频、视频
+                    this.helper.ba.pictureSelector.selectPicture({
+                        // 'mediaType': 0,
+                        // 'max': 99
+                    }, function(file) {
+                        if (file === false) {
+                            console.log('选择文件出错啦 ')
+                            return false
+                        }
+                        console.log('file', file)
+                    })
+                }
+
                 if (e.type == 'files') {
                     this.helper.files.selectFiles({}, function(file) {
                         if (file === false) {
