@@ -58,7 +58,7 @@
                         name: 'shop',
                         label: '商家点单',
                         color: '#8a5966',
-                        page: '/pagesShop/tabbar/menu?m_id=1',
+                        page: '/pagesShopMall/shop/tabbar/menu?m_id=1',
                         size: 30
                     },
                     {

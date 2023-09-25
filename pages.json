@@ -206,7 +206,7 @@
         },
         "pages/tabbar/work/work": {
             "network": "all",
-            "packages": ["pagesWork", "pagesShop"]
+            "packages": ["pagesWork", "pagesShopMall"]
         }
     },
     "subPackages": [{
@@ -216,9 +216,9 @@
         "root": "pagesWork",
         "pages": []
     }, {
-        "root": "pagesShop",
+        "root": "pagesShopMall",
         "pages": [{
-            "path": "tabbar/menu",
+            "path": "shop/tabbar/menu",
             "style": {
                 // #ifndef MP
                 "titleNView": false,
@@ -235,7 +235,7 @@
                 }
             }
         }, {
-            "path": "orderDetail/orderDetail",
+            "path": "shop/orderDetail/orderDetail",
             "style": {
                 "navigationBarTitleText": "订单详情",
                 "app-plus": {
@@ -243,7 +243,7 @@
                 }
             }
         }, {
-            "path": "submitOrder/submitOrder",
+            "path": "shop/submitOrder/submitOrder",
             "style": {
                 "navigationBarTitleText": "账单结算",
                 "app-plus": {
@@ -251,7 +251,7 @@
                 }
             }
         }, {
-            "path": "address/address",
+            "path": "shop/address/address",
             "style": {
                 "navigationBarTitleText": "收货地址",
                 "app-plus": {
@@ -259,7 +259,7 @@
                 }
             }
         }, {
-            "path": "editAddress/editAddress",
+            "path": "shop/editAddress/editAddress",
             "style": {
                 "navigationBarTitleText": "编辑地址",
                 "app-plus": {
@@ -267,7 +267,7 @@
                 }
             }
         }, {
-            "path": "verifyLogin/verifyLogin",
+            "path": "shop/verifyLogin/verifyLogin",
             "style": {
                 "navigationBarTitleText": "登录",
                 "app-plus": {
