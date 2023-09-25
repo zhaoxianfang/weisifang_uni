@@ -54,8 +54,12 @@
 </template>
 
 <script>
+    // 视频或图片上传
     export default {
         name: 'wsfUpload',
+        emits: ['starting', 'finally', 'uploadSuccess', 'uploadFail', 'imgDelete', 'chooseSuccess', 'setCover', 'input',
+            'update'
+        ],
         props: {
             max: { //展示图片最大值
                 type: Number,
@@ -298,15 +302,23 @@
                         console.log('选择文件出错啦 ')
                         return false
                     }
+                    _this.$emit("starting"); // 选择完毕
+
                     _this.uploading = true // 是否在上传中
                     _this.upladFinishNum = 0
                     _this.upladFailNum = 0
                     _this.upladAllNum = file.length || 0
 
+                    let fallTotal = 0,
+                        videoTotal = 0,
+                        imgTotal = 0;
                     file.forEach(item => {
+                        fallTotal += 1;
                         if (_this.isVideo(item.fileName)) {
+                            videoTotal += 1;
                             _this.chooseSuccessMethod([item.realPath], 1)
                         } else {
+                            imgTotal += 1;
                             _this.chooseSuccessMethod([item.realPath], 0)
                         }
                         //文件名： item.fileName
@@ -322,6 +334,8 @@
                         //文件大小： item.size
                         //文件时长： item.duration
                     })
+                    // 操作完成
+                    _this.$emit("finally", fallTotal, videoTotal, imgTotal);
                 })
 
                 // this.helper.ba.selectImgOrVideo({
@@ -333,7 +347,7 @@
                 // #ifndef APP-PLUS
                 switch (this.mediaTypeData.indexOf(this.mediaType)) {
                     case 1: //视频
-                        this.videoAdd();
+                        _this.videoAdd();
                         break;
                     case 2: //全部
                         uni.showActionSheet({
@@ -344,6 +358,7 @@
                                 } else if (res.tapIndex == 0) {
                                     this.imgAdd();
                                 }
+                                _this.$emit("finally", 1, 1, 1);
                             },
                             fail: (res) => {
                                 console.log(res.errMsg);
@@ -361,6 +376,7 @@
                 // #endif
             },
             videoAdd() {
+                var _this = this;
                 //console.log('videoAdd')
                 let nowNum = Math.abs(this.uploadLists.length - this.max);
                 let thisNum = (this.chooseNum > nowNum ? nowNum : this.chooseNum) //可选数量
@@ -370,9 +386,11 @@
                     camera: this.camera,
                     maxDuration: this.maxDuration,
                     success: (res) => {
+                        _this.$emit("starting");
                         // console.log('videoAdd', res)
                         // console.log(res.tempFilePath)
                         this.chooseSuccessMethod([res.tempFilePath], 1)
+                        _this.$emit("finally", res.tempFilePaths.length, res.tempFilePaths.length, 0);
                         //this.imgUpload([res.tempFilePath]);
                         //console.log('tempFiles', res)
                         // if (this.action == '') { //未配置上传路径
@@ -388,6 +406,7 @@
                 });
             },
             imgAdd() {
+                var _this = this;
                 //console.log('imgAdd')
                 let nowNum = Math.abs(this.uploadLists.length - this.max);
                 let thisNum = (this.chooseNum > nowNum ? nowNum : this.chooseNum) //可选数量
@@ -423,7 +442,9 @@
                     sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
                     sourceType: this.sourceType,
                     success: (res) => {
+                        _this.$emit("starting");
                         this.chooseSuccessMethod(res.tempFilePaths, 0)
+                        _this.$emit("finally", res.tempFilePaths.length, 0, res.tempFilePaths.length);
                         //console.log('tempFiles', res)
                         // if (this.action == '') { //未配置上传路径
                         // 	this.$emit("chooseSuccess", res.tempFilePaths);
@@ -566,7 +587,8 @@
                             header: this.headers,
                             success: (uploadFileRes) => {
                                 uni.hideLoading();
-                                //console.log(typeof this.uploadSuccess)
+                                // console.log('success', uploadFileRes)
+                                // console.log(typeof this.uploadSuccess)
                                 // console.log('success',JSON.stringify( uploadFileRes),uploadFileRes,this.action)
                                 if (this.tui.isHtml(uploadFileRes.data)) {
                                     reject('上传出错啦');
