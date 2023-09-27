@@ -22,31 +22,30 @@
                 <!-- #endif -->
                 <!-- #ifdef APP-PLUS -->
                 <view class="wsf-upload-Item-video-fixed" :poster="appVideoPoster"
-                    @click.native.stop="previewVideo(getFileUrl(item))"></view>
+                    @click="previewVideo(getFileUrl(item))"></view>
                 <image class="wsf-upload-Item-video-app-poster" mode="scaleToFill" :src="appVideoPoster"></image>
                 <!-- #endif -->
             </view>
 
             <tui-lazyload-img v-else width="100%" height="320rpx" mode="scaleToFill"
                 placeholder="/static/images/photo/default.png" :src="getFileUrl(item)"
-                @click.native.stop="imgPreview(index)"></tui-lazyload-img>
+                @click="imgPreview(index)"></tui-lazyload-img>
 
-            <view class="wsf-upload-Item-del" v-if="remove" @click.native.stop="imgDel(index)">×</view>
+            <view class="wsf-upload-Item-del" v-if="remove" @click="imgDel(index)">×</view>
             <view v-if="!isVideo(item.url)">
                 <view class="wsf-upload-Item-capital cover-active" v-if="manage && coverIndex === index">封面图</view>
-                <view class="wsf-upload-Item-capital" v-if="manage && coverIndex !== index"
-                    @click.native.stop="setCapital(index)">
+                <view class="wsf-upload-Item-capital" v-if="manage && coverIndex !== index" @click="setCapital(index)">
                     设为封面图</view>
             </view>
         </tui-col>
         <tui-col :sm="8" :md="6" :lg="4" :span="4" class="wsf-upload-col" v-if="uploadLists.length < max && add">
-            <view class="wsf-upload-Item-add" @click.native.stop="chooseFile">
+            <view class="wsf-upload-Item-add" @click="chooseFile">
                 +
             </view>
         </tui-col>
         <view class="preview-full" v-if="previewVideoSrc!=''">
             <video :autoplay="true" :src="previewVideoSrc" :show-fullscreen-btn="false">
-                <cover-view class="preview-full-close" @click.native.stop="previewVideoClose"> ×
+                <cover-view class="preview-full-close" @click="previewVideoClose"> ×
                 </cover-view>
             </video>
         </view>
