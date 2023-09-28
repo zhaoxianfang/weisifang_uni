@@ -262,6 +262,7 @@
                         let oldTab = _this.swiperData[oldTabIndex]
                         // 让被切换走的 swiper 刷新状态复位
                         oldTab.refreshing = false
+                        _this.swiperData[this.tabIndex].refreshing = false // 停止下拉状态
                     }
                 }, immdiate)(refresh, this.tabIndex)
             },
@@ -314,9 +315,15 @@
                 if (this.tabIndex === index) {
                     if (!activeTab.refreshing) {
                         this.getList(true)
+                    } else {
+                        this.swiperData[this.tabIndex].refreshing = false // 停止下拉状态
                     }
+                } else {
+                    this.swiperData[this.tabIndex].refreshing = false // 停止下拉状态
                 }
-                activeTab.refreshing = true
+                // this.swiperData[this.tabIndex].refreshing = false // 停止下拉状态
+                this.hasHandelLoadOrRefresh = false
+                activeTab.refreshing = true // 开启下拉状态
                 activeTab.isLoading = false
                 _this.hasHandelLoadOrRefresh = true
                 setTimeout(() => {
