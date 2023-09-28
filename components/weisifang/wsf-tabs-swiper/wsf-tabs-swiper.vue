@@ -311,24 +311,15 @@
                 console.log('下拉刷新')
                 this.handelLoadOrRefreshTabIndex = index
                 let activeTab = this.swiperData[this.tabIndex]
-                var _this = this
-                if (this.tabIndex === index) {
-                    if (!activeTab.refreshing) {
-                        this.getList(true)
-                    } else {
-                        this.swiperData[this.tabIndex].refreshing = false // 停止下拉状态
-                    }
+                this.hasHandelLoadOrRefresh = false // 无加载
+                if (this.tabIndex === index && !activeTab.refreshing) {
+                    this.swiperData[this.tabIndex].refreshing = false // 开启下拉状态
+                    this.swiperData[this.tabIndex].isLoading = false // 设置为未加载状态
+
+                    this.getList(true)
                 } else {
                     this.swiperData[this.tabIndex].refreshing = false // 停止下拉状态
                 }
-                // this.swiperData[this.tabIndex].refreshing = false // 停止下拉状态
-                this.hasHandelLoadOrRefresh = false
-                activeTab.refreshing = true // 开启下拉状态
-                activeTab.isLoading = false
-                _this.hasHandelLoadOrRefresh = true
-                setTimeout(() => {
-                    _this.hasHandelLoadOrRefresh = false
-                }, 1200)
 
             },
             refresherrestore(e) {
