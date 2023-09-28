@@ -198,6 +198,17 @@
             "navigationBarTitleText": "功能测试",
             "enablePullDownRefresh": false
         }
+    }, {
+        "path": "pages/common/article/detail",
+        "style": {
+            "navigationBarBackgroundColor": "#FFFFFF",
+            "navigationBarTextStyle": "black",
+            "navigationBarTitleText": "文章详情",
+            "app-plus": {
+                "bounce": "vertical"
+            }
+        }
+
     }],
     "preloadRule": {
         "pages/tabbar/index/index": {

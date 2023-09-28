@@ -19,7 +19,7 @@
                             <slot name="item" :item="item"></slot>
                         </view>
                         <view class="wsf-loading-more" v-if="swList.isLoading || !swList.hasMore">
-                            <text class="wsf-loadmore-line" v-if="!swList.hasMore"></text>
+                            <!-- <text class="wsf-loadmore-line" v-if="!swList.hasMore"></text> -->
                             <text class="wsf-loading-more-text">{{ swList.loadingText }}</text>
                         </view>
                     </scroll-view>
@@ -64,12 +64,15 @@
             }
         },
         watch: {
+            // 展示的数据列表
             list(val) {
                 this.addData(val)
             },
+            // 顶部的tabs
             tabs(val) {
                 this.initTabs()
                 this.initSwiper()
+                this.getList(false, true)
             }
         },
         data() {
@@ -304,6 +307,7 @@
                 // console.log('动画结束', e.detail.current)
             },
             onRefresh(index) {
+                console.log('下拉刷新')
                 this.handelLoadOrRefreshTabIndex = index
                 let activeTab = this.swiperData[this.tabIndex]
                 var _this = this
@@ -321,7 +325,7 @@
 
             },
             refresherrestore(e) {
-                // console.log('下拉被复位', e, this.tabIndex)
+                console.log('下拉被复位', e, this.tabIndex)
             },
             loadMore(index) {
                 this.handelLoadOrRefreshTabIndex = index
