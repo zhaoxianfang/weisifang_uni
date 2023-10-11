@@ -1,3 +1,12 @@
+> // zxf 新增 是否允许切换 属性 forbidChange
+
+```
+forbidChange: {
+    type: Boolean,
+    default: false
+}
+```
+
 # v-tabs
 
 [](https://ext.dcloud.net.cn/plugin?id=1971)

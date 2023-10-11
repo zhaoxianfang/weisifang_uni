@@ -2,8 +2,8 @@
     <view>
         <view class="wrap">
             <v-tabs fixed class="nav_tabs" :scroll="topTabs.length>5" v-model="tabIndex" :tabs="topTabs"
-                lineHeight="6rpx" :lineScale="0.7" @change="tabChange" height="70rpx" fontSize="32rpx"
-                padding="4rpx"></v-tabs>
+                :forbidChange="hasHandleLoadOrRefresh" lineHeight="6rpx" :lineScale="0.7" @change="tabChange"
+                height="70rpx" fontSize="32rpx" padding="4rpx"></v-tabs>
 
             <swiper class="swiper-box" :current="tabIndex" @change="swiperChange" :duration="300"
                 @transition="transition" @animationfinish="animationfinish">
@@ -12,8 +12,8 @@
                         :refresher-triggered="swList.refreshing" refresher-background="#fafafa" enable-back-to-top
                         :refresher-threshold="100" :lower-threshold="200" @scrolltolower="loadMore(swIndex)"
                         @refresherrestore="refresherrestore" @refresherrefresh="onRefresh(swIndex)">
-                        <!-- 通过插槽传值 当前激活的 tab -->
-                        <slot name="tab" :tab="tabs[tabIndex]"></slot>
+                        <!-- 通过插槽传值 当前激活的 header 区域 -->
+                        <slot name="header" :tabHead="tabs[tabIndex]"></slot>
                         <view v-for="(item, itemIndex) in swList.data" :key="`swiper-item-${itemIndex}`">
                             <!-- 通过插槽传值 -->
                             <slot name="item" :item="item"></slot>
@@ -33,7 +33,7 @@
     import VTabs from '@/components/v-tabs/v-tabs.vue'
     export default {
         name: 'WsfTabSwiper',
-        emits: ['loadMore'],
+        emits: ['onRefresh', 'onLoadMore'],
         components: {
             VTabs
         },
@@ -72,31 +72,42 @@
             tabs(val) {
                 this.initTabs()
                 this.initSwiper()
-                this.getList(false, true)
+                this.getList(true, true)
             }
         },
         data() {
             return {
                 tabIndex: 0, // 初始激活的 tab index
-                topTabs: ['默认'],
+                oldTabIndex: 0, // 上一个激活的 tab index
+                topTabs: [], // 例如 ['热门','最新']
                 swiperData: [],
                 debounceTime: null, // 防抖计时器
                 debounceOldArgs: [], // 防抖老参数
-                forbidReq: false, // 禁止请求
-                handelLoadOrRefreshTabIndex: 0, // 通过手势刷新或者底部滑动得到的 tab index
-                hasHandelLoadOrRefresh: false
+                hasHandleLoadOrRefresh: false, // 是否处于下拉刷新/正在加载 状态
+                handleTypeIsRefresh: false, // 加载数据的方式是不是下拉刷新 true:下拉刷新 false:触底加载
             }
         },
         created() {
-            this.initTabs()
-            this.initSwiper()
-            this.getList(false, true)
+            if (this.tabs.length > 0) {
+                this.initTabs()
+                this.initSwiper()
+                this.getList(true, true)
+            }
         },
         methods: {
             // 初始化 顶部 tabs 显示的标题数据
             initTabs() {
+                this.tabIndex = 0;
+                this.oldTabIndex = 0;
+                this.topTabs = [];
+                this.swiperData = [];
+                this.debounceTime = null;
+                this.debounceOldArgs = [];
+                this.hasHandleLoadOrRefresh = false;
+                this.handleTypeIsRefresh = false;
+
                 if (this.tabs.length < 1) {
-                    this.topTabs = ['默认']
+                    this.topTabs = []
                 } else {
                     let tabsTitleArr = []
                     for (let index in this.tabs) {
@@ -124,41 +135,41 @@
                     if (i === this.tabIndex && this.list.length > 0) {
                         swiperItem.pageIndex = 1
                         swiperItem.data = this.list
-
                     }
                     swiper.push(swiperItem)
                 }
+                this.oldTabIndex = 0
                 this.swiperData = swiper
                 return swiper
             },
             addData(data) {
+                this.hasHandleLoadOrRefresh = false
                 let activeTab = this.swiperData[this.tabIndex]
                 if (data === '' || data === undefined || data.length < 1) {
                     activeTab.hasMore = false
-                    if (activeTab.isLoading) {
-                        activeTab.loadingText = '没有了'
-                    } else {
+                    if (this.handleTypeIsRefresh) {
                         activeTab.refreshText = '没有了'
+                    } else {
+                        activeTab.loadingText = '没有了'
                     }
                 } else {
-                    if (activeTab.isLoading) {
-                        // 底部加载
-                        activeTab.data = activeTab.data.concat(data)
-                    } else {
+                    if (this.handleTypeIsRefresh) {
                         // 刷新 直接覆盖数据
                         activeTab.data = data
+                    } else {
+                        // 底部加载
+                        activeTab.data = activeTab.data.concat(data)
                     }
                 }
+                // 防止 无新数据渲染 手动关闭状态
+                activeTab.refreshing = false
                 activeTab.isLoading = false
-                // activeTab.refreshing = false
-                // this.$set(this.swiperData, this.tabIndex, activeTab)
+                this.$set(this.swiperData, this.tabIndex, activeTab)
 
                 // 【关键】直接 操作  activeTab.refreshing = false 无法 使 下拉 加载状态 修改为 false ,需要 在 $nextTick 之后才有效
                 // this.$nextTick(function() {
                 //     activeTab.refreshing = false
                 // })
-                // 防止 无新数据渲染 手动关闭状态
-                activeTab.refreshing = false
             },
             // v-tabs 变化时候
             tabChange(index) {
@@ -195,65 +206,62 @@
                 function _debounce(...arg) {
                     if (_this.debounceTime) {
                         clearTimeout(_this.debounceTime)
-                        if (resOrArgsCallback && typeof resOrArgsCallback === 'function') resOrArgsCallback(true, arg,
-                            _this
-                            .debounceOldArgs)
+                        if (resOrArgsCallback && typeof resOrArgsCallback === 'function') {
+                            resOrArgsCallback(true, arg, _this.debounceOldArgs)
+                        }
                     }
                     setTimeout(() => {
                         _this.debounceOldArgs = arg
                     }, 80)
                     if (immdiate && !isInvoke) {
                         const result = fn.apply(this, arg)
-                        if (resOrArgsCallback && typeof resOrArgsCallback === 'function') resOrArgsCallback(false,
-                            result, null)
+                        if (resOrArgsCallback && typeof resOrArgsCallback === 'function') {
+                            resOrArgsCallback(false, result, null)
+                        }
                         isInvoke = true
                     } else {
                         _this.debounceTime = setTimeout(() => {
                             const result = fn.apply(this, arg)
-                            if (resOrArgsCallback && typeof resOrArgsCallback === 'function') resOrArgsCallback(
-                                false, result,
-                                null)
+                            if (resOrArgsCallback && typeof resOrArgsCallback === 'function') {
+                                resOrArgsCallback(false, result, null)
+                            }
                             isInvoke = false
                             _this.debounceTime = null
                         }, delay)
                     }
                 }
                 _debounce.cancel = function() {
-                    if (_this.debounceTime) clearTimeout(_this.debounceTime)
+                    if (_this.debounceTime) {
+                        clearTimeout(_this.debounceTime)
+                    }
                     _this.debounceTime = null
                     isInvoke = false
                 }
 
                 return _debounce
             },
+            // 切换tab
             switchTab(index) {
+                // 先赋值上一个tab index
+                this.oldTabIndex = this.tabIndex
+                // 再赋值 新tab index
                 this.tabIndex = index
                 let activeTab = this.swiperData[index]
                 // 关闭之前的加载/刷新状态
                 activeTab.isLoading = false
                 activeTab.refreshing = false
-                if (activeTab.hasMore && (activeTab.data.length < 1) && !activeTab.isLoading && !activeTab.refreshing) {
-                    activeTab.isLoading = true
-                    this.getList(false, true)
-                } else {
-                    // 取消正在发生的请求
-                    this.cancelReq()
-                    setTimeout(() => {
-                        // _this.forbidReq = false
-                        activeTab.refreshing = false
-                    }, 300)
+                if (activeTab.hasMore && activeTab.data.length < 1) {
+                    // 此tab没有加载过数据或数据为空，直接立即 刷新 加载数据
+                    activeTab.refreshing = true
+                    this.getList(true, true)
                 }
             },
-            cancelReq() {
-                var _this = this
-                this.forbidReq = true
-                setTimeout(() => {
-                    _this.forbidReq = false
-                }, 1200)
-            },
+            // immdiate 是否立即执行
             getList(refresh = false, immdiate = false) {
                 var _this = this
-
+                if (this.tabs.length < 1) {
+                    return false;
+                }
                 // 防抖操作
                 this.debounce(this.reqData, 400, (isClear, resFnOrNewArgs, oldArgsOrNull) => {
                     if (isClear) {
@@ -262,23 +270,24 @@
                         let oldTab = _this.swiperData[oldTabIndex]
                         // 让被切换走的 swiper 刷新状态复位
                         oldTab.refreshing = false
-                        _this.swiperData[this.tabIndex].refreshing = false // 停止下拉状态
+                        _this.swiperData[_this.tabIndex].refreshing = false // 停止下拉状态
+                        _this.swiperData[_this.tabIndex].isLoading = false // 停止底部加载状态
                     }
                 }, immdiate)(refresh, this.tabIndex)
             },
             // 真正去通知父组件加载数据，「禁止」直接调用本方法，需要加载数据请调用 getList 方法，由getList 方法来调用
             reqData(refresh) {
+                var _this = this;
+                this.handleTypeIsRefresh = refresh
                 let index = this.tabIndex
                 let activeTab = this.swiperData[index]
+
                 if (!activeTab.hasMore) {
                     activeTab.loadingText = '没有更多了'
                     return false
                 }
-                // 请求被禁止 || 下拉或刷新的对象 不是当前新激活的tab
-                if (this.forbidReq || (this.hasHandelLoadOrRefresh && this.handelLoadOrRefreshTabIndex !== this
-                        .tabIndex)) {
-                    activeTab.refreshing = false
-                    activeTab.isLoading = false
+                // 存在正在下拉/刷新的操作
+                if (this.hasHandleLoadOrRefresh) {
                     return false
                 }
                 // 通知父组件 加载数据
@@ -287,19 +296,22 @@
                     activeTab.pageIndex = 1
                     activeTab.refreshing = true
                     activeTab.isLoading = false
-                    activeTab.refreshText = '正在刷新中...'
+                    activeTab.refreshText = '正在刷新'
+                    this.$emit('onRefresh', {
+                        tabInfo: this.tabs[index],
+                        pageIndex: activeTab.pageIndex
+                    })
                 } else {
                     // 底部加载数据
                     activeTab.pageIndex = activeTab.pageIndex + 1
                     activeTab.isLoading = true
                     activeTab.refreshing = false
-                    activeTab.loadingText = '正在加载中...'
-
+                    activeTab.loadingText = '正在加载中'
+                    this.$emit('onLoadMore', {
+                        tabInfo: this.tabs[index],
+                        pageIndex: activeTab.pageIndex
+                    })
                 }
-                this.$emit('loadMore', {
-                    tabInfo: this.tabs[index],
-                    pageIndex: activeTab.pageIndex
-                })
             },
             transition(e) {
                 // console.log('transition swiper-item 的位置发生改变时会触发 transition 事件，event.detail = {dx: dx, dy: dy}，支付宝小程序暂不支持dx, dy', e)
@@ -308,51 +320,37 @@
                 // console.log('动画结束', e.detail.current)
             },
             onRefresh(index) {
-                console.log('下拉刷新')
-                this.handelLoadOrRefreshTabIndex = index
-                let activeTab = this.swiperData[this.tabIndex]
-                var _this = this
-                if (this.tabIndex === index) {
-                    if (!activeTab.refreshing) {
-                        this.getList(true)
-                    } else {
-                        this.swiperData[this.tabIndex].refreshing = false // 停止下拉状态
-                    }
-                } else {
-                    this.swiperData[this.tabIndex].refreshing = false // 停止下拉状态
-                }
-                // this.swiperData[this.tabIndex].refreshing = false // 停止下拉状态
-                this.hasHandelLoadOrRefresh = false
-                activeTab.refreshing = true // 开启下拉状态
-                activeTab.isLoading = false
-                _this.hasHandelLoadOrRefresh = true
-                setTimeout(() => {
-                    _this.hasHandelLoadOrRefresh = false
-                }, 1200)
-
-            },
-            refresherrestore(e) {
-                console.log('下拉被复位', e, this.tabIndex)
+                // 顶部下拉刷新
+                this.handleTypeIsRefresh = true
+                this.refresh(index);
             },
             loadMore(index) {
-                this.handelLoadOrRefreshTabIndex = index
+                // 触底加载更多
+                this.handleTypeIsRefresh = false
+                this.refresh(index);
+            },
+            // 刷新数据 
+            // index:tabIndex
+            refresh(index = 0) {
                 var _this = this
                 let activeTab = this.swiperData[this.tabIndex]
+                // 没有处于加载中
+                if (this.tabIndex === index && (!activeTab.isLoading && !activeTab.refreshing)) {
 
-                if (this.tabIndex === index) {
-                    if (!activeTab.isLoading) {
-                        this.getList(false)
-                    }
-
+                    this.swiperData[this.tabIndex].refreshing = this.handleTypeIsRefresh // 是否开启下拉状态
+                    this.swiperData[this.tabIndex].isLoading = !this.handleTypeIsRefresh // 是否开启底部加载状态
+                    this.getList(this.handleTypeIsRefresh)
+                    setTimeout(() => {
+                        _this.hasHandleLoadOrRefresh = false
+                        _this.swiperData[_this.tabIndex].refreshing = false // 停止下拉状态
+                        _this.swiperData[_this.tabIndex].isLoading = false // 停止底部加载状态
+                    }, 2500)
                 }
-                activeTab.isLoading = true
-                activeTab.refreshing = false
-
-                _this.hasHandelLoadOrRefresh = true
-                setTimeout(() => {
-                    _this.hasHandelLoadOrRefresh = false
-                }, 1200)
-            }
+            },
+            refresherrestore(e) {
+                // console.log('下拉被复位', e, this.tabIndex)
+                this.swiperData[this.tabIndex].refreshing = false // 停止下拉状态
+            },
         }
     }
 </script>

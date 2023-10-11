@@ -167,7 +167,13 @@
             zIndex: {
                 type: Number,
                 default: 1993
+            },
+            // zxf 新增 是否禁止切换 forbidChange
+            forbidChange: {
+                type: Boolean,
+                default: false
             }
+            // zxf 新增 是否禁止切换 forbidChange end
         },
         data() {
             return {
@@ -195,7 +201,10 @@
                 this.$nextTick(() => {
                     this.getTabItemWidth()
                 })
-            }
+            },
+            // zxf 新增 是否禁止切换 forbidChange
+            forbidChange(newVal) {}
+            // zxf 新增 是否禁止切换 forbidChange end
         },
         methods: {
             // 产生随机字符串
@@ -211,8 +220,9 @@
             },
             // 切换事件
             change(index) {
+                // zxf 新增 是否禁止切换 forbidChange
                 const isDisabled = !!this.tabs[index].disabled
-                if (this.current !== index && !isDisabled) {
+                if (!this.forbidChange && this.current !== index && !isDisabled) {
                     this.current = index
 
                     this.$emit('change', index)

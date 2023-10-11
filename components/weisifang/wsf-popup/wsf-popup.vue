@@ -21,7 +21,8 @@
             <view class="tui-popup-item"
                 :class="{ 'tui-start': index === 0, 'tui-last': index === itemList.length - 1 }"
                 @tap="handleClick(item)" v-for="(item, index) in itemList" :key="index">
-                <tui-icon :name="item.icon" color="#fff" :size="40" unit="rpx" v-if="item.icon && !isImage"></tui-icon>
+                <tui-icon class="vue-item-icon" :name="item.icon" color="#fff" :size="40" unit="rpx"
+                    v-if="item.icon && !isImage"></tui-icon>
                 <image :src="item.icon" v-if="item.icon && isImage" :style="{width:'40rpx',height:'40rpx'}"></image>
                 <view class="tui-bubble-popup_title" :style="{ color: '#fff'}">
                     {{ item.title }}
@@ -191,6 +192,13 @@
         /* #endif */
         opacity: 0;
         background-color: transparent;
+    }
+
+    .vue-item-icon {
+        background-color: transparent;
+        padding: 0;
+        margin: 0;
+        border-radius: 0;
     }
 
     .nvue-item-icon {
