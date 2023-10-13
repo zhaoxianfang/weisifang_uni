@@ -17,6 +17,9 @@
 </template>
 
 <script>
+    import {
+        mapState
+    } from 'vuex';
     import wsfPopup from '@/components/weisifang/wsf-popup/wsf-popup.vue'
     import thorui from "@/components/common/tui-clipboard/tui-clipboard.js"
     import qrCode from '@/libs/weapp-qrcode.js';
@@ -24,6 +27,7 @@
     let h5WebView = null;
     let showLoading = null;
     export default {
+        computed: mapState(['user']),
         components: {
             wsfPopup
         },
@@ -248,20 +252,30 @@
                     icon: 'none'
                 })
             },
+            //获取10位长度的时间戳，从1970年开始的毫秒数然后截取10位变成 从1970年开始的秒数
+            getTimestamp() {
+                var tmp = Date.parse(new Date()).toString();
+                tmp = tmp.substr(0, 10);
+                return tmp;
+            },
             sayHello: function() {
-                this.sendDataInfo({
-                    msg: 'hello'
-                })
+                var timestamp = this.getTimestamp();
+                let obj = {
+                    encrypted_data: '', //加密后的数据
+                    timestamp: timestamp, // 10 位时间戳（用于加密encrypted_data）
+                    source: 'weisifang_app', // 来源
+                    user_id: this.user.userinfo.id || null,
+                    token: this.user.token || null
+                };
+                console.log('app 发消息给 h5', obj)
+
+                this.sendDataInfo(obj)
             },
             //发送数据到h5;
-            sendDataInfo: function(json) {
-                let obj = Object.assign({}, json || {}, {
-                    'source': 'weisifang.com',
-                    'type': 'app'
-                });
-                console.log('app 发消息给 h5', obj)
+            sendDataInfo: function(jsonObj = {}) {
+                console.log('app 发消息给 h5', jsonObj)
                 //发送消息到h5页面; 要求H5页面必须 定义函数 function receiveAppData(data){}
-                h5WebView.sendMessage(JSON.stringify(obj));
+                h5WebView.sendMessage(JSON.stringify(jsonObj));
             },
             onClickPopupMenu(e) {
                 if (e.item.type === 'refresh') {
