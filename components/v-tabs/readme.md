@@ -6,10 +6,23 @@ forbidChange: {
     default: false
 }
 ```
+注意：要保证`watch`中的`tabs`和`watch`中的`value` 除了`this.current = newVal`外，都一致
+```
+tabs: {
+    immediate: true,
+    handler(newVal) {
+        this.$nextTick(this.update)
+    }
+},
+```
 
 # v-tabs
 
 [](https://ext.dcloud.net.cn/plugin?id=1971)
+
+>  2.1.4（2023-10-12）
+[修改]修改计算方式
+[新增]外部可以通过this.$refs.tabs.update()方法主动更新
 
 > 2.1.3（2023-09-11）
 

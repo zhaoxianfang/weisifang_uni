@@ -6,7 +6,7 @@
 
         <tui-msg type="warn" title="访问中断" :desc="descTips" color="#f74d54" v-if="notFound" class="err-box">
             <!--自定义内容部分-->
-            <view class="err-content">{{url || open_url}}</view>
+            <view class="err-content">{{url || currentUrl}}</view>
             <tui-button shadow type="green" width="400rpx" height="84rpx" bold margin="32rpx auto"
                 @tap="back">返回</tui-button>
         </tui-msg>
@@ -32,15 +32,15 @@
                 progress: 0, //加载进度
                 url: "", //加载的url
                 //设置拦截地址;reg="http://weixin.qq.com/" 或正则字符串reg="^(http|https)://.*(weixin|qq|alipay).com.*$",需进行全匹配
-                reg: "^(http|https)://.*(weixin|qq|alipay).com.*$",
+                reg: "^(http|https)://.*(weixin|qq|alipay).com.*$", // 拦截页面跳转 正则/字符串(需全匹配,类似检查手机号身份证那种匹配)
                 // 此组件内web采用固定的receiveAppData方法接收消息，注入的目的是为了
                 // 防止没加载web内未定义receiveAppData时候不报错，如果web内已经定义过则此注入无效果
-                jsdata: "function receiveAppData(data){}",
+                // jsdata: "function receiveAppData(data){}",
+                jsdata: "", // 页面加载前,进行js注入,不支持动态改变
 
                 // 错误提示
                 notFound: false,
                 descTips: '请使用微信、QQ或支付宝进行访问', // 拦截提示语
-                open_url: '',
 
                 showPopup: false,
 
@@ -72,7 +72,6 @@
         onLoad(options) {
             this.notFound = false
             let open_url = decodeURI(options.url)
-            this.open_url = open_url
             this.url = this.customInterceptUrl(open_url) ? '' : open_url;
             // #ifdef APP-PLUS
 
@@ -108,13 +107,13 @@
                 })
             },
             // 自定义拦截url,和组件无关,被拦截的返回 true 否则返回 false
-            customInterceptUrl(open_url = '') {
-                this.currentUrl = open_url // 最新的url
-                if (open_url == '' || open_url == undefined) {
+            customInterceptUrl(intercept_url = '') {
+                this.currentUrl = intercept_url // 最新的url
+                if (intercept_url == '' || intercept_url == undefined) {
                     return true;
                 }
                 var reg = new RegExp(this.reg);
-                if (reg.test(open_url)) {
+                if (reg.test(intercept_url)) {
                     // 拦截 禁止加载此url
                     this.notFound = true;
                     return true;
@@ -146,7 +145,7 @@
             },
             onConsole: function(e) {
                 //获取h5调试数据;
-                // console.log('onConsole', JSON.stringify(e));
+                // console.log('onConsole', JSON.stringify(e.detail.message));
 
                 // let detailStr = JSON.stringify(e.detail.message)
                 // if(detailStr.indexOf('receiveAppData is not defined') > -1){
@@ -157,12 +156,12 @@
             //拦截回调事件
             intercept: function(e) {
                 this.notFound = true;
-                this.open_url = e.detail.url
+                this.currentUrl = e.detail.url
             },
 
             //开始加载
             startLoading: function(e) {
-                this.open_url = e.detail.url
+                this.currentUrl = e.detail.url
                 if (this.customInterceptUrl(e.detail.url)) {
                     this.back();
                 } else {
@@ -187,7 +186,7 @@
             loadError: function(e) {
                 this.descTips = '加载失败';
                 this.notFound = true
-                this.open_url = e.detail.url
+                this.currentUrl = e.detail.url
                 this.showLoading.setTitle("加载失败");
                 plus.nativeUI.closeWaiting();
             },
@@ -239,6 +238,7 @@
             },
             //收到h5的数据;
             showH5Data: function(info) {
+                console.log('app 收到 h5 的消息', info.detail)
                 //显示收到的消息;
                 uni.showToast({
                     // #ifndef MP-ALIPAY
@@ -259,12 +259,12 @@
                     'source': 'weisifang.com',
                     'type': 'app'
                 });
+                console.log('app 发消息给 h5', obj)
                 //发送消息到h5页面; 要求H5页面必须 定义函数 function receiveAppData(data){}
                 h5WebView.sendMessage(JSON.stringify(obj));
             },
             onClickPopupMenu(e) {
                 if (e.item.type === 'refresh') {
-                    console.log(this.url, this.currentUrl)
                     h5WebView.reload();
                 }
                 if (e.item.type === 'copy') {
