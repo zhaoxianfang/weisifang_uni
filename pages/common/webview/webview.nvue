@@ -151,7 +151,7 @@
             },
             onConsole: function(e) {
                 //获取h5调试数据;
-                console.log('onConsole', JSON.stringify(e.detail.message));
+                // console.log('onConsole', JSON.stringify(e.detail.message));
 
                 // let detailStr = JSON.stringify(e.detail.message)
                 // if(detailStr.indexOf('receiveAppData is not defined') > -1){
@@ -244,15 +244,20 @@
             },
             //收到h5的数据;
             showH5Data: function(info) {
-                console.log('app 收到 h5 的消息', info.detail)
+                let res = info.detail || {};
+                if (res.type == 'web_login' && res.status) {
+                    // web登录成功了，需要重新刷新页面
+                    h5WebView.reload();
+                }
+                console.log('app 收到 h5 的消息', res)
                 //显示收到的消息;
-                uni.showToast({
-                    // #ifndef MP-ALIPAY
-                    duration: 2500,
-                    // #endif
-                    title: JSON.stringify(info.detail) || '收到信息~',
-                    icon: 'none'
-                })
+                // uni.showToast({
+                //     // #ifndef MP-ALIPAY
+                //     duration: 2500,
+                //     // #endif
+                //     title: JSON.stringify(res) || '收到信息~',
+                //     icon: 'none'
+                // })
             },
             //获取10位长度的时间戳，从1970年开始的毫秒数然后截取10位变成 从1970年开始的秒数
             getTimestamp() {
