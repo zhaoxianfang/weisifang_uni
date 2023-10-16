@@ -24,6 +24,8 @@
     import thorui from "@/components/common/tui-clipboard/tui-clipboard.js"
     import qrCode from '@/libs/weapp-qrcode.js';
     import tui from '@/common/httpRequest'
+    import CryptoJsUtil from '@/js_sdk/crypto_js_utils';
+
     let h5WebView = null;
     let showLoading = null;
     export default {
@@ -149,7 +151,7 @@
             },
             onConsole: function(e) {
                 //获取h5调试数据;
-                // console.log('onConsole', JSON.stringify(e.detail.message));
+                console.log('onConsole', JSON.stringify(e.detail.message));
 
                 // let detailStr = JSON.stringify(e.detail.message)
                 // if(detailStr.indexOf('receiveAppData is not defined') > -1){
@@ -179,8 +181,8 @@
                 }
                 this.progress = e.detail
                 this.showLoading.setTitle("加载中..." + e.detail + '%');
-                if (e.detail === 80) {
-                    this.sayHello()
+                if (e.detail > 80) {
+                    // this.attemptWebLogin()
                 }
                 if (e.detail === 100) {
                     plus.nativeUI.closeWaiting();
@@ -198,7 +200,7 @@
             loadDone: function(e) {
                 //加载完成;
                 plus.nativeUI.closeWaiting();
-                this.sayHello()
+                this.attemptWebLogin()
             },
 
             //控制h5的返回;
@@ -258,22 +260,38 @@
                 tmp = tmp.substr(0, 10);
                 return tmp;
             },
-            sayHello: function() {
-                var timestamp = this.getTimestamp();
-                let obj = {
-                    encrypted_data: '', //加密后的数据
-                    timestamp: timestamp, // 10 位时间戳（用于加密encrypted_data）
-                    source: 'weisifang_app', // 来源
-                    user_id: this.user.userinfo.id || null,
-                    token: this.user.token || null
-                };
-                console.log('app 发消息给 h5', obj)
+            // 尝试进行web 登录
+            attemptWebLogin: function() {
+                var _this = this;
+                // #ifdef APP-PLUS
+                plus.runtime.getProperty(plus.runtime.appid, widgetInfo => {
+                    const res = uni.getSystemInfoSync();
+                    let data = {
+                        app_version: res.appVersion, // app 版本号,"1.0.0"
+                        brand: res.brand, // 手机品牌
+                        device_brand: res.deviceBrand,
+                        platform: res.platform, // android
+                        os_name: res.osName, // android
+                        os_version: res.osVersion, // 安卓或苹果版本号 ,例如 13
+                        version: res.version,
+                        model: res.model,
+                        // 用户信息
+                        timestamp: _this.getTimestamp(), //10 位时间戳
+                        user_id: _this.user.userinfo.id || null,
+                        // token: _this.user.token || null,
+                    };
+                    // app 发消息给 h5
+                    _this.sendDataInfo({
+                        encrypted_data: CryptoJsUtil.aesEncrypt(data), //加密后的数据
+                        source: 'app_webview', // 来源
+                    })
 
-                this.sendDataInfo(obj)
+                });
+                // #endif
             },
             //发送数据到h5;
             sendDataInfo: function(jsonObj = {}) {
-                console.log('app 发消息给 h5', jsonObj)
+                // console.log('app 发消息给 h5', jsonObj)
                 //发送消息到h5页面; 要求H5页面必须 定义函数 function receiveAppData(data){}
                 h5WebView.sendMessage(JSON.stringify(jsonObj));
             },
