@@ -242,6 +242,7 @@
             },
             // 切换tab
             switchTab(index) {
+                var _this = this;
                 // 先赋值上一个tab index
                 this.oldTabIndex = this.tabIndex
                 // 再赋值 新tab index
@@ -255,6 +256,12 @@
                     activeTab.refreshing = true
                     this.getList(true, true)
                 }
+                setTimeout(() => {
+                    // 如果到达了等待时间，都没有拿到数据，说明“没有数据了”
+                    if (_this.swiperData[index].data.length < 1) {
+                        activeTab.loadingText = '暂无数据'
+                    }
+                }, 3500)
             },
             // immdiate 是否立即执行
             getList(refresh = false, immdiate = false) {
