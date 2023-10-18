@@ -15,12 +15,12 @@
         <view class="tui-news-source">文章来源：{{ info.classify_name || '数据采集' }}</view>
 
         <view class="tui-operate-box">
-            <tui-tag padding="26rpx 56rpx" type="gray" shape="circle" :plain="true">
+            <tui-tag padding="20rpx 56rpx" type="gray" shape="circle" :plain="true">
                 <tui-icon name="agree" :size="20" color="#333"></tui-icon>
                 <text class="tui-black">999赞</text>
             </tui-tag>
             <button open-type="share" class="tui-share-btn" @tap="btnShare">
-                <tui-tag padding="26rpx 60rpx" type="gray" shape="circle" :plain="true">
+                <tui-tag padding="20rpx 60rpx" type="gray" shape="circle" :plain="true">
                     <tui-icon name="partake" :size="20" color="#333"></tui-icon>
                     <text class="tui-black">分享</text>
                 </tui-tag>
@@ -142,7 +142,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 60rpx 40rpx;
+        padding: 40rpx 40rpx 10rpx;
         box-sizing: border-box;
     }
 

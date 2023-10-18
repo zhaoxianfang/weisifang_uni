@@ -1,8 +1,8 @@
 <template>
     <view>
         <view class="wrap">
-            <v-tabs fixed class="nav_tabs" :scroll="topTabs.length>5" v-model="tabIndex" :tabs="topTabs"
-                :forbidChange="hasHandleLoadOrRefresh" lineHeight="6rpx" :lineScale="0.7" @change="tabChange"
+            <v-tabs fixed class="nav_tabs" :scroll="scrollNav" v-model="tabIndex" :tabs="topTabs" paddingItem="0 10rpx"
+                :forbidChange="hasHandleLoadOrRefresh" lineHeight="6rpx" :lineScale="0.9" @change="tabChange"
                 height="70rpx" fontSize="32rpx" padding="4rpx"></v-tabs>
 
             <swiper class="swiper-box" :current="tabIndex" @change="swiperChange" :duration="300"
@@ -85,6 +85,7 @@
                 debounceOldArgs: [], // 防抖老参数
                 hasHandleLoadOrRefresh: false, // 是否处于下拉刷新/正在加载 状态
                 handleTypeIsRefresh: false, // 加载数据的方式是不是下拉刷新 true:下拉刷新 false:触底加载
+                scrollNav: false, // 如果 tab 文字长度小于20个不滚动
             }
         },
         created() {
@@ -115,6 +116,9 @@
                         tabsTitleArr.push(this.tabs[index][this.tabTitle] || '未知')
                     }
                     this.topTabs = tabsTitleArr
+                    // 把 tabsTitleArr 转 string
+                    // 如果nav 文字长度小于20个不滚动
+                    this.scrollNav = tabsTitleArr.join('').length >= 20;
                 }
             },
             // 初始化 swiper 数据格式

@@ -48,6 +48,13 @@
                         size: 30
                     },
                     {
+                        name: 'strategy',
+                        label: '在线文档',
+                        color: '#8a5966',
+                        size: 30,
+                        type: 'webview'
+                    },
+                    {
                         name: 'manage',
                         label: '仓库管理',
                         color: '#8a5966',
@@ -64,7 +71,7 @@
                     {
                         name: 'strategy',
                         label: '文档',
-                        color: '#8a5966',
+                        color: '#999',
                         page: '/pagesA/docs/index/index',
                         size: 30
                     },
@@ -125,12 +132,6 @@
                         type: 'files'
                     },
                     {
-                        name: 'more-fill',
-                        label: '打开网页',
-                        color: '#999',
-                        size: 30,
-                        type: 'webview'
-                    }, {
                         name: 'more-fill',
                         label: '悬浮框',
                         color: '#999',
