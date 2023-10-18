@@ -66,6 +66,11 @@
                         type: 'h5_back'
                     },
                     {
+                        title: 'WEB登录',
+                        icon: 'shield',
+                        type: 'try_login'
+                    },
+                    {
                         title: '退出页面',
                         icon: 'shut',
                         type: 'close'
@@ -127,15 +132,16 @@
                 this.notFound = false;
                 return false;
             },
+            // 嵌入运行js
             evaluateJavascript: function() {
                 //可直接调用h5中的js,或者执行自定义js;
                 // h5WebView.evaluateJavascript("document.title;",e=>{
                 // h5WebView.evaluateJavascript("layer.msg('hello');",e=>{
-                h5WebView.evaluateJavascript("console.log(JSON.stringify(window.app));", e => {
+                h5WebView.evaluateJavascript("sessionStorage.removeItem('web_login');", e => {
                     console.log('evaluateJavascript', e)
-                    uni.showModal({
-                        content: e
-                    })
+                    // uni.showModal({
+                    //     content: e
+                    // })
                 });
             },
             onTitle: function(e) {
@@ -245,7 +251,7 @@
             //收到h5的数据;
             showH5Data: function(info) {
                 let res = info.detail || {};
-                console.log('app 收到 h5 的消息', res)
+                // console.log('app 收到 h5 的消息', res)
                 if (res.type == 'web_login' && res.status) {
                     // web登录成功了
                 }
@@ -321,6 +327,13 @@
                 if (e.item.type === 'h5_back') {
                     this.goH5Back();
                 }
+                if (e.item.type === 'try_login') {
+                    h5WebView.evaluateJavascript("sessionStorage.removeItem('uniapp_req_web_login');", e => {
+                        this.attemptWebLogin();
+                    });
+
+                }
+
             }
         }
     }
