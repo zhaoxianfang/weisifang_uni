@@ -3,16 +3,16 @@
         <view class="tui-news-title">{{ info.title || '文章标题' }}</view>
         <view class="tui-sub-info">
             <view class="tui-sub-left">
-                <text class="tui-author">{{ info.classify_name || '分类' }}</text>
-                <text>{{ info.publish_time || info.created_at }}</text>
+                来源:<text
+                    class="tui-author">{{ (info.classify && info.classify.name) ? info.classify.name : '分类' }}</text>
             </view>
-            <view class="tui-sub-right">阅读 999</view>
+            <view class="tui-sub-right">时间: {{ info.publish_time || info.created_at }}</view>
         </view>
         <view class="tui-news-content">
             <uParse :content="info.content || ''" />
         </view>
 
-        <view class="tui-news-source">文章来源：{{ info.classify_name || '数据采集' }}</view>
+        <view class="tui-news-source">文章来源：{{ (info.classify && info.classify.name) ? info.classify.name : '' }}</view>
 
         <view class="tui-operate-box">
             <tui-tag padding="20rpx 56rpx" type="gray" shape="circle" :plain="true">
