@@ -3,7 +3,7 @@
         <view class="wrap">
             <v-tabs fixed class="nav_tabs" :scroll="scrollNav" v-model="tabIndex" :tabs="topTabs" paddingItem="0 10rpx"
                 :forbidChange="hasHandleLoadOrRefresh" lineHeight="6rpx" :lineScale="0.9" @change="tabChange"
-                height="70rpx" fontSize="32rpx" padding="4rpx"></v-tabs>
+                height="70rpx" fontSize="32rpx" padding="4rpx 16rpx"></v-tabs>
 
             <swiper class="swiper-box" :current="tabIndex" @change="swiperChange" :duration="300"
                 @transition="transition" @animationfinish="animationfinish">

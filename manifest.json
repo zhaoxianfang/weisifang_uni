@@ -189,20 +189,6 @@
                     "parameters" : {}
                 }
             },
-            "Ba-FilePicker" : {
-                "__plugin_info__" : {
-                    "name" : "文件选择插件（支持Android11、12） Ba-FilePicker",
-                    "description" : "Ba-FilePicker 是一款uniapp文件选择插件。支持Android11、12；支持浏览目录、文件分类、类型分组3种方式（效果如图）；支持单选、多选、数量限制；支持搜索、排序、预览等等。",
-                    "platforms" : "Android",
-                    "url" : "https://ext.dcloud.net.cn/plugin?id=9161",
-                    "android_package_name" : "com.weisifang",
-                    "ios_bundle_id" : "",
-                    "isCloud" : true,
-                    "bought" : 1,
-                    "pid" : "9161",
-                    "parameters" : {}
-                }
-            },
             "Ba-ImageEditor" : {
                 "__plugin_info__" : {
                     "name" : "图片编辑插件（涂鸦、贴图、滤镜、裁剪、美颜、文字） Ba-ImageEditor",
@@ -214,20 +200,6 @@
                     "isCloud" : true,
                     "bought" : 1,
                     "pid" : "9095",
-                    "parameters" : {}
-                }
-            },
-            "Ba-KeepAliveSuit" : {
-                "__plugin_info__" : {
-                    "name" : "安卓保活套装（通用、常驻通知、电池优化、自启管理、后台运行等）",
-                    "description" : "在Ba-KeepAlive的基础上，新增了忽略电池优化、自启管理、常驻通知。为定位、推送、websocket、定时任务、蓝牙、聊天等保驾护航（**注意：**不保证支持所有机型和场景，建议先试用再购买）",
-                    "platforms" : "Android",
-                    "url" : "https://ext.dcloud.net.cn/plugin?id=11765",
-                    "android_package_name" : "com.weisifang",
-                    "ios_bundle_id" : "",
-                    "isCloud" : true,
-                    "bought" : 1,
-                    "pid" : "11765",
                     "parameters" : {}
                 }
             },
@@ -368,6 +340,20 @@
                     "isCloud" : true,
                     "bought" : 1,
                     "pid" : "14535",
+                    "parameters" : {}
+                }
+            },
+            "Ba-FilePicker2" : {
+                "__plugin_info__" : {
+                    "name" : "文件选择插件-新（支持微信、QQ文件） Ba-FilePicker2",
+                    "description" : "在Ba-FilePicker基础上，支持微信、QQ文件，支持指定目录。原插件支持浏览目录、文件分类、类型分组3种方式（效果如图）；支持单选、多选、数量限制；支持搜索、排序、预览等等。",
+                    "platforms" : "Android",
+                    "url" : "https://ext.dcloud.net.cn/plugin?id=15427",
+                    "android_package_name" : "com.weisifang",
+                    "ios_bundle_id" : "",
+                    "isCloud" : true,
+                    "bought" : 1,
+                    "pid" : "15427",
                     "parameters" : {}
                 }
             }
