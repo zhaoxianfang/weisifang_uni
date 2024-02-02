@@ -61,10 +61,10 @@
                     "<uses-feature android:name=\"android.hardware.camera.autofocus\"/>",
                     "<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>",
                     "<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_BACKGROUND_LOCATION\"/>",
                     "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
                     "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
                     "<uses-permission android:name=\"android.permission.BLUETOOTH\"/>",
-                    "<uses-permission android:name=\"android.permission.BLUETOOTH_ADMIN\"/>",
                     "<uses-permission android:name=\"android.permission.CAMERA\"/>",
                     "<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>",
                     "<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>",
@@ -88,8 +88,10 @@
                     "<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>",
                     "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>",
                     "<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>",
-                    "<uses-permission android:name=\"android.permission.BLUETOOTH\"/>",
-                    "<uses-permission android:name=\"android.permission.BLUETOOTH_ADMIN\"/>"
+                    "<uses-permission android:name=\"android.permission.BLUETOOTH_ADMIN\"/>",
+                    "<uses-permission android:name=\"android.permission.POST_NOTIFICATIONS\"/>",
+                    "<uses-permission android:name=\"android.permission.NOTIFICATION_SERVICE\"/>",
+                    "<uses-permission android:name=\"android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS\"/>"
                 ],
                 "abiFilters" : [ "armeabi-v7a", "arm64-v8a", "x86" ],
                 "schemes" : "wsf,weisifang",
@@ -354,6 +356,34 @@
                     "isCloud" : true,
                     "bought" : 1,
                     "pid" : "15427",
+                    "parameters" : {}
+                }
+            },
+            "Ba-KeepAliveSuit" : {
+                "__plugin_info__" : {
+                    "name" : "安卓保活套装（通用、常驻通知、电池优化、自启管理、后台运行等）",
+                    "description" : "在Ba-KeepAlive的基础上，新增了忽略电池优化、自启管理、常驻通知。为定位、推送、websocket、定时任务、蓝牙、聊天等保驾护航（**注意：**不保证支持所有机型和场景，建议先试用再购买）",
+                    "platforms" : "Android",
+                    "url" : "https://ext.dcloud.net.cn/plugin?id=11765",
+                    "android_package_name" : "com.weisifang",
+                    "ios_bundle_id" : "",
+                    "isCloud" : true,
+                    "bought" : 1,
+                    "pid" : "11765",
+                    "parameters" : {}
+                }
+            },
+            "Ba-Location" : {
+                "__plugin_info__" : {
+                    "name" : "实时定位（系统、后台运行、支持息屏） Ba-Location",
+                    "description" : "Ba-Location 是一款系统GPS实时定位插件，可后台运行，可以息屏运行，可在内网使用。注意：GPS定位不支持室内定位，测试建议在室外或窗口。",
+                    "platforms" : "Android",
+                    "url" : "https://ext.dcloud.net.cn/plugin?id=10330",
+                    "android_package_name" : "com.weisifang",
+                    "ios_bundle_id" : "",
+                    "isCloud" : true,
+                    "bought" : 1,
+                    "pid" : "10330",
                     "parameters" : {}
                 }
             }
