@@ -7,14 +7,14 @@
                         <view class="tui-grid-icon">
                             <tui-icon :name="item.name" :size="item.size" :color="item.color || '#999'"></tui-icon>
                         </view>
-                        <text class="tui-grid-label">{{ item.label || item.name }}</text>
+                        <text class="tui-grid-label" :style="`color: ${item.color || '#333'};`">{{ item.label || item.name }}</text>
                     </tui-grid-item>
                 </navigator>
                 <tui-grid-item :cell="gridColumn" @click="more(item)" v-show="!item.page">
                     <view class="tui-grid-icon">
-                        <tui-icon :name="item.name" :size="item.size" color="#999"></tui-icon>
+                        <tui-icon :name="item.name" :size="item.size" :color="item.color || '#999'"></tui-icon>
                     </view>
-                    <text class="tui-grid-label">{{ item.label || item.name }}</text>
+                    <text class="tui-grid-label" :style="`color: ${item.color || '#333'};`">{{ item.label || item.name }}</text>
                 </tui-grid-item>
             </block>
         </tui-grid>
@@ -57,7 +57,7 @@
                     {
                         name: 'manage',
                         label: '仓库管理',
-                        color: '#8a5966',
+                        color: '#999',
                         page: '/pagesA/wms/index/index',
                         size: 30
                     },
@@ -69,65 +69,58 @@
                         size: 30
                     },
                     {
-                        name: 'strategy',
-                        label: '文档',
-                        color: '#999',
-                        page: '/pagesA/docs/index/index',
-                        size: 30
-                    },
-                    {
-                        name: 'link',
+                        name: 'service',
                         label: '我的文件',
                         color: '#8a5966',
-                        page: '/pagesA/files/index/index',
+                        page: '/pagesWork/files/files',
                         size: 30
                     },
                     {
                         name: 'tool',
                         label: '音乐-图片选择',
-                        color: '#8a5966',
+                        color: '#999',
                         size: 30,
                         type: 'img'
                     },
                     {
                         name: 'tool',
                         label: '图片、音频、视频',
-                        color: '#8a5966',
+                        color: '#999',
                         size: 30,
                         type: 'picture'
                     },
                     {
                         name: 'feedback',
                         label: '笔记、备忘',
-                        color: '#8a5966',
+                        color: '#999',
                         size: 30,
                         page: '/pagesA/calendar/index/index',
                     },
                     {
                         name: 'weather',
                         label: '天气-预览-office',
-                        color: '#8a5966',
+                        color: '#999',
                         size: 30,
                         type: 'office'
                     },
                     {
                         name: 'gps',
                         label: '附近',
-                        color: '#8a5966',
+                        color: '#999',
                         size: 30,
                         type: ''
                     },
                     {
                         name: 'gps',
                         label: '已安装的app',
-                        color: '#8a5966',
+                        color: '#999',
                         size: 28,
                         type: 'app_list'
                     },
                     {
                         name: 'more-fill',
                         label: '文件选择',
-                        color: '#999',
+                        color: '#8a5966',
                         size: 30,
                         type: 'files'
                     },
@@ -140,13 +133,13 @@
                     }, {
                         name: 'more-fill',
                         label: '分享图片',
-                        color: '#999',
+                        color: '#8a5966',
                         size: 30,
                         type: 'share'
                     }, {
                         name: 'more-fill',
                         label: '图片编辑',
-                        color: '#999',
+                        color: '#8a5966',
                         size: 30,
                         type: 'edit_img'
                     }
@@ -191,7 +184,8 @@
                 }
             },
             more: function(e) {
-                this.tui.toast('敬请期待~');
+                // this.tui.toast('敬请期待~');
+                var _this = this
                 // #ifdef APP-PLUS
 
                 if (e.type == 'img') {
@@ -238,26 +232,24 @@
 
                 }
                 if (e.type == 'webview') {
-                    this.helper.openUrl('https://weisifang.com/docs')
-                    var _this = this
+                    this.helper.openUrl('http://0l0.net/docs')
                 }
                 if (e.type == 'app_list') {
-                    // return false
-                    let appArr = [];
-                    uni.showLoading({
-                        title: '获取中',
-                        mask: true,
-                        success: (res) => {
-                            appArr = wxy.getApplication();
-                            console.log('已经安装的应用列表', appArr)
-                            // this.num = appArr.length;
-                            // this.appArr = appArr;
-                            uni.hideLoading();
-                        }
-                    });
+                    return false
+                    // let appArr = [];
+                    // uni.showLoading({
+                    //     title: '获取中',
+                    //     mask: true,
+                    //     success: (res) => {
+                    //         appArr = wxy.getApplication();
+                    //         console.log('已经安装的应用列表', appArr)
+                    //         // this.num = appArr.length;
+                    //         // this.appArr = appArr;
+                    //         uni.hideLoading();
+                    //     }
+                    // });
                 }
                 if (e.type == 'window') {
-                    var _this = this
                 }
                 if (e.type == 'share') {
                     // 图片视频选择
@@ -269,7 +261,7 @@
                         // 分享
                         uni.shareWithSystem({
                             type: 'image', // 分享类型，只支持text，image，默认为text
-                            summary: '我正在使用威四方相册，你也赶紧来试试吧~', // 分享的文字内容
+                            summary: '我正在使用威四方，你也赶紧来试试吧~', // 分享的文字内容
                             // href: 'https://weisifang.com', // 分享链接，ios端分享到微信时必填此字段
                             imageUrl: file[0].realPath, // 分享图片，仅支持本地路径
                             success(res) {

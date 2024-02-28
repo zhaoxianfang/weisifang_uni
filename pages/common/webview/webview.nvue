@@ -331,9 +331,7 @@
                     h5WebView.evaluateJavascript("sessionStorage.removeItem('uniapp_req_web_login');", e => {
                         this.attemptWebLogin();
                     });
-
                 }
-
             }
         }
     }

@@ -180,7 +180,7 @@
                         this.$api.photo.edit_photos(this.currentFolder.id, {
                                 name: this.folder_name
                             }).then(res => {
-                                console.log('res', res);
+                                // console.log('res', res);
                                 if (res.code == 200) {
                                     this.getList()
                                 } else {
@@ -188,14 +188,14 @@
                                 }
                             })
                             .catch(e => {
-                                console.log('出错啦', e);
+                                // console.log('出错啦', e);
                                 this.tui.toast('出错啦')
                             });
                     } else {
                         this.$api.photo.create_photos({
                                 name: this.folder_name
                             }).then(res => {
-                                console.log('res', res);
+                                // console.log('res', res);
                                 if (res.code == 200) {
                                     this.getList()
                                 } else {
@@ -203,7 +203,7 @@
                                 }
                             })
                             .catch(e => {
-                                console.log('出错啦', e);
+                                // console.log('出错啦', e);
                                 this.tui.toast('出错啦')
                             });
                     }
@@ -236,9 +236,8 @@
             },
             openFolderQrcode(info) {
                 this.currentFolder = info
-                let join_url = this.tui.getDomain() + 'photo/app/qrcode_join/' + info.id
+                let join_url = this.tui.getDomain() + 'photo/app/qrcode_join/' + info.id + '?auth=api'
                 this.couponQrCode(join_url, info.id)
-
             },
             // 二维码生成工具
             couponQrCode(text, canvasId) {

@@ -1,6 +1,6 @@
 export default {
     name: "威四方",
-    domain: 'https://www.weisifang.com/',
-    baseURL: 'https://www.weisifang.com/api/'
-    // baseURL: 'http://weisifang_com.test/api/' // mac 本地测试
+    domain: 'http://0l0.net/',
+    baseURL: 'http://0l0.net/api/'
+    // baseURL: 'http://0l0.net.test/api/' // mac 本地测试
 }

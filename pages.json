@@ -247,6 +247,14 @@
                 "navigationBarTitleText": "上传图片",
                 "enablePullDownRefresh": false
             }
+        },
+        {
+            "path" : "files/files",
+            "style" : 
+            {
+                "navigationBarTitleText" : "我的文件",
+                "enablePullDownRefresh" : false
+            }
         }]
     }, {
         "root": "pagesShopMall",

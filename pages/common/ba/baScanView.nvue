@@ -62,7 +62,9 @@
                 //     title: e.detail.result,
                 //     icon: 'none'
                 // })
-                this.msgList.unshift(JSON.stringify(e.detail.result))
+                // console.log(e.detail.result,JSON.stringify(e.detail.result))
+                this.msgList.unshift(e.detail.result)
+                //
                 this.handleResult(e.detail.result);
             },
             openScanLight() { //打开闪光灯

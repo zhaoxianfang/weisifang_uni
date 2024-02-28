@@ -1,8 +1,8 @@
-// 文件选择插件（支持Android11、12） Ba-FilePicker
-// https://ext.dcloud.net.cn/plugin?id=9161
+// 文件选择插件（支持Android11、12） Ba-FilePicker2
+// https://ext.dcloud.net.cn/plugin?id=15427
 
 // #ifdef APP-PLUS
-const filePicker = uni.requireNativePlugin('Ba-FilePicker')
+const filePicker = uni.requireNativePlugin('Ba-FilePicker2')
 
 import helper from '@/js_sdk/helper.js'
 // #endif
@@ -10,9 +10,10 @@ import helper from '@/js_sdk/helper.js'
 const baFilePicker = {
     selectFile(selectType) {
         filePicker.selectFile({
-                'selectType': 1, // 选择类型：默认为0（ 0：浏览文件目录 1：文件分类 2:类型分组）
-                'maxCount': 99,
-                'filetypes': "png, jpg, jpeg, gif"
+                selectType: 1, // 选择类型：默认为0（ 0：浏览文件目录 1：文件分类 2:类型分组）
+                maxCount: 99,
+                sortType: 3, // 排序类型：默认为0（ 0：名称-升序 1：名称-降序 2:时间-升序 3:时间-降序 4:大小-升序 5:大小-降序 6:类型-升序 7:类型-降序）
+                filetypes: "png, jpg, jpeg, gif"
             },
             (ret) => {
                 console.log(ret)
@@ -23,25 +24,28 @@ const baFilePicker = {
     },
     selectFile2(options, callbackFun) { // 自定义类型分组
         var defautl_options = {
-            'selectType': 2, // 选择类型：默认为0（ 0：浏览文件目录 1：文件分类 2:类型分组）
-            'maxCount': 9, // 最大选择数，默认为9
-            // 'filetypes': 'doc,docx,ppt,xls,xlsx,zip,mp3,mp4,avi,mov,rmvb,rm,flv,wmv,apk' // 文件类型，多个英文","隔开
+            selectType: 2, // 选择类型：默认为0（ 0：浏览文件目录 1：文件分类 2:类型分组）
+            maxCount: 9, // 最大选择数，默认为9
+            sortType: 3, // 排序类型：默认为0（ 0：名称-升序 1：名称-降序 2:时间-升序 3:时间-降序 4:大小-升序 5:大小-降序 6:类型-升序 7:类型-降序）
+            isWxQq: true, // 是否显示微信、QQ文件
+            //isWxQqGuide: true, // 是否显示微信、QQ文件的授权引导页
+            //isWxQqWeb13: true, // 是否显示微信、QQ文件教程页面
+            //urlQq: this.urlQq, // QQ教程网址
+            //urlWx: this.urlWx, // 微信教程网址
+            // targetDir:'', // 指定目录，本地目录
+            // 'filetypes': 'doc,docx,ppt,xls,xlsx,zip,mp3,mp4,avi,mov,rm,flv,wmv,apk' // 文件类型，多个英文","隔开
             groupTypes: [{ //有默认值，可自定义
                 name: "图片",
                 fileTypes: ["png", "jpg", "jpeg", "gif"]
             }, {
                 name: "视频",
-                fileTypes: ["mp4", "avi", "mpeg", "wmv", "rm", "rmvb", "3gp", "mov", "m4v", "dat",
-                    "mkv", "flv", "vob"
-                ]
+                fileTypes: ["mp4", "avi", "mpeg", "wmv", "rm", "3gp", "m4v", "mkv", "mov", "flv"]
             }, {
                 name: "音频",
-                fileTypes: ["mp3", "ogg", "flac", "wav", "wma", "m4a", "mid", "mka", "mpa", "mpc",
-                    "ape", "ofr", "ogg", "mv"
-                ]
+                fileTypes: ["mp3", "ogg", "flac", "wav", "wma", "m4a", "mid", "mka", "mpa", "mpc"]
             }, {
                 name: "文档",
-                fileTypes: ["log", "txt", "doc", "docx", "xls", "xlsx", "pdf", "ppt", "pptx"]
+                fileTypes: ["txt", "doc", "docx", "xls", "xlsx", "pdf", "ppt", "pptx"]
             }, {
                 name: "压缩包",
                 fileTypes: ["zip", "rar", "7z"]
@@ -62,6 +66,9 @@ const baFilePicker = {
                 sortDialogItemLX: "按类型",
                 sortDialogBtnAsc: "升序",
                 sortDialogBtnDesc: "降序",
+                breadTextRam: "内部存储设备",
+                breadTextSd: "SD卡",
+                folderDesc: "文件:%1$s  |  文件夹:%2$s",
             },
             sortType: 3, //排序类型：默认为0（ 0：名称-升序 1：名称-降序 2:时间-升序 3:时间-降序 4:大小-升序 5:大小-降序 6:类型-升序 7:类型-降序）
         }
@@ -75,6 +82,39 @@ const baFilePicker = {
             // size	Number	文件大小（单位B）
             // sizeS	String	文件大小（智能显示）
         });
+    },
+    // 显示微信、QQ文件（分组模式）
+    selectFileWxQq(selectType) {
+        filePicker.selectFile({
+                selectType: 2, // 选择类型：默认为0（ 0：浏览文件目录 1：文件分类 2:类型分组）
+                maxCount: 99,
+                sortType: 3, // 排序类型：默认为0（ 0：名称-升序 1：名称-降序 2:时间-升序 3:时间-降序 4:大小-升序 5:大小-降序 6:类型-升序 7:类型-降序）
+                isWxQq: true, // 是否显示微信、QQ文件
+                //isWxQqGuide: true, // 是否显示微信、QQ文件的授权引导页
+                //isWxQqWeb13: true, // 是否显示微信、QQ文件教程页面
+                //urlQq: this.urlQq, // QQ教程网址
+                //urlWx: this.urlWx, // 微信教程网址
+                // targetDir:'', // 指定目录，本地目录
+                groupTypes: [{
+                    name: "WORD",
+                    fileTypes: ["doc", "docx"]
+                }, {
+                    name: "EXCEL",
+                    fileTypes: ["xls", "xlsx"]
+                }, {
+                    name: "PPT",
+                    fileTypes: ["ppt"]
+                }, {
+                    name: "其他",
+                    fileTypes: ["txt", "pdf", "png", "jpg", "gif"]
+                }]
+            },
+            (ret) => {
+                console.log(ret)
+                if (ret.data) {
+                    this.selectedList = ret.data;
+                }
+            });
     },
 }
 export default baFilePicker
