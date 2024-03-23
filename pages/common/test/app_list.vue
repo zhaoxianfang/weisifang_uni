@@ -1,6 +1,6 @@
   <template>
     <view class="content" style="display: flex;flex-direction: column;">
-        <button @click="getApps" class="marTB">获取App列表</button>
+        <button @click="getApps" class="marTB">获取App列表{{app_total}}</button>
 
         <scroll-view scroll-y style="flex: 1;">
             <template v-for="(item,index) in list">
@@ -21,10 +21,13 @@
     export default {
         data() {
             return {
+                app_total: 0,
                 list: [],
             }
         },
-
+        mounted() {
+            this.getApps()
+        },
         methods: {
 
             jumpToApp(pckName) {
@@ -34,8 +37,8 @@
                 uni.showLoading({
                     mask: true
                 })
-                var list = launcher.getAppsInfo();
-                this.list = list;
+                this.list = launcher.getAppsInfo();
+                this.app_total = this.list.length;
                 uni.hideLoading();
 
             },

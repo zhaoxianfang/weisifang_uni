@@ -205,20 +205,6 @@
                     "parameters" : {}
                 }
             },
-            "Ba-MediaPicker" : {
-                "__plugin_info__" : {
-                    "name" : "图片选择插件（支持视频、音频） Ba-MediaPicker",
-                    "description" : "Ba-MediaPicker 是一款功能强大的uniapp图片、音视频选择插件，可自定义配置，支持单选、多选，支持已选择项回显，支持图片压缩、裁剪，支持预览大图、视频、音频，支持返回图片大小等等。",
-                    "platforms" : "Android",
-                    "url" : "https://ext.dcloud.net.cn/plugin?id=9033",
-                    "android_package_name" : "com.weisifang",
-                    "ios_bundle_id" : "",
-                    "isCloud" : true,
-                    "bought" : 1,
-                    "pid" : "9033",
-                    "parameters" : {}
-                }
-            },
             "Ba-MediaUtil" : {
                 "__plugin_info__" : {
                     "name" : "刷新媒体库插件（图片、音频、视频、文件等） Ba-MediaUtil",
@@ -317,31 +303,31 @@
                     "parameters" : {}
                 }
             },
-            "Ba-FloatWinStat" : {
+            "cj-launcher" : {
                 "__plugin_info__" : {
-                    "name" : "悬浮窗-订单统计 Ba-FloatWinStat",
-                    "description" : "Ba-FloatWinStat 是一款定制的订单悬浮窗插件，有其他定制需要可联系作者。",
+                    "name" : "获取手机所有应用，点击跳转应用",
+                    "description" : "获取手机所有应用，点击跳转应用",
                     "platforms" : "Android",
-                    "url" : "https://ext.dcloud.net.cn/plugin?id=14055",
+                    "url" : "https://ext.dcloud.net.cn/plugin?id=17179",
                     "android_package_name" : "com.weisifang",
                     "ios_bundle_id" : "",
                     "isCloud" : true,
                     "bought" : 1,
-                    "pid" : "14055",
+                    "pid" : "17179",
                     "parameters" : {}
                 }
             },
-            "Ba-PictureSelector" : {
+            "Ba-Permissions" : {
                 "__plugin_info__" : {
-                    "name" : "图片选择插件-新（支持视频、音频） Ba-PictureSelector",
-                    "description" : "Ba-PictureSelector 是一款功能强大的uniapp图片、音视频选择插件，可自定义配置，支持单选、多选，支持回显，支持图片压缩、裁剪，支持预览大图、音视频等等。",
+                    "name" : "权限申请插件（权限使用说明） Ba-Permissions",
+                    "description" : "Ba-Permissions 是一款权限申请插件，支持权限使用说明弹窗，满足市场审核需求。支持自定义权限申请，也支持快速申请定位、相机、媒体、文件、悬浮窗等常见权限。 ",
                     "platforms" : "Android",
-                    "url" : "https://ext.dcloud.net.cn/plugin?id=14535",
+                    "url" : "https://ext.dcloud.net.cn/plugin?id=16338",
                     "android_package_name" : "com.weisifang",
                     "ios_bundle_id" : "",
                     "isCloud" : true,
                     "bought" : 1,
-                    "pid" : "14535",
+                    "pid" : "16338",
                     "parameters" : {}
                 }
             },
@@ -356,6 +342,20 @@
                     "isCloud" : true,
                     "bought" : 1,
                     "pid" : "15427",
+                    "parameters" : {}
+                }
+            },
+            "Ba-PictureSelector" : {
+                "__plugin_info__" : {
+                    "name" : "图片选择插件-新（支持视频、音频） Ba-PictureSelector",
+                    "description" : "Ba-PictureSelector 是一款功能强大的uniapp图片、音视频选择插件，可自定义配置，支持单选、多选，支持回显，支持图片压缩、裁剪，支持预览大图、音视频等等。",
+                    "platforms" : "Android",
+                    "url" : "https://ext.dcloud.net.cn/plugin?id=14535",
+                    "android_package_name" : "com.weisifang",
+                    "ios_bundle_id" : "",
+                    "isCloud" : true,
+                    "bought" : 1,
+                    "pid" : "14535",
                     "parameters" : {}
                 }
             },
@@ -384,20 +384,6 @@
                     "isCloud" : true,
                     "bought" : 1,
                     "pid" : "10330",
-                    "parameters" : {}
-                }
-            },
-            "cj-launcher" : {
-                "__plugin_info__" : {
-                    "name" : "获取手机所有应用，点击跳转应用",
-                    "description" : "获取手机所有应用，点击跳转应用",
-                    "platforms" : "Android",
-                    "url" : "https://ext.dcloud.net.cn/plugin?id=17179",
-                    "android_package_name" : "com.weisifang",
-                    "ios_bundle_id" : "",
-                    "isCloud" : true,
-                    "bought" : 1,
-                    "pid" : "17179",
                     "parameters" : {}
                 }
             }

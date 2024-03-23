@@ -1,10 +1,11 @@
 // 图片选择插件-新（支持视频、音频） Ba-PictureSelector
 // https://ext.dcloud.net.cn/plugin?id=14535
 
+import helper from '@/js_sdk/helper.js'
+
 // #ifdef APP-PLUS
 const pictureSelector = uni.requireNativePlugin('Ba-PictureSelector')
 
-import helper from '@/js_sdk/helper.js'
 let defaultContent = {
     'onlyCamera': false, // 是否仅拍照 默认false
     'mediaType': 0, // 选择媒体类型 0:所有 1:图片 2:视频 3:音频 默认0
@@ -30,11 +31,38 @@ let defaultContent = {
 // #endif
 
 const baPictureSelector = {
-    //图片、音视频选择
-    selectPicture(obj = {}, callbackFun) {
+    //图片、音频、视频
+    selectMedia(obj = {}, callbackFun) {
         // 初始化通知内容
         obj = obj || {}
         var currentObj = Object.assign({}, defaultContent, obj)
+        pictureSelector.selectPicture(currentObj, (ret) => { //回调参数
+            if (ret.data) {
+                callbackFun && callbackFun(ret.data)
+                // ret.data.forEach(item => {
+                //     //文件名： item.fileName
+                //     //初始路径： item.path
+                //     //绝对路径： item.realPath
+                //     //是否压缩： item.compressed
+                //     //压缩文件路径： item.compressPath
+                //     //是否裁剪： item.isCut
+                //     //裁剪路径： item.cutPath
+                //     //是否开启原图： item.isOriginal
+                //     //原图路径： item.originalPath
+                //     //视频缩略图： item.videoThumbnailPath
+                //     //文件大小： item.size
+                //     //文件时长： item.duration
+                // })
+            } else {
+                callbackFun && callbackFun(false)
+            }
+        });
+    },
+    //图片
+    selectImg(obj = {}, callbackFun) {
+        // 初始化通知内容
+        obj = obj || {}
+        var currentObj = Object.assign({}, defaultContent, obj,{mediaType:1})
         pictureSelector.selectPicture(currentObj, (ret) => { //回调参数
             if (ret.data) {
                 callbackFun && callbackFun(ret.data)

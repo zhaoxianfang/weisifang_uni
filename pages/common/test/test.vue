@@ -285,11 +285,21 @@
                     });
             },
             reqIgnoreBattery() { //申请忽略电池优化权限
-                let that = this;
-                permission.goPermissionPage(
-                    (res) => {
-                        that.showResult(res)
-                    });
+               // android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
+               let that = this;
+               permission.request({
+                   permissions: ['android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS'],
+                   //perTitle:"自定义权限说明标题",//可不传，有默认值
+                   //perMsg:"自定义权限说明内容"//可不传，有默认值
+               },
+               (res) => {
+                   that.showResult(res)
+               });
+
+                // permission.goPermissionPage(
+                //     (res) => {
+                //         that.showResult(res)
+                //     });
             },
             reqManageStorage() { //申请所有文件读取权限
                 let that = this;
@@ -297,6 +307,14 @@
                     (res) => {
                         that.showResult(res)
                     });
+                // permission.request({
+                //     permissions: ['android.permission.MANAGE_EXTERNAL_STORAGE'],
+                //     //perTitle:"自定义权限说明标题",//可不传，有默认值
+                //     //perMsg:"自定义权限说明内容"//可不传，有默认值
+                // },
+                // (res) => {
+                //     that.showResult(res)
+                // });
             },
             goAppDetails() {//跳转应用详情
                 let that = this;
@@ -318,6 +336,14 @@
                     (res) => {
                         that.showResult(res)
                     });
+                // permission.request({
+                //     permissions: ['android.permission.SYSTEM_ALERT_WINDOW'],
+                //     //perTitle:"自定义权限说明标题",//可不传，有默认值
+                //     //perMsg:"自定义权限说明内容"//可不传，有默认值
+                // },
+                // (res) => {
+                //     that.showResult(res)
+                // });
             },
             showResult(res) {
                 console.log(res);

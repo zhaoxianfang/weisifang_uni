@@ -314,7 +314,7 @@
                 }
                 // #ifdef APP-PLUS
 
-                this.helper.ba.pictureSelector.selectPicture({
+                this.helper.ba.pictureSelector.selectMedia({
                     // 'mediaType': 0,
                     // 'max': 99
                 }, function(file) {
@@ -357,12 +357,6 @@
                     // 操作完成
                     _this.$emit("finally", fallTotal, videoTotal, imgTotal);
                 })
-
-                // this.helper.ba.selectImgOrVideo({
-                //     'mediaType': 0,
-                //     'max': this.max
-                // }, function(file) {
-                // })
                 // #endif
                 // #ifndef APP-PLUS
                 switch (this.mediaTypeData.indexOf(this.mediaType)) {

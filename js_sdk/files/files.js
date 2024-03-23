@@ -6,32 +6,6 @@ import helper from '@/js_sdk/helper.js'
 // 离线文件预览插件
 const tbs_core_file_url = 'https://weisifang.com/sdk/tbs_core_20210925_release.tbs'
 const files = {
-    // 选择资源文件 主要是 图片，视频，音频
-    selectImgOrVideo(options = {}, callbackFun) {
-        // #ifdef APP-PLUS
-        // 图片视频选择
-        helper.ba.mediaPicker.selectPicture(options, callbackFun)
-        // #endif
-
-        // #ifndef APP-PLUS
-        uni.chooseImage({
-            count: 1, //默认9
-            sizeType: ['original', 'compressed'], //可以指定是原图original还是压缩图compressed，默认二者都有
-            // sourceType: ['album'], // album 从相册选图，camera 使用相机，默认二者都有
-            success: function(res) {
-                //注：uni.chooseImage返回的地址为：“file://+路径”格式，需要转一下，如下
-                res.real_path = res.tempFilePaths[0].replace("file://", "");
-                callbackFun && callbackFun(res)
-            },
-            fail: function(err) {
-                callbackFun && callbackFun(false)
-            },
-            complete: function(res) {}
-        });
-        // #endif
-
-
-    },
     // 选择文件
     selectFiles(options = {}, callbackFun) {
         // #ifdef APP-PLUS

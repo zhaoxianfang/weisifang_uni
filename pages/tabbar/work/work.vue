@@ -113,7 +113,7 @@
                     {
                         name: 'gps',
                         label: '已安装的app',
-                        color: '#999',
+                        color: '#8a5966',
                         size: 28,
                         type: 'app_list'
                     },
@@ -190,9 +190,8 @@
 
                 if (e.type == 'img') {
                     // 图片视频选择
-                    this.helper.files.selectImgOrVideo({
-                        'mediaType': 0,
-                        'max': 99
+                    this.helper.ba.pictureSelector.selectImg({
+                        // 'max': 99
                     }, function(file) {
                         if (file === false) {
                             console.log('选择文件出错啦 ')
@@ -203,7 +202,7 @@
                 }
                 if (e.type == 'picture') {
                     // 图片、音频、视频
-                    this.helper.ba.pictureSelector.selectPicture({
+                    this.helper.ba.pictureSelector.selectMedia({
                         // 'mediaType': 0,
                         // 'max': 99
                     }, function(file) {
@@ -235,7 +234,7 @@
                     this.helper.openUrl('http://0l0.net/docs')
                 }
                 if (e.type == 'app_list') {
-                    return false
+                    this.tui.href('/pages/common/test/app_list');
                     // let appArr = [];
                     // uni.showLoading({
                     //     title: '获取中',
@@ -252,12 +251,16 @@
                 if (e.type == 'window') {
                 }
                 if (e.type == 'share') {
-                    // 图片视频选择
-                    this.helper.files.selectImgOrVideo({
-                        'mediaType': 1,
-                        'max': 1
+                    // 分享图片: 图片视频选择
+                    this.helper.ba.pictureSelector.selectMedia({
+                        // 'mediaType': 0,
+                        // 'max': 99
                     }, function(file) {
-                        console.log('选择', file[0])
+                        if (file === false) {
+                            console.log('选择文件出错啦 ')
+                            return false
+                        }
+                        console.log('file', file)
                         // 分享
                         uni.shareWithSystem({
                             type: 'image', // 分享类型，只支持text，image，默认为text
