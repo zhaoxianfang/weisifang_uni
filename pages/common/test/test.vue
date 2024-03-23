@@ -94,11 +94,74 @@
                     </view>
                 </tui-list-cell>
             </tui-list-view>
+            
+            <tui-list-view title="">
+                <tui-list-cell @click="showAppList" :arrow="true" last="true">
+                    <view class="tui-item-box">
+                        <tui-icon name="setup" :size="23" color="#afadb2"></tui-icon>
+                        <text class="tui-list-cell_name">获取手机应用列表</text>
+                        <view class="tui-right"></view>
+                    </view>
+                </tui-list-cell>
+            </tui-list-view>
+            
+            <tui-list-view title="权限操作">
+                <tui-list-cell @click="request" :arrow="true" last="true">
+                    <view class="tui-item-box">
+                        <tui-icon name="setup" :size="23" color="#afadb2"></tui-icon>
+                        <text class="tui-list-cell_name">自定义申请权限</text>
+                        <view class="tui-right"></view>
+                    </view>
+                </tui-list-cell>
+                <tui-list-cell @click="isGranted" :arrow="true" last="true">
+                    <view class="tui-item-box">
+                        <tui-icon name="setup" :size="23" color="#afadb2"></tui-icon>
+                        <text class="tui-list-cell_name">判断一个或多个权限是否全部授予了</text>
+                        <view class="tui-right"></view>
+                    </view>
+                </tui-list-cell>
+                <tui-list-cell @click="reqAlertWindow" :arrow="true" last="true">
+                    <view class="tui-item-box">
+                        <tui-icon name="setup" :size="23" color="#afadb2"></tui-icon>
+                        <text class="tui-list-cell_name">悬浮窗权限</text>
+                        <view class="tui-right"></view>
+                    </view>
+                </tui-list-cell>
+                <tui-list-cell @click="getDenied" :arrow="true" last="true">
+                    <view class="tui-item-box">
+                        <tui-icon name="setup" :size="23" color="#afadb2"></tui-icon>
+                        <text class="tui-list-cell_name">获取没有授予的权限</text>
+                        <view class="tui-right"></view>
+                    </view>
+                </tui-list-cell>
+                <tui-list-cell @click="goPermissionPage" :arrow="true" last="true">
+                    <view class="tui-item-box">
+                        <tui-icon name="setup" :size="23" color="#afadb2"></tui-icon>
+                        <text class="tui-list-cell_name">跳转到应用权限设置页</text>
+                        <view class="tui-right"></view>
+                    </view>
+                </tui-list-cell>
+                <tui-list-cell @click="reqIgnoreBattery" :arrow="true" last="true">
+                    <view class="tui-item-box">
+                        <tui-icon name="setup" :size="23" color="#afadb2"></tui-icon>
+                        <text class="tui-list-cell_name">申请忽略电池优化权限</text>
+                        <view class="tui-right"></view>
+                    </view>
+                </tui-list-cell>
+                <tui-list-cell @click="reqManageStorage" :arrow="true" last="true">
+                    <view class="tui-item-box">
+                        <tui-icon name="setup" :size="23" color="#afadb2"></tui-icon>
+                        <text class="tui-list-cell_name">申请所有文件读取权限</text>
+                        <view class="tui-right"></view>
+                    </view>
+                </tui-list-cell>
+            </tui-list-view>
         </view>
     </view>
 </template>
 
 <script>
+    const permission = uni.requireNativePlugin('Ba-Permissions')
     export default {
         onLoad: function(options) {},
         data() {
@@ -108,7 +171,7 @@
         },
         created() {},
         mounted() {
-            this.showFW()
+            // this.showFW()
         },
         methods: {
             onKeep() { //通用保活
@@ -176,6 +239,95 @@
             hideFW() { //隐藏
                 this.ba.floatWinStat.hideFW()
             },
+            showAppList(){
+                this.tui.href('./app_list');
+            },
+            // 权限相关
+            request() {//自定义申请权限
+                let that = this;
+                permission.request({
+                        permissions: ['android.permission.CAMERA'],
+                        //perTitle:"自定义权限说明标题",//可不传，有默认值
+                        //perMsg:"自定义权限说明内容"//可不传，有默认值
+                    },
+                    (res) => {
+                        that.showResult(res)
+                    });
+            },
+            isGranted() { //判断一个或多个权限是否全部授予了
+                let that = this;
+                permission.isGranted({
+                        permissions: ['android.permission.CAMERA']
+                    },
+                    (res) => {
+                        that.showResult(res)
+                    });
+            },
+            getDenied() { //获取没有授予的权限
+                let that = this;
+                permission.getDenied({
+                        permissions: ['android.permission.CAMERA', 'android.permission.ACCESS_COARSE_LOCATION',
+                            'android.permission.ACCESS_FINE_LOCATION',
+                            'android.permission.ACCESS_BACKGROUND_LOCATION'
+                        ]
+                    },
+                    (res) => {
+                        that.showResult(res)
+                    });
+            },
+            goPermissionPage() { //跳转到应用权限设置页
+                let that = this;
+                permission.goPermissionPage({
+                        permissions: ['android.permission.CAMERA']
+                    },
+                    (res) => {
+                        that.showResult(res)
+                    });
+            },
+            reqIgnoreBattery() { //申请忽略电池优化权限
+                let that = this;
+                permission.goPermissionPage(
+                    (res) => {
+                        that.showResult(res)
+                    });
+            },
+            reqManageStorage() { //申请所有文件读取权限
+                let that = this;
+                permission.goPermissionPage(
+                    (res) => {
+                        that.showResult(res)
+                    });
+            },
+            goAppDetails() {//跳转应用详情
+                let that = this;
+                permission.goAppDetails(
+                    (res) => {
+                        that.showResult(res)
+                    });
+            },
+            reqLocation() {//申请位置权限
+                let that = this;
+                permission.reqLocation(
+                    (res) => {
+                        that.showResult(res)
+                    });
+            },
+            reqAlertWindow() { //申请悬浮窗权限
+                let that = this;
+                permission.reqAlertWindow(
+                    (res) => {
+                        that.showResult(res)
+                    });
+            },
+            showResult(res) {
+                console.log(res);
+                //this.msgList.unshift(JSON.stringify(res))
+                uni.showToast({
+                    title: res.msg,
+                    icon: "none",
+                    duration: 3000
+                })
+            }
         },
         onPageScroll(e) {
 

@@ -386,6 +386,20 @@
                     "pid" : "10330",
                     "parameters" : {}
                 }
+            },
+            "cj-launcher" : {
+                "__plugin_info__" : {
+                    "name" : "获取手机所有应用，点击跳转应用",
+                    "description" : "获取手机所有应用，点击跳转应用",
+                    "platforms" : "Android",
+                    "url" : "https://ext.dcloud.net.cn/plugin?id=17179",
+                    "android_package_name" : "com.weisifang",
+                    "ios_bundle_id" : "",
+                    "isCloud" : true,
+                    "bought" : 1,
+                    "pid" : "17179",
+                    "parameters" : {}
+                }
             }
         }
     },
