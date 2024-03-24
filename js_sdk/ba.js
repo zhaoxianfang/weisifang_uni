@@ -3,13 +3,13 @@
 
 import baBeep from '@/js_sdk/ba/baBeep.js'
 import baNotify from '@/js_sdk/ba/baNotify.js'
-import baFloatWinStat from '@/js_sdk/ba/baFloatWinStat.js'
 import baKeepAliveSuit from '@/js_sdk/ba/baKeepAliveSuit.js'
 import baFilePicker from '@/js_sdk/ba/baFilePicker.js'
 import baMediaUtil from '@/js_sdk/ba/baMediaUtil.js'
 import baSqlite from '@/js_sdk/ba/baSqlite.js'
 import baPictureSelector from '@/js_sdk/ba/baPictureSelector.js'
 
+// import baFloatWinStat from '@/js_sdk/ba/baFloatWinStat.js'
 // import baMediaPicker from '@/js_sdk/ba/baMediaPicker.js'
 // import baChangeIcon from '@/js_sdk/ba/baChangeIcon.js'
 // import baIdCode from '@/js_sdk/ba/baIdCode.js'
@@ -26,13 +26,13 @@ const ba = {
     // idCode: baIdCode,
     // location: baLocation,
     notify: baNotify,
-    floatWinStat: baFloatWinStat,
     keepAliveSuit: baKeepAliveSuit,
     filePicker: baFilePicker,
     mediaUtil: baMediaUtil,
     sqlite: baSqlite,
     pictureSelector: baPictureSelector,
 
+    // floatWinStat: baFloatWinStat,
     // mediaPicker: baMediaPicker,
     // scanner: baScanner,
     // gray: baGray,
