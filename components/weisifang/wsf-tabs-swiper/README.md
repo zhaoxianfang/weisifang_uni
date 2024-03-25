@@ -4,7 +4,7 @@
 ```
 <template>
   <view class="container">
-    <wsf-tabs-swiper :tabs="tabs" :list="items" tabTitle="title" :overlap="false" @loadMore="loadList">
+    <wsf-tabs-swiper :tabs="tabs" tabTitle="title" :showSetup="true" @onSetup="clickSetup" @onRefresh="refreshList" @onLoadMore="loadMore":list="items">
       <template v-slot:tab="{ tab }">
         <view class="" style="height: 60px;background-color: #fff;margin: 10rpx;">接收当前激活的tab,传入时tabs里面的原始数据 ：{{ tab.id }}-{{ tab.title }}
         </view>

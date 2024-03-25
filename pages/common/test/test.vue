@@ -240,7 +240,7 @@
                 this.ba.floatWinStat.hideFW()
             },
             showAppList(){
-                this.tui.href('./app_list');
+                this.tui.href('../extend/app_list');
             },
             // 权限相关
             request() {//自定义申请权限

@@ -1,7 +1,7 @@
 <template>
     <view class="container">
         <wsf-popup :itemList="menuList" ref="wsfPopup" @click="onClickPopupMenu"></wsf-popup>
-        <wsf-tabs-swiper :tabs="tabs" @onRefresh="refreshList" @onLoadMore="loadMore" :list="items">
+        <wsf-tabs-swiper :tabs="tabs" tabTitle="title" :showSetup="true" @onSetup="clickSetup" @onRefresh="refreshList" @onLoadMore="loadMore" :list="items">
             <template v-slot:header="{ tabHead }">
                 <view class="" style="padding: 10rpx;">
                     <!-- 当前栏目：{{ tabHead.id }}-{{ tabHead.title }} -->
@@ -40,10 +40,6 @@
                     title: '扫一扫',
                     icon: 'sweep',
                     type: 'scan'
-                }, {
-                    title: '订阅栏目',
-                    icon: 'listview',
-                    type: 'subscribe_column'
                 }],
                 tabs: [
                     // {
@@ -156,6 +152,9 @@
             },
             detail(item) {
                 this.tui.href('/pages/common/article/detail?id=' + item.id);
+            },
+            clickSetup(){
+                this.tui.toast('点击了设置按钮')
             }
         }
     };

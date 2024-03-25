@@ -1,14 +1,6 @@
 <template>
     <view>
         <view class="tui-content-box">
-            <tui-list-view title="">
-                <tui-list-cell @click="detail" :arrow="true">
-                    <view class="tui-item-box">
-                        <tui-icon name="shield" :size="24" color="#ff7900"></tui-icon>
-                        <text class="tui-list-cell_name">应用权限</text>
-                    </view>
-                </tui-list-cell>
-            </tui-list-view>
 
             <tui-list-view title="">
                 <tui-list-cell @click="protocol" :arrow="true" last="true">
@@ -43,6 +35,15 @@
                         <tui-icon name="refresh" :size="23" color="#afadb2"></tui-icon>
                         <text class="tui-list-cell_name">检查更新</text>
                         <view class="tui-right">{{version}}</view>
+                    </view>
+                </tui-list-cell>
+            </tui-list-view>
+            
+            <tui-list-view title="">
+                <tui-list-cell @click="toPermission" :arrow="true">
+                    <view class="tui-item-box">
+                        <tui-icon name="shield" :size="24" color="#ff7900"></tui-icon>
+                        <text class="tui-list-cell_name">权限管理</text>
                     </view>
                 </tui-list-cell>
             </tui-list-view>
@@ -101,6 +102,9 @@
             },
             contactUs(e) {
                 this.tui.href('/pages/common/contactUs/contactUs', false);
+            },
+            toPermission(e){
+                this.tui.href('/pages/common/extend/permission', false);
             },
             detail(e) {
                 console.log('detail')

@@ -2,8 +2,8 @@
     <view>
         <view class="wrap">
             <v-tabs fixed class="nav_tabs" :scroll="scrollNav" v-model="tabIndex" :tabs="topTabs" paddingItem="0 10rpx"
-                :forbidChange="hasHandleLoadOrRefresh" lineHeight="6rpx" :lineScale="0.9" @change="tabChange"
-                height="70rpx" fontSize="32rpx" padding="4rpx 16rpx"></v-tabs>
+                :forbidChange="hasHandleLoadOrRefresh" :showSetup="showSetup" lineHeight="6rpx" :lineScale="0.9" @change="tabChange" @onSetup="clickSetup"
+                height="70rpx" fontSize="32rpx" padding="4rpx 6rpx 4rpx 16rpx"></v-tabs>
 
             <swiper class="swiper-box" :current="tabIndex" @change="swiperChange" :duration="300"
                 @transition="transition" @animationfinish="animationfinish">
@@ -33,7 +33,7 @@
     import VTabs from '@/components/v-tabs/v-tabs.vue'
     export default {
         name: 'WsfTabSwiper',
-        emits: ['onRefresh', 'onLoadMore'],
+        emits: ['onRefresh', 'onLoadMore', 'onSetup'],
         components: {
             VTabs
         },
@@ -57,8 +57,13 @@
                     return []
                 }
             },
-            // 新加载进来的数据是否 重叠 覆盖原数据，否表示在现有据后追加 或者加到现有数据前面
+            // 新加载进来的数据是否 重新 覆盖原数据，（false否：表示在现有据后追加 true是:加到现有数据前面）
             overlap: {
+                type: Boolean,
+                default: false
+            },
+            // 是否显示tabs 右侧的设置组件
+            showSetup: {
                 type: Boolean,
                 default: false
             }
@@ -73,7 +78,9 @@
                 this.initTabs()
                 this.initSwiper()
                 this.getList(true, true)
-            }
+            },
+            showSetup(val) {
+            },
         },
         data() {
             return {
@@ -362,6 +369,10 @@
                 // console.log('下拉被复位', e, this.tabIndex)
                 this.swiperData[this.tabIndex].refreshing = false // 停止下拉状态
             },
+            clickSetup(e){
+                // console.log('点击了设置/管理按钮')
+                this.$emit('onSetup')
+            }
         }
     }
 </script>

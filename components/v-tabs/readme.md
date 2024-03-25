@@ -1,12 +1,29 @@
-> // zxf 新增 是否允许切换 属性 forbidChange
+# v-tabs
+
+## zxf 自定义改造
+
+### `props.js`新增自定义属性
 
 ```
+// zxf 新增
+// tabs 栏是否禁止点击
 forbidChange: {
     type: Boolean,
     default: false
+},
+// tabs最右侧 是否展示设置按钮
+showSetup: {
+    type: Boolean,
+    default: false
+},
+// 开启showSetup时设置自定义的设置按钮图标，基于 thorui 的icon图标
+setupIcon: {
+    type: String,
+    default: 'setup'
 }
+// zxf 新增 end
 ```
-注意：要保证`watch`中的`tabs`和`watch`中的`value` 除了`this.current = newVal`外，都一致
+### 注意：要保证`watch`中的`tabs`和`watch`中的`value` 除了`this.current = newVal`外，都一致
 ```
 tabs: {
     immediate: true,
@@ -14,18 +31,78 @@ tabs: {
         this.$nextTick(this.update)
     }
 },
+// zxf 新增 是否禁止切换 forbidChange
+forbidChange(newVal) {}
+// zxf 新增 是否禁止切换 forbidChange end
 ```
+
+### 切换事件中添加forbidChange判断 和新增点击事件
+
+```javascript
+// 切换事件
+change(index) {
+  const isDisabled = !!this.tabs[index].disabled
+  if (!this.forbidChange && this.current !== index && !isDisabled) {
+    this.current = index
+    this.$emit('input', index)
+    this.$emit('change', index)
+  }
+},
+// zxf 自定义新增 点击设置按钮触发事件
+clickSetup(){
+    this.$emit('onSetup')
+},
+```
+
+### 设置class和设置按钮组件
+给 `scroll-view` 添加 `:class="{custom_scroll_view:!!showSetup}"` 属性
+
+并在`scroll-view`同级后面紧跟
+```vue
+<view class="v-tabs__handle" :style="{height}" v-if="!!showSetup">
+    <tui-icon class="v-tabs__handle_custom_icon" :name="setupIcon" :size="24" color="#333"></tui-icon>
+</view>
+```
+
+添加自定义样式
+```scss
+&__handle{
+    width: 68rpx;
+    height: 70rpx;
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    overflow: hidden;
+    &_custom_icon{
+        border-left: #ccc 2rpx solid;
+        padding-left: 4rpx;
+    }
+}
+.custom_scroll_view{
+    width: calc( 100% - 70rpx );
+}
+```
+
+============================================================
+============================================================
+============================================================
 
 # v-tabs
 
 [](https://ext.dcloud.net.cn/plugin?id=1971)
+> 2.1.5（2023-11-02）
+1.[修复]修复`change`和`v-model`绑定的值不同步
+2.[修复]暂时停用`activeFontSize`选项
+3.[修改]修改默认激活的文字不加粗
 
 >  2.1.4（2023-10-12）
 [修改]修改计算方式
 [新增]外部可以通过this.$refs.tabs.update()方法主动更新
 
 > 2.1.3（2023-09-11）
-
 ## 插件说明
 
 > 这是 `v-tabs` 插件的升级版本，参数上有很大变动，支持 `H5` `小程序` `手机端`，如果是在之前的插件上升级的话，请注意参数的变更，触发的事件没有变更。
@@ -182,6 +259,15 @@ export default {
 | change | index | 改变选中项触发, index 选中项的下标 |
 
 ## 更新日志
+
+### 2.1.5（2023-11-02）
+1.[修复]修复`change`和`v-model`绑定的值不同步
+2.[修复]暂时停用`activeFontSize`选项
+3.[修改]修改默认激活的文字不加粗
+
+### 2.1.4（2023-10-12）
+1. [修改]修改计算方式
+2. [新增]外部可以通过`this.$refs.tabs.update()`方法主动更新
 
 ### 2.1.3（2023-09-11）
 1. [新增]支持自定义插槽模式，具体可以查看示例代码使用方式。[gitee demo](https://github.com/xfjpeter/uni-plugins/blob/master/pages/tabs/tabs.vue#L47-L50) 或 [github demo](https://github.com/xfjpeter/uni-plugins/blob/master/pages/tabs/tabs.vue#L47-L50)

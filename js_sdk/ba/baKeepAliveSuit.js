@@ -8,21 +8,26 @@ import helper from '@/js_sdk/helper.js'
 // #endif
 
 const baKeepAliveSuit = {
-    onKeep() { //通用保活
-        keepAlive.onKeep({
+    onKeep(option={},callback=null) { //通用保活
+        var opt = Object.assign({}, {
                 //channelId: "Ba-KeepAlive",
                 //channelName: "Ba-KeepAlive",
-                title: "测试",
-                content: "常驻通知描述",
-            },
-            (res) => {
-                console.log(res);
+                title: "威四方",
+                content: "持续为您护航",// 常驻通知描述
+            }, option)
+        keepAlive.onKeep(opt,
+        (res) => {
+            console.log(res);
+            if(callback){
+                callback(res)
+            }else{
                 uni.showToast({
                     title: res.msg,
                     icon: "none",
                     duration: 3000
                 })
-            });
+            }
+        });
     },
     onAutoStart() { //去设置自启动、后台运行
         keepAlive.onAutoStart(
@@ -35,21 +40,23 @@ const baKeepAliveSuit = {
                 })
             });
     },
-    requestIgnoreBattery() { //申请加入电池优化白名单
+    requestIgnoreBattery(callback=null) { //申请加入电池优化白名单
         keepAlive.requestIgnoreBattery(
             res => {
-                console.log(res);
-                uni.showToast({
-                    title: res.msg,
-                    icon: "none",
-                    duration: 3000
-                })
+                if(callback){
+                    callback(res)
+                }else{
+                    uni.showToast({
+                        title: res.msg,
+                        icon: "none",
+                        duration: 3000
+                    })
+                }
             });
     },
     goIgnoreBattery() { //跳转到电池优化设置页
         keepAlive.goIgnoreBattery(
             res => {
-                console.log(res);
                 uni.showToast({
                     title: res.msg,
                     icon: "none",
@@ -57,37 +64,45 @@ const baKeepAliveSuit = {
                 })
             });
     },
-    isIgnoringBattery() { //是否加入电池优化白名单
+    isIgnoringBattery(callback=null) { //是否加入电池优化白名单
         keepAlive.isIgnoringBattery(
             res => {
-                console.log(res);
+                // console.log(res);
                 // if (res.data) {
                 //  this.msgList.unshift(JSON.stringify(res.data))
                 //  this.msgList.unshift(dateUtil.now())
                 // }
-                uni.showToast({
-                    title: res.msg,
-                    icon: "none",
-                    duration: 3000
-                })
+                if(callback){
+                    callback(res.data.isIgnoring,res)
+                }else{
+                    uni.showToast({
+                        title: res.msg,
+                        icon: "none",
+                        duration: 3000
+                    })
+                }
             });
     },
-    onShowNotify() { //常驻通知保活
-        keepAlive.onShowNotify({
-                //channelId: "Ba-KeepAlive",
-                //channelName: "Ba-KeepAlive",
-                //ID:99
-                //title: "测试",
-                //content: "常驻通知描述",
-            },
-            (res) => {
-                console.log(res);
+    onShowNotify(option={},callback=null) { //常驻通知保活
+        var opt = Object.assign({}, {
+            //channelId: "Ba-KeepAlive",
+            //channelName: "Ba-KeepAlive",
+            title: "威四方",
+            content: "持续为您护航",// 常驻通知描述
+        }, option)
+        keepAlive.onShowNotify(opt,
+        (res) => {
+            console.log(res);
+            if(callback){
+                callback(res.data.isIgnoring,res)
+            }else{
                 uni.showToast({
                     title: res.msg,
                     icon: "none",
                     duration: 3000
                 })
-            });
+            }
+        });
     },
     onCancelNotify() { //取消常驻通知保活
         keepAlive.onCancelNotify({

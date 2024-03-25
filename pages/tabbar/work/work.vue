@@ -23,13 +23,6 @@
 </template>
 
 <script>
-    // #ifdef APP-PLUS
-    const mediaPicker = uni.requireNativePlugin('Ba-MediaPicker') // 图文选择
-
-    // 已经安装的应用列表
-    import wxy from '@/js_sdk/weisifang/wxy-android.js';
-    // #endif
-
     export default {
         data() {
             return {
@@ -235,18 +228,6 @@
                 }
                 if (e.type == 'app_list') {
                     this.tui.href('/pages/common/test/app_list');
-                    // let appArr = [];
-                    // uni.showLoading({
-                    //     title: '获取中',
-                    //     mask: true,
-                    //     success: (res) => {
-                    //         appArr = wxy.getApplication();
-                    //         console.log('已经安装的应用列表', appArr)
-                    //         // this.num = appArr.length;
-                    //         // this.appArr = appArr;
-                    //         uni.hideLoading();
-                    //     }
-                    // });
                 }
                 if (e.type == 'window') {
                 }

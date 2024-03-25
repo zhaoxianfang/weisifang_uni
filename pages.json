@@ -211,10 +211,18 @@
 
     },
     {
-        "path" : "pages/common/test/app_list",
+        "path" : "pages/common/extend/app_list",
         "style" : 
         {
-            "navigationBarTitleText" : "获取手机应用列表",
+            "navigationBarTitleText" : "手机应用列表",
+            "enablePullDownRefresh" : false
+        }
+    },
+    {
+        "path" : "pages/common/extend/permission",
+        "style" : 
+        {
+            "navigationBarTitleText" : "权限管理",
             "enablePullDownRefresh" : false
         }
     }],
