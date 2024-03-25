@@ -53,16 +53,8 @@
                         </view>
                     </view>
                 </tui-list-cell>
-                <tui-list-cell @click="reqAlertWindow" :arrow="true" last="true">
-                    <view class="tui-item-box">
-                        <tui-icon name="setup" :size="23" color="#afadb2"></tui-icon>
-                        <text class="tui-list-cell_name">悬浮窗权限</text>
-                        <view class="tui-right"></view>
-                    </view>
-                </tui-list-cell>
                 <tui-list-cell :arrow="!hasManageStorage">
                     <view class="tui-item-box">
-                        <tui-icon name="setup" :size="23" color="#afadb2"></tui-icon>
                         <text class="tui-list-cell_name">申请所有文件读取权限</text>
                         <view class="tui-ml-auto" v-if="!hasManageStorage">
                             <tui-tag @click="changeHasManageStorageSwitch" padding="10rpx 12rpx" margin="0 30rpx 0 0" size="24rpx" type="light-green"
@@ -71,6 +63,12 @@
                         <view class="tui-ml-auto" v-else>
                             <tui-switch :checked="hasManageStorage" :disabled="hasManageStorage" color="#07c160" :scaleRatio="0.7"></tui-switch>
                         </view>
+                    </view>
+                </tui-list-cell>
+                <tui-list-cell @click="reqAlertWindow" :arrow="true" last="true">
+                    <view class="tui-item-box">
+                        <text class="tui-list-cell_name">悬浮窗权限</text>
+                        <view class="tui-right"></view>
                     </view>
                 </tui-list-cell>
             </tui-list-view>
