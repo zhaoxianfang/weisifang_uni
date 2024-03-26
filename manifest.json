@@ -386,6 +386,20 @@
                     "pid" : "10330",
                     "parameters" : {}
                 }
+            },
+            "Ba-Broadcast" : {
+                "__plugin_info__" : {
+                    "name" : "监听系统广播、自定义广播 Ba-Broadcast",
+                    "description" : "Ba-Broadcast 是一款可监听系统广播的uniapp插件，如息屏、亮屏、声音、电量等等。支持监听系统广播；支持自定义广播；支持发送广播。",
+                    "platforms" : "Android",
+                    "url" : "https://ext.dcloud.net.cn/plugin?id=10277",
+                    "android_package_name" : "com.weisifang",
+                    "ios_bundle_id" : "",
+                    "isCloud" : true,
+                    "bought" : 1,
+                    "pid" : "10277",
+                    "parameters" : {}
+                }
             }
         }
     },

@@ -9,7 +9,7 @@ const files = {
     // 选择文件
     selectFiles(options = {}, callbackFun) {
         // #ifdef APP-PLUS
-        helper.ba.filePicker.selectFile2(options, callbackFun)
+        helper.plugins.filePicker.selectFile2(options, callbackFun)
         // #endif
 
         // #ifndef APP-PLUS
@@ -277,7 +277,7 @@ const files = {
         //检查文件是否已存在
         plus.io.resolveLocalFileSystemURL(file_path, function(entry) {
             //如果文件存在 则刷新媒体库
-            helper.ba.mediaUtil.refreshFile(file_path)
+            helper.plugins.mediaUtil.refreshFile(file_path)
         }, function(e) {
             //如果文件不存在
             return false

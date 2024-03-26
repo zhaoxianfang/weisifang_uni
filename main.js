@@ -3,7 +3,7 @@ import store from './store'
 import tui from './common/httpRequest'
 import helper from './js_sdk/helper'
 // #ifdef APP-PLUS
-import ba from './js_sdk/ba'
+import plugins from './js_sdk/plugins'
 // #endif
 // API 封装
 import api from './api'
@@ -36,7 +36,7 @@ Vue.prototype.$store = store
 
 Vue.prototype.helper = helper
 // #ifdef APP-PLUS
-Vue.prototype.ba = ba // Ba 插件合集
+Vue.prototype.plugins = plugins // 插件合集
 // #endif
 Vue.prototype.$api = api
 

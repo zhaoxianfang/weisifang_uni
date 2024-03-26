@@ -6,21 +6,17 @@
 
     export default {
         onLaunch: function() {
+            console.log('onLaunch')
             let that = this;
             // #ifdef APP-PLUS
             /* 5+环境锁定屏幕方向 */
             plus.screen.lockOrientation('portrait-primary'); //锁定
 
+            // ba 插件的各种监听
+            this.initBa();
+
             // app 辅助功能初始化
             helper.init();
-
-            // ba 插件的各种监听
-            // this.checkArguments();
-            // 重点是以下： 一定要监听后台恢复 ！一定要   
-            plus.globalEvent.addEventListener('newintent', (e) => {
-                this.checkArguments(); // 检测启动参数  
-            });
-            // ba 插件的各种监听 结束
 
             // 检测app 最新版本
             helper.checkAppUpgrade(0);
@@ -52,26 +48,9 @@
         onShow: function() {
             // 获取完整的urlscheme字符串
             // #ifdef APP-PLUS
-            var args = plus.runtime.arguments;
-            if (args) {
-                // 处理args参数，如直达到某新页面等
-                if (args.substring(0, 6) === 'wsf://' || args.substring(0, 12) === 'weisifang://') {
-                    var urlschemeContent = args.substring(0, 6) === 'wsf://' ? args.slice(6) : args.slice(12);
-                    plus.runtime.arguments = '';
-                    if (urlschemeContent.length > 0) {
-                        this.tui.modal('urlscheme', urlschemeContent, false, res => {});
-                    }
-                }
-            }
-            // ba-natify 通知 插件
-            if (args) {
-                let args1 = JSON.parse(args);
-                if (args1.BaNotifyID) { //判断是否为通知传来的消息
-                    //这里写你的处理逻辑
-                    //args参数见“点击事件参数”
-                    console.log('args.BaNotifyID', args1.BaNotifyID, args);
-                }
-            }
+
+            this.initBa();
+
             // #endif
             if (!this.$store.state.user.isLogin) {
                 // 未登录
@@ -96,6 +75,18 @@
             // #endif
         },
         methods: {
+            // ba 插件的各种监听
+            initBa(){
+                // ba 插件的各种监听
+                this.checkArguments();
+                // #ifdef APP-PLUS
+                // 重点是以下： 一定要监听后台恢复 ！一定要   
+                plus.globalEvent.addEventListener('newintent', (e) => {
+                    this.checkArguments(); // 检测启动参数  
+                });
+                // #endif
+                // ba 插件的各种监听 结束
+            },
             // ba 插件的各种监听
             checkArguments() {
                 // #ifdef APP-PLUS
@@ -126,15 +117,31 @@
                             icon: "none",
                             duration: 3000
                         })
-                        // console.log('BaShareReceive', args1)
+                        console.log('BaShareReceive', args1)
                         //跳转并传值到你的业务界面，仅做参考，逻辑根据实际业务即可
                         // uni.navigateTo({
-                        //     url: '/pages/common/ba/shareReceive?filePath=' + args1.filePath
+                        //     url: '/pages/common/plugins/shareReceive?filePath=' + args1.filePath
                         // })
                         helper.navBtns.handle({
                             uni_code: 'ba_share_receive',
                             file_path: args1.filePath
                         })
+                    }
+
+                    // 处理args参数，如直达到某新页面等
+                    if (args.substring(0, 6) === 'wsf://' || args.substring(0, 12) === 'weisifang://') {
+                        var urlschemeContent = args.substring(0, 6) === 'wsf://' ? args.slice(6) : args.slice(12);
+                        plus.runtime.arguments = '';
+                        if (urlschemeContent.length > 0) {
+                            this.tui.modal('urlscheme', urlschemeContent, false, res => {});
+                        }
+                    }
+
+                    // ba-natify 通知 插件
+                    if (args1.BaNotifyID) { //判断是否为通知传来的消息
+                        //这里写你的处理逻辑
+                        //args参数见“点击事件参数”
+                        console.log('args.BaNotifyID', args1.BaNotifyID, args);
                     }
                 }
                 // #endif

@@ -6,8 +6,8 @@ const scanCode = {
         var _this = this;
         // 调起条码扫描
         // 连续扫码
-        if (helper.ba.scanner) {
-            helper.ba.scanner.scan({
+        if (helper.plugins.scanner) {
+            helper.plugins.scanner.scan({
                 isContinuous: false
             }, (res) => {
                 _this.autoParseUrl(res)
@@ -15,11 +15,14 @@ const scanCode = {
         } else {
             // baScanView 扫码组件板
             uni.navigateTo({
-                url: '/pages/common/ba/baScanView'
+                url: '/pages/common/plugins/baScanView'
             })
         }
     },
     autoParseUrl(url) {
+        // if (this.checkIsOnlineFile(url,'video')) {
+        //     return this.playVideo(url);
+        // }
         if (this.checkIsOnlineFile(url)) {
             return this.previewFileHandle(url)
         }
@@ -36,8 +39,12 @@ const scanCode = {
             'i');
         return v.test(str);
     },
-    // 检查是否为可读文件
-    checkIsOnlineFile(url) {
+    /**
+     * 检查是否为可读文件
+     * @url 链接/文件地址
+     * @checkType 检查是否为指定类型 支持 img、video、pdf、audio、office、pdf_office
+     */
+    checkIsOnlineFile(url, checkType='') {
         var index = url.lastIndexOf('.') // 获取指定字符串最后一次出现的位置，返回index
         if (index < 0) {
             return false;
@@ -53,7 +60,21 @@ const scanCode = {
         let isOffice = ['wps', 'doc', 'docx', 'xls', 'xlsx', 'csv', 'ppt', 'pptx', 'txt', 'properties', 'log',
             'ini', 'lua', 'conf', 'm', 'cpp', 'java', 'h', 'xml', 'html', 'htm'
         ].indexOf(ext.toLowerCase()) !== -1;
-
+        if(checkType){
+            var typeMap = {
+                'img':isImages,
+                'video':isVideo,
+                'pdf':isPdf,
+                'audio':isAudio,
+                'office':isOffice,
+                'pdf_office':isPdf || isOffice
+            }
+            if (typeMap.hasOwnProperty(checkType)) { 
+                return typeMap[checkType];
+            }
+            return false;
+            
+        }
         return isImages || isVideo || isPdf || isAudio || isOffice
     },
     // url 操作
@@ -65,6 +86,12 @@ const scanCode = {
     textHandle(text) {
         uni.navigateTo({
             url: '/pages/common/msg/msg?text=' + text
+        })
+    },
+    // 视频操作
+    playVideo(url){
+        uni.navigateTo({
+            url: '/pages/common/plugins/videoPlayer?url=' + encodeURI(url)
         })
     },
     // 预览文件 操作

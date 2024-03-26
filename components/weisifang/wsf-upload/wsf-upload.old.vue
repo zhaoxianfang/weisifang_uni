@@ -292,7 +292,7 @@
                 }
                 // #ifdef APP-PLUS
 
-                this.helper.ba.pictureSelector.selectMedia({
+                this.helper.plugins.pictureSelector.selectMedia({
                     'mediaType': 0,
                     'max': 99
                 }, function(file) {

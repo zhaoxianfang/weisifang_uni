@@ -183,7 +183,7 @@
 
                 if (e.type == 'img') {
                     // 图片视频选择
-                    this.helper.ba.pictureSelector.selectImg({
+                    this.helper.plugins.pictureSelector.selectImg({
                         // 'max': 99
                     }, function(file) {
                         if (file === false) {
@@ -195,7 +195,7 @@
                 }
                 if (e.type == 'picture') {
                     // 图片、音频、视频
-                    this.helper.ba.pictureSelector.selectMedia({
+                    this.helper.plugins.pictureSelector.selectMedia({
                         // 'mediaType': 0,
                         // 'max': 99
                     }, function(file) {
@@ -227,13 +227,13 @@
                     this.helper.openUrl('http://0l0.net/docs')
                 }
                 if (e.type == 'app_list') {
-                    this.tui.href('/pages/common/test/app_list');
+                    this.tui.href('/pages/common/extend/app_list');
                 }
                 if (e.type == 'window') {
                 }
                 if (e.type == 'share') {
                     // 分享图片: 图片视频选择
-                    this.helper.ba.pictureSelector.selectMedia({
+                    this.helper.plugins.pictureSelector.selectMedia({
                         // 'mediaType': 0,
                         // 'max': 99
                     }, function(file) {

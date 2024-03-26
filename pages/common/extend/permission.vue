@@ -125,7 +125,7 @@
             //检查是否加入电池优化白名单
             checkHasIgnoringBattery(callback=null) {
                 var _this = this
-                this.ba.keepAliveSuit.isIgnoringBattery(function(status){
+                this.plugins.keepAliveSuit.isIgnoringBattery(function(status){
                     _this.hasIgnoringBattery = status
                     callback && callback(status)
                 })
@@ -146,7 +146,7 @@
                             if (res.data) {
                                 if(!res.data.doNotAskAgain){
                                     // 取消授权 则 调用方式二
-                                    _this.ba.keepAliveSuit.requestIgnoreBattery(function(res){
+                                    _this.plugins.keepAliveSuit.requestIgnoreBattery(function(res){
                                         // 重新检查是否授权
                                         _this.checkHasIgnoringBattery();
                                     })
@@ -170,24 +170,24 @@
                 if(!!this.hasKeepAlive){
                     return false
                 }
-                this.ba.keepAliveSuit.onKeep({},function(res){
+                this.plugins.keepAliveSuit.onKeep({},function(res){
                     _this.hasKeepAlive = res.ok
                     if(!res.ok){
                         // 调用 常驻通知保活
-                        _this.ba.keepAliveSuit.onShowNotify(function(resShow){
+                        _this.plugins.keepAliveSuit.onShowNotify(function(resShow){
                             _this.hasKeepAlive = resShow.ok
                         })
                     }
                 })
             },
             onAutoStart() { //去设置自启动、后台运行
-                this.ba.keepAliveSuit.onAutoStart()
+                this.plugins.keepAliveSuit.onAutoStart()
             },
             goIgnoreBattery() { //跳转到电池优化设置页
-                this.ba.keepAliveSuit.goIgnoreBattery()
+                this.plugins.keepAliveSuit.goIgnoreBattery()
             },
             onCancelNotify() { //取消常驻通知保活
-                this.ba.keepAliveSuit.onCancelNotify()
+                this.plugins.keepAliveSuit.onCancelNotify()
             },
             detail(e) {
                 console.log('detail')

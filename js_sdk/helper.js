@@ -10,7 +10,7 @@ import {
     checkUpdate
 } from '@/components/app-upgrade/js/app-update-check.js'
 import utils from '@/js_sdk/weisifang/utils.js'
-import ba from '@/js_sdk/ba.js'
+import plugins from '@/js_sdk/plugins.js'
 isIos = (plus.os.name === 'iOS')
 // #endif
 
@@ -27,7 +27,7 @@ const helper = {
     // #ifdef APP-PLUS
     utils: utils,
     navBtns: navButtonsHandle,
-    ba: ba,
+    plugins: plugins,
     // #endif
     init() {
         // #ifdef APP-PLUS
@@ -42,10 +42,10 @@ const helper = {
 
         try {
             // // 先注销注册广播
-            // ba.broadcast.unregister()
+            // plugins.broadcast.unregister()
             // setTimeout(() => {
             //     // 注册广播
-            //     ba.broadcast.register()
+            //     plugins.broadcast.register()
             // }, 5000)
         } catch (e) {
             console.log('广播监听异常', e)
@@ -57,7 +57,7 @@ const helper = {
         // 悬浮窗-订单统计 Ba-FloatWinStat
         var globalEvent = uni.requireNativePlugin('globalEvent');
         globalEvent.addEventListener('baFloatWinStat', function(e) {
-            ba.floatWinStat.onClick(e)
+            plugins.floatWinStat.onClick(e)
         });
 
 

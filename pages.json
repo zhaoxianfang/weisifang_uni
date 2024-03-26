@@ -95,7 +95,7 @@
             "navigationStyle": "custom"
         }
     }, {
-        "path": "pages/common/ba/baScanView",
+        "path": "pages/common/plugins/baScanView",
         "style": {
             "navigationBarTitleText": "扫一扫",
             "enablePullDownRefresh": false
@@ -223,6 +223,14 @@
         "style" : 
         {
             "navigationBarTitleText" : "权限管理",
+            "enablePullDownRefresh" : false
+        }
+    },
+    {
+        "path" : "pages/common/plugins/videoPlayer",
+        "style" : 
+        {
+            "navigationBarTitleText" : "视频播放",
             "enablePullDownRefresh" : false
         }
     }],

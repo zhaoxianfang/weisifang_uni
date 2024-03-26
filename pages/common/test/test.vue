@@ -63,7 +63,7 @@
                 var s = now.getSeconds() < 10 ? '0' + now.getSeconds() : now.getSeconds();
                 this.time = h + ':' + m + ':' + s;
 
-                this.ba.floatWinStat.setData({
+                this.plugins.floatWinStat.setData({
                     text1: year,
                     text2: h,
                     text3: h,
@@ -72,7 +72,7 @@
                     num2: m + ':' + s,
                     num3: m + ':' + s,
                 })
-                this.ba.floatWinStat.showFW(true)
+                this.plugins.floatWinStat.showFW(true)
             },
             updateFW() { //更新数据
                 var _this = this
@@ -82,15 +82,15 @@
                 var m = now.getMinutes() < 10 ? '0' + now.getMinutes() : now.getMinutes();
                 var s = now.getSeconds() < 10 ? '0' + now.getSeconds() : now.getSeconds();
 
-                this.ba.floatWinStat.setData({
+                this.plugins.floatWinStat.setData({
                     text3: h,
                     text4: "开/关",
                     num3: m + ':' + s,
                 })
-                this.ba.floatWinStat.updateFW(true)
+                this.plugins.floatWinStat.updateFW(true)
             },
             hideFW() { //隐藏
-                this.ba.floatWinStat.hideFW()
+                this.plugins.floatWinStat.hideFW()
             },
             showAppList(){
                 this.tui.href('../extend/app_list');
