@@ -84,6 +84,12 @@
                 plus.globalEvent.addEventListener('newintent', (e) => {
                     this.checkArguments(); // 检测启动参数  
                 });
+                // Ba-FloatWinWeb
+                var globalEvent = uni.requireNativePlugin('globalEvent');
+                globalEvent.addEventListener('baFloatWinWeb', function(e) {
+                    console.log('baFloatWinWeb：' + JSON.stringify(e));
+                    //处理点击事件
+                });
                 // #endif
                 // ba 插件的各种监听 结束
             },

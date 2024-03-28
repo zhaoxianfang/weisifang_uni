@@ -36,6 +36,7 @@
 </template>
 
 <script>
+    const floatWin = uni.requireNativePlugin('Ba-FloatWinWeb')
     export default {
         onLoad: function(options) {},
         data() {
@@ -52,46 +53,150 @@
                 console.log('detail')
             },
             showFW() { //显示
-                var _this = this
-                //格式化输出当前时间的小时、分钟、秒
-                var now = new Date();
-                var year = now.getFullYear();
-                var month = (now.getMonth() < 9 ? '0' : '') + (now.getMonth() + 1);
-                var day = now.getDate() < 10 ? '0' + now.getDate() : now.getDate();
-                var h = now.getHours() < 10 ? '0' + now.getHours() : now.getHours();
-                var m = now.getMinutes() < 10 ? '0' + now.getMinutes() : now.getMinutes();
-                var s = now.getSeconds() < 10 ? '0' + now.getSeconds() : now.getSeconds();
-                this.time = h + ':' + m + ':' + s;
+                // var _this = this
+                // //格式化输出当前时间的小时、分钟、秒
+                // var now = new Date();
+                // var year = now.getFullYear();
+                // var month = (now.getMonth() < 9 ? '0' : '') + (now.getMonth() + 1);
+                // var day = now.getDate() < 10 ? '0' + now.getDate() : now.getDate();
+                // var h = now.getHours() < 10 ? '0' + now.getHours() : now.getHours();
+                // var m = now.getMinutes() < 10 ? '0' + now.getMinutes() : now.getMinutes();
+                // var s = now.getSeconds() < 10 ? '0' + now.getSeconds() : now.getSeconds();
+                // this.time = h + ':' + m + ':' + s;
 
-                this.plugins.floatWinStat.setData({
-                    text1: year,
-                    text2: h,
-                    text3: h,
-                    text4: "开/关",
-                    num1: month + ':' + day,
-                    num2: m + ':' + s,
-                    num3: m + ':' + s,
-                })
-                this.plugins.floatWinStat.showFW(true)
+                // this.plugins.floatWinStat.setData({
+                //     text1: year,
+                //     text2: h,
+                //     text3: h,
+                //     text4: "开/关",
+                //     num1: month + ':' + day,
+                //     num2: m + ':' + s,
+                //     num3: m + ':' + s,
+                // })
+                // this.plugins.floatWinStat.showFW(true)
+                let params = {
+                    //isToast: true,
+                    //tag: tag,//悬浮窗标识，用于区分多个悬浮窗，可以不传
+                    // webUrl: "file:///android_asset/testFloatWin.html",//网页地址
+                    webUrl: "http://0l0.net/uniapp_ba.html",//网页地址
+                    width:128,//宽度 px
+                    height: 128,//高度 px
+                    xRatio: 0.8,//x轴偏移量（屏幕宽度比例）
+                    yRatio: 0.7,//y轴偏移量（屏幕高度比例）
+                    //moveType: 1,//拖动方式：1：不可拖动 2：任意拖动、3：贴边拖动。默认2
+                    //isRememberXY: false,//是否记住上次的位置。默认true
+                    //isPermission: false,//是否申请悬浮窗权限。默认true
+                    //widthRatio:1,//宽度（屏幕宽度比例），width有值时无效
+                    //heightRatio: 0.3,//高度（屏幕高度比例），height有值时无效
+                    //webviewBgColor:"#FFFFFF"//webview背景色，默认透明
+                    //isStartApp:true//点击悬浮窗，是否打开App，默认true
+                    //fullscreen:true//是否全屏，沉浸到状态栏，默认false（注意heightRatio和widthRatio设置为1）
+                }
+                floatWin.show(params,
+                (res) => {
+                    console.log(res);
+                    uni.showToast({
+                        title: res.msg,
+                        icon: "none",
+                        duration: 3000
+                    })
+                });
             },
             updateFW() { //更新数据
-                var _this = this
-                //格式化输出当前时间的小时、分钟、秒
-                var now = new Date();
-                var h = now.getHours() < 10 ? '0' + now.getHours() : now.getHours();
-                var m = now.getMinutes() < 10 ? '0' + now.getMinutes() : now.getMinutes();
-                var s = now.getSeconds() < 10 ? '0' + now.getSeconds() : now.getSeconds();
+                // var _this = this
+                // //格式化输出当前时间的小时、分钟、秒
+                // var now = new Date();
+                // var h = now.getHours() < 10 ? '0' + now.getHours() : now.getHours();
+                // var m = now.getMinutes() < 10 ? '0' + now.getMinutes() : now.getMinutes();
+                // var s = now.getSeconds() < 10 ? '0' + now.getSeconds() : now.getSeconds();
 
-                this.plugins.floatWinStat.setData({
-                    text3: h,
-                    text4: "开/关",
-                    num3: m + ':' + s,
-                })
-                this.plugins.floatWinStat.updateFW(true)
+                // this.plugins.floatWinStat.setData({
+                //     text3: h,
+                //     text4: "开/关",
+                //     num3: m + ':' + s,
+                // })
+                // this.plugins.floatWinStat.updateFW(true)
+                // let webUrl ="file:///android_asset/testFloatWin.html?num1=66&num2=21"
+                let webUrl ="http://0l0.net/uniapp_ba.html"
+                floatWin.update({
+                        webUrl: webUrl,
+                        //tag: tag,
+                        //width:128,//宽度 px
+                        //height: 128,//高度 px
+                        //xRatio: 0.8,//x轴偏移量（屏幕宽度比例）
+                        //yRatio: 0.7,//y轴偏移量（屏幕高度比例）
+                        //moveType: 1,//拖动方式：1：不可拖动 2：任意拖动、3：贴边拖动。默认2
+                    },
+                    (res) => {
+                        console.log(res);
+                        uni.showToast({
+                            title: res.msg,
+                            icon: "none",
+                            duration: 3000
+                        })
+                    });
+            },
+            updateDataFW(tag) { //更新数据（不刷新界面）
+                floatWin.updateData({
+                        data: "33",//复杂的可以传json，自行解析
+                        tag: tag
+                    },
+                    (res) => {
+                        console.log(res);//结果返回数据在res.data，可自行定义
+                    });
             },
             hideFW() { //隐藏
-                this.plugins.floatWinStat.hideFW()
+                // this.plugins.floatWinStat.hideFW()
+                floatWin.hide({
+                    tag: tag
+                },
+                (res) => {
+                    console.log(res);
+                    uni.showToast({
+                        title: res.msg,
+                        icon: "none",
+                        duration: 3000
+                    })
+                });
             },
+            permissionFW() { //申请悬浮窗权限
+                floatWin.permission(
+                    (res) => {
+                        console.log(res);
+                        uni.showToast({
+                            title: res.msg,
+                            icon: "none",
+                            duration: 3000
+                        })
+                    });
+            },
+            goPermissionFW() { //跳转到悬浮窗权限页面
+                floatWin.goPermission(
+                    (res) => {
+                        console.log(res);
+                        uni.showToast({
+                            title: res.msg,
+                            icon: "none",
+                            duration: 3000
+                        })
+                    });
+            },
+            isPermissionFW() { //是否申请悬浮窗权限
+                floatWin.isPermission(
+                    (res) => {
+                        console.log(res);
+                        let msg = res.msg;
+                        if (res.data) {
+                            msg = "isPermission:" + res.data.isPermission;
+                        }
+                        uni.showToast({
+                            title: msg,
+                            icon: "none",
+                            duration: 3000
+                        })
+                    });
+            },
+            // =================================
             showAppList(){
                 this.tui.href('../extend/app_list');
             }
