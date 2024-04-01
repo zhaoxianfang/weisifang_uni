@@ -403,14 +403,14 @@
             },
             "Ba-FloatWinWeb" : {
                 "__plugin_info__" : {
-                    "name" : "悬浮窗-任意界面 Ba-FloatWinWeb - [试用版，仅用于自定义调试基座]",
+                    "name" : "悬浮窗-任意界面 Ba-FloatWinWeb",
                     "description" : "Ba-FloatWinWeb 是一款支持自定义任意界面的悬浮窗插件。采用webview方式，同时支持本地、网络地址；自带几种界面，可直接使用。",
                     "platforms" : "Android",
                     "url" : "https://ext.dcloud.net.cn/plugin?id=14471",
-                    "android_package_name" : "",
+                    "android_package_name" : "com.weisifang",
                     "ios_bundle_id" : "",
                     "isCloud" : true,
-                    "bought" : 0,
+                    "bought" : 1,
                     "pid" : "14471",
                     "parameters" : {}
                 }
