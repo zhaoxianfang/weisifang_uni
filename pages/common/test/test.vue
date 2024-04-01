@@ -2,6 +2,24 @@
     <view>
         <view class="tui-content-box">
             <tui-list-view title="Ba-FloatWinStat">
+                <tui-list-cell @click="isPermissionFW" :arrow="true">
+                    <view class="tui-item-box">
+                        <tui-icon name="wealth-fill" :size="24" color="#ff7900"></tui-icon>
+                        <text class="tui-list-cell_name">判断是否开启悬浮窗</text>
+                    </view>
+                </tui-list-cell>
+                <tui-list-cell @click="permissionFW" :arrow="true">
+                    <view class="tui-item-box">
+                        <tui-icon name="wealth-fill" :size="24" color="#ff7900"></tui-icon>
+                        <text class="tui-list-cell_name">申请悬浮窗</text>
+                    </view>
+                </tui-list-cell>
+                <tui-list-cell @click="goPermissionFW" :arrow="true">
+                    <view class="tui-item-box">
+                        <tui-icon name="wealth-fill" :size="24" color="#ff7900"></tui-icon>
+                        <text class="tui-list-cell_name">跳转到悬浮窗</text>
+                    </view>
+                </tui-list-cell>
                 <tui-list-cell @click="showFW" :arrow="true">
                     <view class="tui-item-box">
                         <tui-icon name="wealth-fill" :size="24" color="#ff7900"></tui-icon>
@@ -14,6 +32,12 @@
                         <text class="tui-list-cell_name">更新数据</text>
                     </view>
                 </tui-list-cell>
+                <tui-list-cell @click="updateDataFW" :arrow="true">
+                    <view class="tui-item-box">
+                        <tui-icon name="wealth-fill" :size="24" color="#ff7900"></tui-icon>
+                        <text class="tui-list-cell_name">更新数据(不刷新页面)</text>
+                    </view>
+                </tui-list-cell>
                 <tui-list-cell @click="hideFW" :arrow="true">
                     <view class="tui-item-box">
                         <tui-icon name="wealth-fill" :size="24" color="#ff7900"></tui-icon>
@@ -21,6 +45,7 @@
                     </view>
                 </tui-list-cell>
             </tui-list-view>
+            
 
             <tui-list-view title="">
                 <tui-list-cell @click="showAppList" :arrow="true" last="true">
@@ -77,6 +102,7 @@
                 let params = {
                     //isToast: true,
                     //tag: tag,//悬浮窗标识，用于区分多个悬浮窗，可以不传
+                     tag: "tag_1",
                     // webUrl: "file:///android_asset/testFloatWin.html",//网页地址
                     webUrl: "http://0l0.net/uniapp_ba.html",//网页地址
                     width:128,//宽度 px
@@ -120,7 +146,7 @@
                 let webUrl ="http://0l0.net/uniapp_ba.html"
                 floatWin.update({
                         webUrl: webUrl,
-                        //tag: tag,
+                        tag: "tag_1",
                         //width:128,//宽度 px
                         //height: 128,//高度 px
                         //xRatio: 0.8,//x轴偏移量（屏幕宽度比例）
@@ -138,8 +164,8 @@
             },
             updateDataFW(tag) { //更新数据（不刷新界面）
                 floatWin.updateData({
-                        data: "33",//复杂的可以传json，自行解析
-                        tag: tag
+                        data: "{''up':1}",//复杂的可以传json，自行解析
+                        tag: "tag_1"
                     },
                     (res) => {
                         console.log(res);//结果返回数据在res.data，可自行定义
@@ -148,7 +174,7 @@
             hideFW() { //隐藏
                 // this.plugins.floatWinStat.hideFW()
                 floatWin.hide({
-                    tag: tag
+                    tag: "tag_1"
                 },
                 (res) => {
                     console.log(res);
