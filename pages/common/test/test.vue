@@ -105,7 +105,7 @@
                      tag: "tag_1",
                     // webUrl: "file:///android_asset/testFloatWin.html",//网页地址
                     webUrl: "http://0l0.net/uniapp_ba.html",//网页地址
-                    width:128,//宽度 px
+                    width: 128,//宽度 px
                     height: 128,//高度 px
                     xRatio: 0.8,//x轴偏移量（屏幕宽度比例）
                     yRatio: 0.7,//y轴偏移量（屏幕高度比例）
@@ -162,13 +162,31 @@
                         })
                     });
             },
-            updateDataFW(tag) { //更新数据（不刷新界面）
+            //更新数据（不刷新界面）
+            updateDataFW(tag) {
+                var _this = this;
+                // uniapp 和 html 请求和返回的数据都直接按照json格式发送和返回
                 floatWin.updateData({
-                        data: "{''up':1}",//复杂的可以传json，自行解析
+                        data: {
+                            'num1': Math.floor(Math.random() * 90) + 10, // 2位随机数
+                            'num2': Math.floor(Math.random() * 90) + 10, // 2位随机数
+                            'num3': Math.floor(Math.random() * 90) + 10, // 2位随机数
+                            'num4': Math.floor(Math.random() * 90) + 10, // 2位随机数
+                        },//复杂的可以传json，自行解析
                         tag: "tag_1"
                     },
                     (res) => {
-                        console.log(res);//结果返回数据在res.data，可自行定义
+                        // console.log(res);//结果返回数据在res.data.result，可自行定义
+
+                        var json = {};
+                        // 判断data是否为json字符串
+                        if (res.data.result && (typeof(res.data.result) === 'string')) {
+                            json = JSON.parse(res.data.result);
+                        }else{
+                            json = res.data.result;
+                        }
+                        console.log('返回数据',json);
+                        _this.tui.toast(json.msg || '已更新!')
                     });
             },
             hideFW() { //隐藏
