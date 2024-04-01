@@ -230,6 +230,7 @@
             },
             // 权限相关
             changeHasManageStorageSwitch() { //申请所有文件读取权限
+                // 方式一
                 var that = this;
                 this.checkPermission('android.permission.MANAGE_EXTERNAL_STORAGE',function(status,res){
                     if(!status){
@@ -241,6 +242,15 @@
                         that.hasManageStorage = true;
                     }
                 })
+
+                // 方式二
+                // 需要高版本才支持
+                // let that = this;
+                // permission.reqManageStorage(
+                //     (res) => {
+                //         console.log(res)
+                //         that.showResult(res)
+                //     });
             },
             goAppDetails() {//跳转应用详情
                 let that = this;
