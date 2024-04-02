@@ -414,6 +414,20 @@
                     "pid" : "14471",
                     "parameters" : {}
                 }
+            },
+            "Ba-TTS" : {
+                "__plugin_info__" : {
+                    "name" : "文字转语音（文字播报、语音合成、免服务费）、震动提示 Ba-TTS",
+                    "description" : "Ba-TTS 是一款uniapp语音合成（tts）插件，支持文本转语音（无服务费），支持震动提示。",
+                    "platforms" : "Android",
+                    "url" : "https://ext.dcloud.net.cn/plugin?id=17277",
+                    "android_package_name" : "com.weisifang",
+                    "ios_bundle_id" : "",
+                    "isCloud" : true,
+                    "bought" : 1,
+                    "pid" : "17277",
+                    "parameters" : {}
+                }
             }
         }
     },

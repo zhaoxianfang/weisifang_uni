@@ -56,12 +56,45 @@
                     </view>
                 </tui-list-cell>
             </tui-list-view>
+            
+            <tui-list-view title="TTS">
+                <tui-list-cell @click="speak" :arrow="true" last="true">
+                    <view class="tui-item-box">
+                        <tui-icon name="about" :size="23" color="#afadb2"></tui-icon>
+                        <text class="tui-list-cell_name">播放声音</text>
+                        <view class="tui-right"></view>
+                    </view>
+                </tui-list-cell>
+                <tui-list-cell @click="stopSpeak" :arrow="true" last="true">
+                    <view class="tui-item-box">
+                        <tui-icon name="about" :size="23" color="#afadb2"></tui-icon>
+                        <text class="tui-list-cell_name">停止播放</text>
+                        <view class="tui-right"></view>
+                    </view>
+                </tui-list-cell>
+                <tui-list-cell @click="playVibrate" :arrow="true" last="true">
+                    <view class="tui-item-box">
+                        <tui-icon name="about" :size="23" color="#afadb2"></tui-icon>
+                        <text class="tui-list-cell_name">震动</text>
+                        <view class="tui-right"></view>
+                    </view>
+                </tui-list-cell>
+                <tui-list-cell @click="cancelVibrate" :arrow="true" last="true">
+                    <view class="tui-item-box">
+                        <tui-icon name="about" :size="23" color="#afadb2"></tui-icon>
+                        <text class="tui-list-cell_name">取消震动</text>
+                        <view class="tui-right"></view>
+                    </view>
+                </tui-list-cell>
+                
+            </tui-list-view>
          </view>
     </view>
 </template>
 
 <script>
     const floatWin = uni.requireNativePlugin('Ba-FloatWinWeb')
+    const tts = uni.requireNativePlugin('Ba-TTS')
     export default {
         onLoad: function(options) {},
         data() {
@@ -243,7 +276,41 @@
             // =================================
             showAppList(){
                 this.tui.href('../extend/app_list');
-            }
+            },
+            // TTS =================================
+            speak() { //播放声音
+                tts.speak({
+                        text: "测试语音合成 1001 A b c d e #3", //文本
+                        //注意：如果是数字单读（如叫号1001），可用空格隔开，如“1 0 0 1”）
+                    },
+                    (res) => {
+                        console.log(res)
+                    });
+            },
+            stopSpeak() { //停止播放
+                tts.stopSpeak(
+                    (res) => {
+                        console.log(res)
+                    });
+            },
+            playVibrate() { //震动
+                //let params = {};//默认 500
+                let params = {
+                    repeat: 0,//重复 -1：表示不重复 0：循环的震动 >1：表示从哪里开始重复
+                    pattern: [500, 200, 500, 100]//震动规则，传递一个整型数组作为关闭和开启震动的持续时间，以毫秒为单位。第一个值表示等待震动开启的毫秒数，下一个值表示保持震动的毫秒数，这个序列值交替表示震动关闭和开启的毫秒数
+                }; //自定义规则
+
+                tts.playVibrate(params,
+                    (res) => {
+                        console.log(res)
+                    });
+            },
+            cancelVibrate() { //取消震动
+                tts.cancelVibrate(
+                    (res) => {
+                        console.log(res)
+                    });
+            },
         },
         onPageScroll(e) {
 
