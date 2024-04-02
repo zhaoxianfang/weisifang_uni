@@ -3,7 +3,7 @@
         <!--顶部消息-->
         <tui-tips ref="toast" backgroundColor="#ff7900"></tui-tips>
         <view class="tui-box-upload">
-            <wsf-upload :max="99" v-model="value" :chooseNum="99" :headers="headers" :compress="true" name='file'
+            <wsf-upload :max="99" v-model="value" :chooseNum="99" :headers="headers" :compress="true" name='album'
                 :formData="formData" :remove="true" @uploadSuccess="uploadSuccess" @imgDelete="remove"
                 @uploadFail="uploadFail" :action="serverUrl" :add="true" @chooseSuccess="chooseSuccess"
                 @finally="finallyStat" @starting="starting"></wsf-upload>

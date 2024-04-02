@@ -211,6 +211,24 @@
                     }
                 });
             },
+            // 申请权限
+            requestPermission(permissionName='',callback=null){
+                let that = this;
+                permission.request({
+                    permissions: [permissionName],
+                    //perTitle:"自定义权限说明标题",//可不传，有默认值
+                    //perMsg:"自定义权限说明内容"//可不传，有默认值
+                },
+                (res) => {
+                    if(res.data){
+                        callback && callback(res.data.isGranted,res);
+                    }
+                    if(!res.ok){
+                        // 失败
+                        callback && callback(false,res);
+                    }
+                });
+            },
             changeHasOpenLocationSwitch(e){
                 //申请位置权限
                 var _this = this;
@@ -234,12 +252,22 @@
                 var that = this;
                 this.checkPermission('android.permission.MANAGE_EXTERNAL_STORAGE',function(status,res){
                     if(!status){
-                        // 通过打开文件去授权
-                        that.helper.files.selectFiles({}, function(file) {
+                        // 去申请
+                        that.requestPermission('android.permission.MANAGE_EXTERNAL_STORAGE',function(_status,_res){
+                             if(!_status){
+                                // 跳到设置页面
+                                permission.goPermissionPage({
+                                    permissions: ['android.permission.MANAGE_EXTERNAL_STORAGE']
+                                },
+                                (res) => {
+                                    console.log(res)
+                                    that.showResult(res)
+                                });
+                             }
                         })
                     }else{
-                        console.log('ok')
                         that.hasManageStorage = true;
+                        that.tui.toast('已授权')
                     }
                 })
 
