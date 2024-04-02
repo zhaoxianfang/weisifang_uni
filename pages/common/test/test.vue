@@ -61,7 +61,35 @@
                 <tui-list-cell @click="speak" :arrow="true" last="true">
                     <view class="tui-item-box">
                         <tui-icon name="about" :size="23" color="#afadb2"></tui-icon>
-                        <text class="tui-list-cell_name">播放声音</text>
+                        <text class="tui-list-cell_name">播放声音(默认常规1.0)</text>
+                        <view class="tui-right"></view>
+                    </view>
+                </tui-list-cell>
+                <tui-list-cell @click="speak1(0)" :arrow="true" last="true">
+                    <view class="tui-item-box">
+                        <tui-icon name="about" :size="23" color="#afadb2"></tui-icon>
+                        <text class="tui-list-cell_name">播放声音(0)</text>
+                        <view class="tui-right"></view>
+                    </view>
+                </tui-list-cell>
+                <tui-list-cell @click="speak1(0.5)" :arrow="true" last="true">
+                    <view class="tui-item-box">
+                        <tui-icon name="about" :size="23" color="#afadb2"></tui-icon>
+                        <text class="tui-list-cell_name">播放声音(0.5)</text>
+                        <view class="tui-right"></view>
+                    </view>
+                </tui-list-cell>
+                <tui-list-cell @click="speak1(0.25)" :arrow="true" last="true">
+                    <view class="tui-item-box">
+                        <tui-icon name="about" :size="23" color="#afadb2"></tui-icon>
+                        <text class="tui-list-cell_name">播放声音(0.25)</text>
+                        <view class="tui-right"></view>
+                    </view>
+                </tui-list-cell>
+                <tui-list-cell @click="speak1(0.75)" :arrow="true" last="true">
+                    <view class="tui-item-box">
+                        <tui-icon name="about" :size="23" color="#afadb2"></tui-icon>
+                        <text class="tui-list-cell_name">播放声音(0.75)</text>
                         <view class="tui-right"></view>
                     </view>
                 </tui-list-cell>
@@ -280,8 +308,18 @@
             // TTS =================================
             speak() { //播放声音
                 tts.speak({
-                        text: "测试语音合成 1001 A b c d e #3", //文本
+                        text: "测试语音合成 hello 1001 A b c #3", //文本
                         //注意：如果是数字单读（如叫号1001），可用空格隔开，如“1 0 0 1”）
+                    },
+                    (res) => {
+                        console.log(res)
+                    });
+            },
+            speak1(pitch = 1.0) { //播放声音
+                tts.speak({
+                        text: "测试语音合成 hello 1001 A b c #3", //文本
+                        //注意：如果是数字单读（如叫号1001），可用空格隔开，如“1 0 0 1”）
+                        pitch: pitch, // 0~1 值越大声音越尖(女)
                     },
                     (res) => {
                         console.log(res)
