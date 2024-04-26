@@ -247,20 +247,6 @@
                     "parameters" : {}
                 }
             },
-            "Ba-ShareReceive" : {
-                "__plugin_info__" : {
-                    "name" : "添加到“用其他应用打开”中，用于文件传递、分享等 Ba-ShareReceive",
-                    "description" : "Ba-ShareReceive 是可以让其他应用（如微信、qq等等），在“用其他应用打开”中发现你的应用，并分享文件到你的应用打开。",
-                    "platforms" : "Android",
-                    "url" : "https://ext.dcloud.net.cn/plugin?id=11130",
-                    "android_package_name" : "com.weisifang",
-                    "ios_bundle_id" : "",
-                    "isCloud" : true,
-                    "bought" : 1,
-                    "pid" : "11130",
-                    "parameters" : {}
-                }
-            },
             "Ba-Sqlite" : {
                 "__plugin_info__" : {
                     "name" : "原生sqlite本地数据库管理 Ba-Sqlite",
@@ -426,6 +412,118 @@
                     "isCloud" : true,
                     "bought" : 1,
                     "pid" : "17277",
+                    "parameters" : {}
+                }
+            },
+            "Ba-ShareReceive" : {
+                "__plugin_info__" : {
+                    "name" : "Ba-ShareReceive",
+                    "description" : "",
+                    "platforms" : "Android",
+                    "url" : "",
+                    "android_package_name" : "",
+                    "ios_bundle_id" : "",
+                    "isCloud" : false,
+                    "bought" : -1,
+                    "pid" : "",
+                    "parameters" : {}
+                }
+            },
+            "Ba-Lifecycle" : {
+                "__plugin_info__" : {
+                    "name" : "监听APP切换前台、后台 Ba-Lifecycle",
+                    "description" : "Ba-Lifecycle 是一款uniapp监听APP切换前台、后台的插件，简单易用。",
+                    "platforms" : "Android",
+                    "url" : "https://ext.dcloud.net.cn/plugin?id=17550",
+                    "android_package_name" : "com.weisifang",
+                    "ios_bundle_id" : "",
+                    "isCloud" : true,
+                    "bought" : 1,
+                    "pid" : "17550",
+                    "parameters" : {}
+                }
+            },
+            "Ba-Toast" : {
+                "__plugin_info__" : {
+                    "name" : "原生Toast弹窗提示（穿透界面、穿透原生；自定义颜色、图标） Ba-Toast",
+                    "description" : "Ba-Toast 是一款可穿透所有界面（包括所有原生插件的界面），也可在系统页面显示的原生Toast弹窗提示插件。调用方法参照uniapp自带showToast风格，接入简单，功能强大。 ",
+                    "platforms" : "Android",
+                    "url" : "https://ext.dcloud.net.cn/plugin?id=9688",
+                    "android_package_name" : "com.weisifang",
+                    "ios_bundle_id" : "",
+                    "isCloud" : true,
+                    "bought" : 1,
+                    "pid" : "9688",
+                    "parameters" : {}
+                }
+            },
+            "Ba-IdCode" : {
+                "__plugin_info__" : {
+                    "name" : "获取设备唯一标识（OAID、AAID、IMEI等） Ba-IdCode",
+                    "description" : "Ba-IdCode 是一款可以获取国内各大手机厂商 OAID 及海外手机平台 AAID 的插件。另外也支持 IMEI/MEID、AndroidID、WidevineID、PseudoID、GUID 等",
+                    "platforms" : "Android",
+                    "url" : "https://ext.dcloud.net.cn/plugin?id=10318",
+                    "android_package_name" : "com.weisifang",
+                    "ios_bundle_id" : "",
+                    "isCloud" : true,
+                    "bought" : 1,
+                    "pid" : "10318",
+                    "parameters" : {}
+                }
+            },
+            "Ba-Websocket" : {
+                "__plugin_info__" : {
+                    "name" : "websocket原生服务（自动重连、心跳检测） Ba-Websocket",
+                    "description" : "Ba-Websocket 是一款原生websocket服务插件，可在后台运行。支持自动重连、心跳检测；支持常驻通知保活；支持监听websocket连接状态；支持多页面订阅消息等等。",
+                    "platforms" : "Android",
+                    "url" : "https://ext.dcloud.net.cn/plugin?id=10186",
+                    "android_package_name" : "com.weisifang",
+                    "ios_bundle_id" : "",
+                    "isCloud" : true,
+                    "bought" : 1,
+                    "pid" : "10186",
+                    "parameters" : {}
+                }
+            },
+            "Ba-ChangeIcon" : {
+                "__plugin_info__" : {
+                    "name" : "动态切换应用图标、名称（如新年、国庆等） Ba-ChangeIcon",
+                    "description" : "Ba-ChangeIcon 是一款uniapp动态切换应用图标、名称的插件。可实现新年、过节动态切换应用图标的效果，给用户更好的体验。",
+                    "platforms" : "Android",
+                    "url" : "https://ext.dcloud.net.cn/plugin?id=9648",
+                    "android_package_name" : "com.weisifang",
+                    "ios_bundle_id" : "",
+                    "isCloud" : true,
+                    "bought" : 1,
+                    "pid" : "9648",
+                    "parameters" : {}
+                }
+            },
+            "Ba-Gray" : {
+                "__plugin_info__" : {
+                    "name" : "全局置灰、哀悼置灰（可动态、同时支持nvue、vue） Ba-Gray",
+                    "description" : "Ba-Gray 是一款全局动态置灰的uniapp插件。可在特殊节日比如清明，或者其他哀悼日使用，全局哀悼置灰。",
+                    "platforms" : "Android",
+                    "url" : "https://ext.dcloud.net.cn/plugin?id=10312",
+                    "android_package_name" : "com.weisifang",
+                    "ios_bundle_id" : "",
+                    "isCloud" : true,
+                    "bought" : 1,
+                    "pid" : "10312",
+                    "parameters" : {}
+                }
+            },
+            "Ba-KeepAlive" : {
+                "__plugin_info__" : {
+                    "name" : "安卓保活（采用多种主流技术） Ba-KeepAlive",
+                    "description" : "原生保活插件，支持市面上大部分机型，Android4.4到13.0 。为定位、推送、websocket、定时任务、蓝牙、聊天等保驾护航（**注意：**不保证支持所有机型和场景，建议先试用再购买）",
+                    "platforms" : "Android",
+                    "url" : "https://ext.dcloud.net.cn/plugin?id=9423",
+                    "android_package_name" : "com.weisifang",
+                    "ios_bundle_id" : "",
+                    "isCloud" : true,
+                    "bought" : 1,
+                    "pid" : "9423",
                     "parameters" : {}
                 }
             }

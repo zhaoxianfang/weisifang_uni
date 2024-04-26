@@ -176,7 +176,7 @@
                     //widthRatio:1,//宽度（屏幕宽度比例），width有值时无效
                     //heightRatio: 0.3,//高度（屏幕高度比例），height有值时无效
                     //webviewBgColor:"#FFFFFF"//webview背景色，默认透明
-                    //isStartApp:true//点击悬浮窗，是否打开App，默认true
+                    isStartApp:false, //点击悬浮窗，是否打开App，默认true
                     //fullscreen:true//是否全屏，沉浸到状态栏，默认false（注意heightRatio和widthRatio设置为1）
                 }
                 floatWin.show(params,
