@@ -317,9 +317,10 @@
             },
             speak1(pitch = 1.0) { //播放声音
                 tts.speak({
-                        text: "测试语音合成 hello 1001 A b c #3", //文本
+                        text: "语音合成 101 hello 1001 A b c #3", //文本
                         //注意：如果是数字单读（如叫号1001），可用空格隔开，如“1 0 0 1”）
                         pitch: pitch, // 0~1 值越大声音越尖(女)
+                        speed: 1 //设定语速 ，默认1正常语速
                     },
                     (res) => {
                         console.log(res)
