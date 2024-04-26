@@ -11,19 +11,19 @@ import baPictureSelector from '@/js_sdk/plugins/baPictureSelector.js'
 
 // import baFloatWinStat from '@/js_sdk/plugins/baFloatWinStat.js'
 // import baMediaPicker from '@/js_sdk/plugins/baMediaPicker.js'
-// import baChangeIcon from '@/js_sdk/plugins/baChangeIcon.js'
-// import baIdCode from '@/js_sdk/plugins/baIdCode.js'
+import baChangeIcon from '@/js_sdk/plugins/baChangeIcon.js'
+import baIdCode from '@/js_sdk/plugins/baIdCode.js'
 import baLocation from '@/js_sdk/plugins/baLocation.js'
 // import baScanner from '@/js_sdk/plugins/baScanner.js'
-// import baGray from '@/js_sdk/plugins/baGray.js'
+import baGray from '@/js_sdk/plugins/baGray.js'
 import baBroadcast from '@/js_sdk/plugins/baBroadcast.js'
 // import baAppWidget from '@/js_sdk/plugins/baAppWidget.js'
 // import baVideoPip from '@/js_sdk/plugins/baVideoPip.js'
 
 const plugins = {
     beep: baBeep,
-    // changeIcon: baChangeIcon,
-    // idCode: baIdCode,
+    changeIcon: baChangeIcon,
+    idCode: baIdCode,
     location: baLocation,
     notify: baNotify,
     keepAliveSuit: baKeepAliveSuit,
@@ -35,7 +35,7 @@ const plugins = {
     // floatWinStat: baFloatWinStat,
     // mediaPicker: baMediaPicker,
     // scanner: baScanner,
-    // gray: baGray,
+    gray: baGray,
     broadcast: baBroadcast,
     // appWidget: baAppWidget,
     // videoPip: baVideoPip

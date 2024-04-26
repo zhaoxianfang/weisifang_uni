@@ -114,7 +114,30 @@
                         <view class="tui-right"></view>
                     </view>
                 </tui-list-cell>
-                
+            </tui-list-view>
+            
+            <tui-list-view title="IdCode">
+                <tui-list-cell @click="register" :arrow="false">
+                    <view class="tui-item-box">
+                        <tui-icon name="about" :size="23" color="#afadb2"></tui-icon>
+                        <text class="tui-list-cell_name">注册获取设备ID</text>
+                        <view class="tui-right"></view>
+                    </view>
+                </tui-list-cell>
+                <tui-list-cell @click="getIdCodes" :arrow="false">
+                    <view class="tui-item-box">
+                        <tui-icon name="about" :size="23" color="#afadb2"></tui-icon>
+                        <text class="tui-list-cell_name">获取设备的各种标识码</text>
+                        <view class="tui-right"></view>
+                    </view>
+                </tui-list-cell>
+                <tui-list-cell @click="getOAID" :arrow="false">
+                    <view class="tui-item-box">
+                        <tui-icon name="about" :size="23" color="#afadb2"></tui-icon>
+                        <text class="tui-list-cell_name">异步获取 OAID</text>
+                        <view class="tui-right"></view>
+                    </view>
+                </tui-list-cell>
             </tui-list-view>
          </view>
     </view>
@@ -122,6 +145,7 @@
 
 <script>
     const floatWin = uni.requireNativePlugin('Ba-FloatWinWeb')
+    const idCode = uni.requireNativePlugin('Ba-IdCode')
     const tts = uni.requireNativePlugin('Ba-TTS')
     export default {
         onLoad: function(options) {},
@@ -349,6 +373,37 @@
                     (res) => {
                         console.log(res)
                     });
+            },
+             register() { //注册，先注册再获取，注意APP合规性，若最终用户未同意隐私政策则不要调用
+                idCode.register(
+                    res => {
+                        console.log(res);
+                        uni.showToast({
+                            title: res.msg,
+                            icon: "none",
+                            duration: 3000
+                        })
+                    });
+            },
+            getIdCodes() { //获取设备的各种标识码
+                idCode.getIdCodes(res => {
+                    console.log(res);
+                    uni.showToast({
+                        title: res.msg,
+                        icon: "none",
+                        duration: 3000
+                    })
+                });
+            },
+            getOAID() { //异步获取 OAID
+                idCode.getOAID(res => {
+                    console.log(res);
+                    uni.showToast({
+                        title: res.msg,
+                        icon: "none",
+                        duration: 3000
+                    })
+                });
             },
         },
         onPageScroll(e) {
