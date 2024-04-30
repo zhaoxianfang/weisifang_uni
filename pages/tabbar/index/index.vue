@@ -98,13 +98,13 @@
                         this.tui.toast('出错啦!')
                     });
             },
-            getList(classify_id = '') {
+            getList(classify_id = '',refresh = false) {
                 if (!classify_id || classify_id == '' || classify_id == null || classify_id < 1 || this.query[
                         classify_id].not_more) {
                     return false
                 }
                 this.$api.article.list(this.query[classify_id]).then(res => {
-                        if (!(this.tabs_data_list).hasOwnProperty(classify_id)) {
+                        if (refresh || !(this.tabs_data_list).hasOwnProperty(classify_id)) {
                             // 初始化
                             this.tabs_data_list[classify_id] = []
                         }
@@ -122,8 +122,8 @@
                         this.tui.toast('出错啦!')
                     });
             },
-            // 底部加载更多
-            loadMore(obj) {
+            // 加载更多
+            loadMore(obj,refresh = false) {
                 // console.log('需要加载数据：', obj)
                 var classify_id = obj.tabInfo.id || 0
                 var classify_title = obj.tabInfo.title || '未知'
@@ -143,12 +143,12 @@
                 }
                 this.query[classify_id].page = page;
 
-                this.getList(classify_id)
+                this.getList(classify_id,refresh)
             },
             // 手动下拉刷新数据
             refreshList(obj) {
                 // console.log('下拉刷新数据：', obj)
-                this.loadMore(obj)
+                this.loadMore(obj,true)
             },
             detail(item) {
                 this.tui.href('/pages/common/article/detail?id=' + item.id);
