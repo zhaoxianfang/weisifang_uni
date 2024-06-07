@@ -8,7 +8,10 @@
                     class="parTB" @click="jumpToApp(item.packageName)">
                     <image :src="'data:image/jpg;base64,' + item.icon" mode="scaleToFill"
                         style="width: 80rpx;height: 80rpx;margin-right: 20rpx;"></image>
-                    <view>{{item.name}}</view>
+                    <view>
+                        <view>{{item.name}}</view>
+                        <view>{{item.packageName}}</view>
+                    </view>
                 </view>
 
             </template>

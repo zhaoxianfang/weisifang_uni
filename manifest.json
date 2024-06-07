@@ -512,20 +512,6 @@
                     "pid" : "10312",
                     "parameters" : {}
                 }
-            },
-            "Ba-KeepAlive" : {
-                "__plugin_info__" : {
-                    "name" : "安卓保活（采用多种主流技术） Ba-KeepAlive",
-                    "description" : "原生保活插件，支持市面上大部分机型，Android4.4到13.0 。为定位、推送、websocket、定时任务、蓝牙、聊天等保驾护航（**注意：**不保证支持所有机型和场景，建议先试用再购买）",
-                    "platforms" : "Android",
-                    "url" : "https://ext.dcloud.net.cn/plugin?id=9423",
-                    "android_package_name" : "com.weisifang",
-                    "ios_bundle_id" : "",
-                    "isCloud" : true,
-                    "bought" : 1,
-                    "pid" : "9423",
-                    "parameters" : {}
-                }
             }
         }
     },
