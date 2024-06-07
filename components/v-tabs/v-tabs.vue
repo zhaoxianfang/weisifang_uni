@@ -1,12 +1,12 @@
 <template>
   <view class="v-tabs">
     <scroll-view
-      :class="{custom_scroll_view:!!showSetup}"
       :id="getDomId"
       :scroll-x="scroll"
       :scroll-left="scroll ? scrollLeft : 0"
       :scroll-with-animation="scroll"
-      :style="{ position: fixed ? 'fixed' : 'relative', zIndex }">
+      :class="{custom_scroll_view:!!showSetup}"
+      :style="{ position: fixed ? 'fixed' : 'relative', zIndex, width: '100%' }">
       <view
         class="v-tabs__container"
         :style="{
@@ -55,7 +55,7 @@
         </template>
       </view>
     </scroll-view>
-    <view class="v-tabs__handle" :style="{height}" v-if="!!showSetup">
+    <view class="v-tabs__handle" :style="{background: bgColor,height}" v-if="!!showSetup">
         <tui-icon class="v-tabs__handle_custom_icon" :name="setupIcon" :size="24" color="#333" @click="clickSetup"></tui-icon>
     </view>
     <!-- fixed 的站位高度 -->
@@ -90,9 +90,11 @@ import props from './props'
  * @property {String} paddingItem = '0 22rpx' 选项的边距
  * @property {Boolean} lineAnimation = [true | false] 下划线是否有动画
  * @property {Number} zIndex = 1993 默认层级
- * @property {Boolean} forbidChange = [true | false] 是否禁止点击
  *
  * @event {Function(current)} change 改变标签触发
+ * 
+ * // zxf 新增
+ * @property {Boolean} forbidChange = [true | false] 是否禁止点击
  * @event {Function()} onSetup 点击右侧 设置/管理 按钮触发
  */
 export default {
@@ -130,9 +132,6 @@ export default {
         this.$nextTick(this.update)
       }
     },
-    current(newVal) {
-        this.$emit('input', newVal)
-    },
     tabs: {
         immediate: true,
         handler(newVal) {
@@ -153,7 +152,7 @@ export default {
         this.$emit('change', index)
       }
     },
-    // zxf 自定义新增 点击设置按钮事件
+    // zxf 自定义新增 点击设置按钮触发事件
     clickSetup(){
         this.$emit('onSetup')
     },
@@ -250,30 +249,14 @@ export default {
   width: 100%;
   box-sizing: border-box;
   overflow: hidden;
+  position: relative;
 
   /* #ifdef H5 */
   ::-webkit-scrollbar {
     display: none;
   }
   /* #endif */
-  &__handle{
-      width: 68rpx;
-      height: 70rpx;
-      position: absolute;
-      right: 0;
-      top: 0;
-      display: inline-flex;
-      align-items: center;
-      white-space: nowrap;
-      overflow: hidden;
-      &_custom_icon{
-          border-left: #ccc 2rpx solid;
-          padding-left: 4rpx;
-      }
-  }
-  .custom_scroll_view{
-      width: calc( 100% - 70rpx );
-  }
+
   &__container {
     min-width: 100%;
     position: relative;
@@ -315,6 +298,24 @@ export default {
         transition: all 0.3s linear;
       }
     }
+  }
+  &__handle{
+      width: 68rpx;
+      height: 70rpx;
+      position: absolute;
+      right: 0;
+      top: 0;
+      display: inline-flex;
+      align-items: center;
+      white-space: nowrap;
+      overflow: hidden;
+      &_custom_icon{
+          border-left: #ccc 2rpx solid;
+          padding-left: 4rpx;
+      }
+  }
+  .custom_scroll_view{
+      width: calc( 100% - 70rpx )!important;
   }
 }
 </style>

@@ -24,6 +24,7 @@ setupIcon: {
 // zxf 新增 end
 ```
 ### 注意：要保证`watch`中的`tabs`和`watch`中的`value` 除了`this.current = newVal`外，都一致
+在`watch`中新增
 ```
 tabs: {
     immediate: true,
@@ -59,12 +60,18 @@ clickSetup(){
 
 并在`scroll-view`同级后面紧跟
 ```vue
-<view class="v-tabs__handle" :style="{height}" v-if="!!showSetup">
+<view class="v-tabs__handle" :style="{background: bgColor,height}" v-if="!!showSetup">
     <tui-icon class="v-tabs__handle_custom_icon" :name="setupIcon" :size="24" color="#333"></tui-icon>
 </view>
 ```
 
-添加自定义样式
+添加自定义样式 
+`.v-tabs` 样式属性添加
+```
+position: relative;
+```
+
+到 .v-tabs 下 新增
 ```scss
 &__handle{
     width: 68rpx;
@@ -82,27 +89,20 @@ clickSetup(){
     }
 }
 .custom_scroll_view{
-    width: calc( 100% - 70rpx );
+    width: calc( 100% - 70rpx )!important;
 }
 ```
 
+在 `v-tabs`页面的注释中新增事件说明
+```
+ * // zxf 新增
+ * @property {Boolean} forbidChange = [true | false] 是否禁止点击
+ * @event {Function()} onSetup 点击右侧 设置/管理 按钮触发
+```
 ============================================================
 ============================================================
 ============================================================
 
-# v-tabs
-
-[](https://ext.dcloud.net.cn/plugin?id=1971)
-> 2.1.5（2023-11-02）
-1.[修复]修复`change`和`v-model`绑定的值不同步
-2.[修复]暂时停用`activeFontSize`选项
-3.[修改]修改默认激活的文字不加粗
-
->  2.1.4（2023-10-12）
-[修改]修改计算方式
-[新增]外部可以通过this.$refs.tabs.update()方法主动更新
-
-> 2.1.3（2023-09-11）
 ## 插件说明
 
 > 这是 `v-tabs` 插件的升级版本，参数上有很大变动，支持 `H5` `小程序` `手机端`，如果是在之前的插件上升级的话，请注意参数的变更，触发的事件没有变更。
